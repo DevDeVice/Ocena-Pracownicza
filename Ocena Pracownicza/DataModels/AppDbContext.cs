@@ -14,8 +14,8 @@ namespace Ocena_Pracownicza.DataModels
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseMySql("server=localhost;database=mydbname;user=myusername;password=mypassword",
-                                    new MySqlServerVersion(new Version(8, 2, 4)));
+            optionsBuilder.UseMySql("server=localhost;database=ocena_pracownicza;user=root;password=",
+                                     new MySqlServerVersion(new Version(10, 4, 28))); //new MySqlServerVersion(new Version(8, 2, 4)));
         }
     }
 }

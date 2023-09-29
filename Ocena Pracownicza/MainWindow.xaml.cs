@@ -24,5 +24,16 @@ namespace Ocena_Pracownicza
         {
             InitializeComponent();
         }
+        private void FormButton_Click(object sender, RoutedEventArgs e)
+        {
+            // Ustaw kontrolkę formularza jako aktywną zawartość
+            MainContent.Content = new EvaluationControl();
+        }
+
+        private void LoginButton_Click(object sender, RoutedEventArgs e)
+        {
+            // Ustaw kontrolkę logowania jako aktywną zawartość
+            MainContent.Content = new LoginControl();
+        }
     }
 }
