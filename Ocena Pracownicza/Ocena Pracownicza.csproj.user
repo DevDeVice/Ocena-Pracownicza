@@ -7,20 +7,6 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
-    <Compile Update="EvaluationControl.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Update="LoginControl.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Page Update="EvaluationControl.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="LoginControl.xaml">
-      <SubType>Designer</SubType>
-    </Page>
     <Page Update="MainWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
