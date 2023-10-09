@@ -27,13 +27,15 @@ namespace Ocena_Pracownicza
         private void FormButton_Click(object sender, RoutedEventArgs e)
         {
             // Ustaw kontrolkę formularza jako aktywną zawartość
-            MainContent.Content = new EvaluationControl();
+            MenuPanel.Visibility = Visibility.Collapsed;
+            FormPanel.Visibility = Visibility.Visible;
         }
 
         private void LoginButton_Click(object sender, RoutedEventArgs e)
         {
             // Ustaw kontrolkę logowania jako aktywną zawartość
-            MainContent.Content = new LoginControl();
+            MenuPanel.Visibility = Visibility.Collapsed;
+            LoginPanel.Visibility = Visibility.Visible;
         }
     }
 }

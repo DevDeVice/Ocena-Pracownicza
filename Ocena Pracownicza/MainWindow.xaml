@@ -7,10 +7,16 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        <ContentControl x:Name="MainContent" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
-        <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Center">
-            <Button Content="Formularz" Width="150" Click="FormButton_Click" />
-            <Button Content="Zaloguj" Width="150" Click="LoginButton_Click" Margin="10,0" />
+        <StackPanel x:Name="MenuPanel" Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Center">
+            <Button x:Name="Form" Content="Formularz" Width="150" Click="FormButton_Click" />
+            <Button x:Name="Login" Content="Zaloguj" Width="150" Click="LoginButton_Click" Margin="10,0" />
         </StackPanel>
+        <Grid x:Name="FormPanel" Visibility="Collapsed">
+            <!-- Elementy Twojego formularza tutaj -->
+        </Grid>
+
+        <Grid x:Name="LoginPanel" Visibility="Collapsed">
+            <!-- Elementy Twojego panelu logowania tutaj -->
+        </Grid>
     </Grid>
 </Window>
