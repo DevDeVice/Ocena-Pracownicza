@@ -86,9 +86,11 @@
             </StackPanel>
         </Grid>
 
-        <Grid x:Name="UserPanel" Visibility="Collapsed">
+        <Grid x:Name="UserPanel" Visibility="Visible">
             <Button Content="Wyloguj" VerticalAlignment="Top" HorizontalAlignment="Left" Width="125" Height="25" Margin="25,10,0,0" Click="LogoutButton_Click" />
-            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="Witaj, Użytkowniku!"/>
+            <ListView x:Name="UserEvaluationsListView" VerticalAlignment="Top" Margin="10,40,10,0">
+                <!-- Możesz dostosować wygląd itemów tutaj, np. używając DataTemplate -->
+            </ListView>
             <!-- Inne elementy interfejsu dla zalogowanego użytkownika tutaj -->
         </Grid>
     </Grid>

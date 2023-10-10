@@ -21,6 +21,7 @@ namespace Ocena_Pracownicza
     /// </summary>
     public partial class MainWindow : Window
     {
+        public User LoggedUser { get; set; }
         public MainWindow()
         {
             InitializeComponent();
@@ -124,6 +125,15 @@ namespace Ocena_Pracownicza
 
             if (ValidateLogin(username, password))
             {
+                using (var context = new AppDbContext())
+                {
+                    var evaluations = context.Evaluations
+                                             .Where(e => e.UserID == LoggedUser.UserID)
+                                             .Select(e => e.UserName)
+                                             .ToList();
+
+                    UserEvaluationsListView.ItemsSource = evaluations;
+                }
                 MessageBox.Show("Prawidłowe Hasło!");
                 LoginPanel.Visibility = Visibility.Collapsed;
                 BackButton.Visibility = Visibility.Collapsed;
@@ -142,6 +152,7 @@ namespace Ocena_Pracownicza
                 var user = context.Users.FirstOrDefault(u => u.Login == username);
                 if (user != null && user.Password == password)
                 {
+                    LoggedUser = user;
                     return true;
                 }
             }
