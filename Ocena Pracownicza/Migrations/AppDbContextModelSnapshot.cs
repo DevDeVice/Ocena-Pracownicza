@@ -59,12 +59,11 @@ namespace Ocena_Pracownicza.Migrations
                     b.Property<int>("UserID")
                         .HasColumnType("int");
 
-                    b.Property<int>("UserName")
-                        .HasColumnType("int");
+                    b.Property<string>("UserName")
+                        .IsRequired()
+                        .HasColumnType("longtext");
 
                     b.HasKey("EvaluationID");
-
-                    b.HasIndex("UserID");
 
                     b.ToTable("Evaluations");
                 });
@@ -90,17 +89,6 @@ namespace Ocena_Pracownicza.Migrations
                     b.HasKey("UserID");
 
                     b.ToTable("Users");
-                });
-
-            modelBuilder.Entity("Ocena_Pracownicza.DataModels.Evaluation", b =>
-                {
-                    b.HasOne("Ocena_Pracownicza.DataModels.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
                 });
 #pragma warning restore 612, 618
         }

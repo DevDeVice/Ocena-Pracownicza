@@ -14,9 +14,69 @@
 
         <Button Content="Back" Click="Back_Click" VerticalAlignment="Top" HorizontalAlignment="Left" Width="125" Height="25" Margin="25,10,0,0" Visibility="Collapsed" x:Name="BackButton"/>
 
-        <Grid x:Name="FormPanel" Visibility="Visible">
-            <!-- Elementy Twojego formularza tutaj -->
-        </Grid>
+        <Grid x:Name="FormPanel" Visibility="Collapsed">
+            <Grid.Resources>
+                <Style TargetType="TextBlock">
+                    <Setter Property="Foreground" Value="Gray"/>
+                    <Setter Property="FontSize" Value="14"/>
+                </Style>
+            </Grid.Resources>
+            <ScrollViewer VerticalScrollBarVisibility="Auto" >
+                <StackPanel>
+                    <!-- Imię i nazwisko -->
+                    <Button Content="Back" Click="Back_Click" VerticalAlignment="Top" HorizontalAlignment="Left" Width="125" Height="25" Margin="25,10,0,0"/>
+                    <Grid Margin="20,20,0,0" Width="300">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <TextBlock Text="Imię i nazwisko:" Grid.Row="0" HorizontalAlignment="Center"/>
+                        <TextBox x:Name="NameTextBox" Width="300" Grid.Row="1"/>
+                    </Grid>
+
+                    <!-- Lista rozwijana z kontami -->
+                    <Grid Margin="20,20,0,0" Width="300">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <TextBlock Text="Wybierz konto:" Grid.Row="0" HorizontalAlignment="Center"/>
+                        <ComboBox x:Name="AccountsComboBox" Width="300" Grid.Row="1"/>
+                    </Grid>
+            
+
+                    <!-- Pytania -->
+                    <StackPanel Margin="20,20,0,0" Width="300">
+                        <Grid>
+                            <TextBlock Text="Odpowiedź na pytanie 1:" Grid.Row="0" HorizontalAlignment="Center"/>
+                            <TextBox x:Name="Question1TextBox" Width="300" AcceptsReturn="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" Margin="0,20,0,0"/>
+                        </Grid>
+
+                        <Grid Margin="0,20,0,0" Width="300">
+                            <TextBlock Text="Odpowiedź na pytanie 2:" Grid.Row="0" HorizontalAlignment="Center"/>
+                            <TextBox x:Name="Question2TextBox" Width="300" AcceptsReturn="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" Margin="0,20,0,0"/>
+                        </Grid>
+                        <Grid Margin="0,20,0,0" Width="300">
+                            <TextBlock Text="Odpowiedź na pytanie 3:" Grid.Row="0" HorizontalAlignment="Center"/>
+                            <TextBox x:Name="Question3TextBox" Width="300" AcceptsReturn="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" Margin="0,20,0,0"/>
+                        </Grid>
+                        <Grid Margin="0,20,0,0" Width="300">
+                            <TextBlock Text="Odpowiedź na pytanie 4:" Grid.Row="0" HorizontalAlignment="Center"/>
+                            <TextBox x:Name="Question4TextBox" Width="300" AcceptsReturn="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" Margin="0,20,0,0"/>
+                        </Grid>
+                        <Grid Margin="0,20,0,0" Width="300">
+                            <TextBlock Text="Odpowiedź na pytanie 5:" Grid.Row="0" HorizontalAlignment="Center"/>
+                            <TextBox x:Name="Question5TextBox" Width="300" AcceptsReturn="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" Margin="0,20,0,0"/>
+                        </Grid>
+                        <Grid Margin="0,20,0,0" Width="300">
+                            <TextBlock Text="Odpowiedź na pytanie 6:" Grid.Row="0" HorizontalAlignment="Center"/>
+                            <TextBox x:Name="Question6TextBox" Width="300" AcceptsReturn="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" Margin="0,20,0,0"/>
+                        </Grid>
+                        <Button Content="Zapisz" Width="100" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,0,20,20" Click="SaveFormButton_Click"/>
+                    </StackPanel>
+                </StackPanel>
+            </ScrollViewer>
+    </Grid>
 
         <Grid x:Name="LoginPanel" Visibility="Collapsed">
             <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
