@@ -12,7 +12,7 @@
             <Button x:Name="Login" Content="Zaloguj" Width="150" Click="LoginButton_Click" Margin="10" />
         </StackPanel>
 
-        <Button Content="Back" Click="Back_Click" VerticalAlignment="Top" HorizontalAlignment="Left" Width="125" Height="25" Margin="25,10,0,0" Visibility="Collapsed" x:Name="BackButton"/>
+        <Button Content="Back" Click="Back_Click" VerticalAlignment="Top" HorizontalAlignment="Left" Width="125" Height="25" Margin="25,10,0,0" Visibility="Collapsed" x:Name="BackButton" Panel.ZIndex="1000"/>
 
         <Grid x:Name="FormPanel" Visibility="Collapsed">
             <Grid.Resources>
@@ -24,7 +24,6 @@
             <ScrollViewer VerticalScrollBarVisibility="Auto" >
                 <StackPanel>
                     <!-- Imię i nazwisko -->
-                    <Button Content="Back" Click="Back_Click" VerticalAlignment="Top" HorizontalAlignment="Left" Width="125" Height="25" Margin="25,10,0,0"/>
                     <Grid Margin="20,20,0,0" Width="300">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto"/>
@@ -86,12 +85,18 @@
             </StackPanel>
         </Grid>
 
-        <Grid x:Name="UserPanel" Visibility="Visible">
+        <Grid x:Name="UserPanel" Visibility="Collapsed">
             <Button Content="Wyloguj" VerticalAlignment="Top" HorizontalAlignment="Left" Width="125" Height="25" Margin="25,10,0,0" Click="LogoutButton_Click" />
-            <ListView x:Name="UserEvaluationsListView" VerticalAlignment="Top" Margin="10,40,10,0">
+            <TextBlock x:Name="Powitanie" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,20,0,0"/>
+            <ListView x:Name="UserEvaluationsListView" VerticalAlignment="Top" Margin="10,40,10,0" Width="499" MouseDoubleClick="UserEvaluationsListView_MouseDoubleClick">
                 <!-- Możesz dostosować wygląd itemów tutaj, np. używając DataTemplate -->
             </ListView>
             <!-- Inne elementy interfejsu dla zalogowanego użytkownika tutaj -->
+        </Grid>
+        <Grid x:Name="EvaluationDetailsGrid" Visibility="Collapsed">
+            <TextBlock x:Name="Question1Answer" Text="Odpowiedź na pytanie 1:" Margin="10,10,0,0"/>
+            <TextBlock x:Name="Question2Answer" Text="Odpowiedź na pytanie 2:" Margin="10,30,0,0"/>
+            <!-- Układ z szczegółami oceny -->
         </Grid>
     </Grid>
 </Window>

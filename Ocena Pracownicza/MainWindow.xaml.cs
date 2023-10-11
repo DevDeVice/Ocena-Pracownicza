@@ -22,6 +22,14 @@ namespace Ocena_Pracownicza
     public partial class MainWindow : Window
     {
         public User LoggedUser { get; set; }
+        public struct EvaluationRecord
+        {
+            public Evaluation evaluation;
+            public override string ToString()
+            {
+                return evaluation.UserName;
+            }
+        }
         public MainWindow()
         {
             InitializeComponent();
@@ -35,12 +43,7 @@ namespace Ocena_Pracownicza
                 AccountsComboBox.ItemsSource = accounts;
             }
         }
-        private void FormButton_Click(object sender, RoutedEventArgs e)
-        {
-            MenuPanel.Visibility = Visibility.Collapsed;
-            FormPanel.Visibility = Visibility.Visible;
-            BackButton.Visibility = Visibility.Visible;
-        }
+        
         private void SaveFormButton_Click(object sender, RoutedEventArgs e)
         {
             // 1. Walidacja wprowadzonych danych:
@@ -83,10 +86,10 @@ namespace Ocena_Pracownicza
                 Date = DateTime.Now,
                 Question1 = Question1TextBox.Text,
                 Question2 = Question2TextBox.Text,
-                Question3 = Question2TextBox.Text,
-                Question4 = Question2TextBox.Text,
-                Question5 = Question2TextBox.Text,
-                Question6 = Question2TextBox.Text
+                Question3 = Question3TextBox.Text,
+                Question4 = Question4TextBox.Text,
+                Question5 = Question5TextBox.Text,
+                Question6 = Question6TextBox.Text
             };
 
             // 3. Zapisanie instancji w bazie danych:
@@ -97,6 +100,12 @@ namespace Ocena_Pracownicza
             }
 
             MessageBox.Show("Ankieta została pomyślnie zapisana!");
+        }
+        private void FormButton_Click(object sender, RoutedEventArgs e)
+        {
+            MenuPanel.Visibility = Visibility.Collapsed;
+            FormPanel.Visibility = Visibility.Visible;
+            BackButton.Visibility = Visibility.Visible;
         }
 
         private void LoginButton_Click(object sender, RoutedEventArgs e)
@@ -129,12 +138,12 @@ namespace Ocena_Pracownicza
                 {
                     var evaluations = context.Evaluations
                                              .Where(e => e.UserID == LoggedUser.UserID)
-                                             .Select(e => e.UserName)
+                                             .Select(e => new EvaluationRecord { evaluation = e } )
                                              .ToList();
-
                     UserEvaluationsListView.ItemsSource = evaluations;
                 }
-                MessageBox.Show("Prawidłowe Hasło!");
+                //MessageBox.Show("Prawidłowe Hasło!");
+                Powitanie.Text = $"Witaj, {LoggedUser.FullName}!";
                 LoginPanel.Visibility = Visibility.Collapsed;
                 BackButton.Visibility = Visibility.Collapsed;
                 UserPanel.Visibility = Visibility.Visible;
@@ -157,6 +166,22 @@ namespace Ocena_Pracownicza
                 }
             }
             return false;
+        }
+
+        private void UserEvaluationsListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            MessageBox.Show(UserEvaluationsListView.SelectedItem.ToString());
+            if (UserEvaluationsListView.SelectedItem is EvaluationRecord selectedEvaluationRecord)
+            {
+                var selectedEvaluation = selectedEvaluationRecord.evaluation;
+                MessageBox.Show("dziala");
+                UserPanel.Visibility = Visibility.Collapsed;
+
+                Question1Answer.Text = "Odpowiedź na pytanie 1: " + selectedEvaluation.Question1;
+                Question2Answer.Text = "Odpowiedź na pytanie 2: " + selectedEvaluation.Question2;
+
+                EvaluationDetailsGrid.Visibility = Visibility.Visible;
+            }
         }
     }
 }
