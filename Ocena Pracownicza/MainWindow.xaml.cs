@@ -103,16 +103,16 @@ namespace Ocena_Pracownicza
         }
         private void FormButton_Click(object sender, RoutedEventArgs e)
         {
-            MenuPanel.Visibility = Visibility.Collapsed;
             FormPanel.Visibility = Visibility.Visible;
             BackButton.Visibility = Visibility.Visible;
+            MenuPanel.Visibility = Visibility.Collapsed;
         }
 
         private void LoginButton_Click(object sender, RoutedEventArgs e)
         {
-            MenuPanel.Visibility = Visibility.Collapsed;
             LoginPanel.Visibility = Visibility.Visible;
             BackButton.Visibility = Visibility.Visible;
+            MenuPanel.Visibility = Visibility.Collapsed;
         }
 
         private void Back_Click(object sender, RoutedEventArgs e)
@@ -124,8 +124,13 @@ namespace Ocena_Pracownicza
         }
         private void LogoutButton_Click(object sender, RoutedEventArgs e)
         {
-            UserPanel.Visibility = Visibility.Collapsed;
             MenuPanel.Visibility = Visibility.Visible;
+            UserPanel.Visibility = Visibility.Collapsed;
+        }
+        private void ReturnButton_Click(object sender, RoutedEventArgs e)
+        {
+            UserPanel.Visibility = Visibility.Visible;
+            EvaluationDetailsGrid.Visibility = Visibility.Collapsed;
         }
         private void OnLoginAttempt(object sender, RoutedEventArgs e)
         {
@@ -174,11 +179,14 @@ namespace Ocena_Pracownicza
             if (UserEvaluationsListView.SelectedItem is EvaluationRecord selectedEvaluationRecord)
             {
                 var selectedEvaluation = selectedEvaluationRecord.evaluation;
-                MessageBox.Show("dziala");
                 UserPanel.Visibility = Visibility.Collapsed;
 
-                Question1Answer.Text = "Odpowiedź na pytanie 1: " + selectedEvaluation.Question1;
-                Question2Answer.Text = "Odpowiedź na pytanie 2: " + selectedEvaluation.Question2;
+                Question1Answer.Text = selectedEvaluation.Question1;
+                Question2Answer.Text = selectedEvaluation.Question2;
+                Question3Answer.Text = selectedEvaluation.Question3;
+                Question4Answer.Text = selectedEvaluation.Question4;
+                Question5Answer.Text = selectedEvaluation.Question5;
+                Question6Answer.Text = selectedEvaluation.Question6;
 
                 EvaluationDetailsGrid.Visibility = Visibility.Visible;
             }
