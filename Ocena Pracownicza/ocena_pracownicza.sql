@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Paź 12, 2023 at 02:45 PM
+-- Generation Time: Paź 12, 2023 at 04:38 PM
 -- Wersja serwera: 10.4.28-MariaDB
 -- Wersja PHP: 8.2.4
 
@@ -61,6 +61,13 @@ CREATE TABLE `evaluations` (
   `EvaluatorNameID` int(11) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `evaluations`
+--
+
+INSERT INTO `evaluations` (`EvaluationID`, `UserName`, `UserID`, `Date`, `Question1`, `Question2`, `Question3`, `Question4`, `Question5`, `Question6`, `EvaluatorNameID`) VALUES
+(4, 'test', 1, '2023-10-12 15:06:17.580779', 'test', 'test', 'test', 'test', 'test', 'test', 6);
+
 -- --------------------------------------------------------
 
 --
@@ -68,8 +75,16 @@ CREATE TABLE `evaluations` (
 --
 
 CREATE TABLE `globalsettings` (
-  `CurrentEvaluationName` longtext NOT NULL
+  `CurrentEvaluationName` longtext NOT NULL,
+  `Id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `globalsettings`
+--
+
+INSERT INTO `globalsettings` (`CurrentEvaluationName`, `Id`) VALUES
+('trzy', 1);
 
 -- --------------------------------------------------------
 
@@ -115,7 +130,8 @@ INSERT INTO `__efmigrationshistory` (`MigrationId`, `ProductVersion`) VALUES
 ('20231010115206_[DeleteEva]', '7.0.11'),
 ('20231010120504_[ChangeEvaluationToINT2]', '7.0.11'),
 ('20231012102702_[GlobalSettings]', '7.0.11'),
-('20231012103124_[NewDB]', '7.0.11');
+('20231012103124_[NewDB]', '7.0.11'),
+('20231012130432_[GlobalSettingsChange]', '7.0.11');
 
 --
 -- Indeksy dla zrzutów tabel
@@ -132,6 +148,12 @@ ALTER TABLE `evaluationnames`
 --
 ALTER TABLE `evaluations`
   ADD PRIMARY KEY (`EvaluationID`);
+
+--
+-- Indeksy dla tabeli `globalsettings`
+--
+ALTER TABLE `globalsettings`
+  ADD PRIMARY KEY (`Id`);
 
 --
 -- Indeksy dla tabeli `users`
@@ -159,7 +181,13 @@ ALTER TABLE `evaluationnames`
 -- AUTO_INCREMENT for table `evaluations`
 --
 ALTER TABLE `evaluations`
-  MODIFY `EvaluationID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `EvaluationID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `globalsettings`
+--
+ALTER TABLE `globalsettings`
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `users`
