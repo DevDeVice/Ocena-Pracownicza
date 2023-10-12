@@ -7,21 +7,49 @@
         mc:Ignorable="d"
         WindowStyle="None" WindowState="Maximized"
         Title="MainWindow" Height="1080" Width="1920">
-    <Grid>
-        <StackPanel x:Name="MenuPanel" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+    <Window.Resources>
+        <Style TargetType="Button">
+            <Setter Property="Background" Value="#FFFCCE17"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Padding" Value="20,10"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="BorderBrush" Value="#FFFCCE17"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="5">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#FFDAFF62"/>
+                    <Setter Property="BorderBrush" Value="#FFDAFF62"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <Style TargetType="TextBlock">
+            <Setter Property="FontFamily" Value="Segoe UI"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Foreground" Value="White"/>
+        </Style>
+    </Window.Resources>
+    <Grid>        
+        <Grid.Background>
+            <ImageBrush ImageSource="img/background.jpg" Stretch="UniformToFill"/>
+        </Grid.Background>
+        <StackPanel x:Name="MenuPanel" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center" Visibility="Collapsed">
             <Button x:Name="Form" Content="Formularz" Width="300" Height="40" Click="FormButton_Click" Margin="10" />
             <Button x:Name="Login" Content="Zaloguj" Width="300" Height="40" Click="LoginButton_Click" Margin="10" />
         </StackPanel>
 
-        <Button Content="Back" Click="Back_Click" VerticalAlignment="Top" HorizontalAlignment="Left" Width="300" Height="40" Margin="50,50,0,0" Visibility="Collapsed" x:Name="BackButton" Panel.ZIndex="1000"/>
+        <Button Content="Back" Click="Back_Click" VerticalAlignment="Top" HorizontalAlignment="Left" Width="300" Height="40" Margin="50,50,0,0" Visibility="Collapsed" x:Name="BackButton" Panel.ZIndex="2"/>
 
         <Grid x:Name="FormPanel" Visibility="Collapsed">
-            <Grid.Resources>
-                <Style TargetType="TextBlock">
-                    <Setter Property="Foreground" Value="Gray"/>
-                    <Setter Property="FontSize" Value="14"/>
-                </Style>
-            </Grid.Resources>
             <ScrollViewer VerticalScrollBarVisibility="Auto" >
                 <StackPanel Margin="-2,100,0,0">
                     <!-- Imię i nazwisko -->
@@ -88,9 +116,10 @@
             </StackPanel>
         </Grid>
 
-        <Grid x:Name="UserPanel" Visibility="Collapsed">
+        <Grid x:Name="UserPanel" Visibility="Visible">
             <Button Content="Wyloguj" VerticalAlignment="Top" HorizontalAlignment="Left" Width="300" Height="40" Margin="50,50,0,0" Click="LogoutButton_Click" />
-            <TextBlock x:Name="Powitanie" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,120,0,0"/>
+            <TextBlock x:Name="Powitanie" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,80,0,0" Width="300"/>
+            <TextBox x:Name="Search" Width="200" Height="30" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,110,0,0" DataContextChanged="Search_DataContextChanged"> </TextBox>
             <ListView x:Name="UserEvaluationsListView" VerticalAlignment="Top" Margin="0,140,0,0" Width="499" MouseDoubleClick="UserEvaluationsListView_MouseDoubleClick">
                 <!-- Możesz dostosować wygląd itemów tutaj, np. używając DataTemplate -->
             </ListView>

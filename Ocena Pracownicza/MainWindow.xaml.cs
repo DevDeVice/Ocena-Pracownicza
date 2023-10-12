@@ -1,6 +1,7 @@
 ﻿using Ocena_Pracownicza.DataModels;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -175,7 +176,6 @@ namespace Ocena_Pracownicza
 
         private void UserEvaluationsListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            MessageBox.Show(UserEvaluationsListView.SelectedItem.ToString());
             if (UserEvaluationsListView.SelectedItem is EvaluationRecord selectedEvaluationRecord)
             {
                 var selectedEvaluation = selectedEvaluationRecord.evaluation;
