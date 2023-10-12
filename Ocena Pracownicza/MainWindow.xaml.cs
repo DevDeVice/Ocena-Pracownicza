@@ -348,9 +348,13 @@ namespace Ocena_Pracownicza
             PrintDialog printDialog = new PrintDialog();
             if (printDialog.ShowDialog() == true)
             {
-                // Jeśli masz konkretny Grid, który chcesz wydrukować, zmień nazwę 'YourGridName' na odpowiednią nazwę.
                 printDialog.PrintVisual(TestDruk, "Wydruk z aplikacji WPF");
             }
+        }
+
+        private void CloseButton_Click(object sender, RoutedEventArgs e)
+        {
+            Application.Current.Shutdown();
         }
     }
 }
