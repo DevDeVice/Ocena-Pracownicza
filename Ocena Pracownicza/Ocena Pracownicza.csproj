@@ -11,6 +11,9 @@
   <ItemGroup>
     <None Remove="background.jpg" />
     <None Remove="img\background.jpg" />
+    <None Remove="img\ocenaPracownicza.jpg" />
+    <None Remove="img\ocenaPracowniczav2.jpg" />
+    <None Remove="img\ocenaPracowniczav3.jpg" />
   </ItemGroup>
 
   <ItemGroup>
@@ -25,6 +28,11 @@
 
   <ItemGroup>
     <Resource Include="img\background.jpg" />
+    <Resource Include="img\ocenaPracownicza.jpg" />
+    <Resource Include="img\ocenaPracowniczav2.jpg" />
+    <Resource Include="img\ocenaPracowniczav3.jpg">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
 
 </Project>

@@ -28,9 +28,8 @@ namespace Ocena_Pracownicza.Migrations
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<string>("EvaluatorName")
-                        .IsRequired()
-                        .HasColumnType("longtext");
+                    b.Property<int>("EvaluatorNameID")
+                        .HasColumnType("int");
 
                     b.Property<string>("Question1")
                         .IsRequired()
@@ -66,6 +65,30 @@ namespace Ocena_Pracownicza.Migrations
                     b.HasKey("EvaluationID");
 
                     b.ToTable("Evaluations");
+                });
+
+            modelBuilder.Entity("Ocena_Pracownicza.DataModels.EvaluationName", b =>
+                {
+                    b.Property<int>("EvaluatorNameID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("EvaluatorName")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.HasKey("EvaluatorNameID");
+
+                    b.ToTable("EvaluationNames");
+                });
+
+            modelBuilder.Entity("Ocena_Pracownicza.DataModels.GlobalSettings", b =>
+                {
+                    b.Property<string>("CurrentEvaluationName")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.ToTable("GlobalSettings");
                 });
 
             modelBuilder.Entity("Ocena_Pracownicza.DataModels.User", b =>

@@ -25,10 +25,10 @@ namespace Ocena_Pracownicza
         public User LoggedUser { get; set; }
         public struct EvaluationRecord
         {
-            public Evaluation evaluation;
+            public Evaluation Evaluation { get; set; }
             public override string ToString()
             {
-                return evaluation.UserName;
+                return Evaluation.UserName;
             }
         }
         public MainWindow()
@@ -83,7 +83,7 @@ namespace Ocena_Pracownicza
             {
                 UserName = NameTextBox.Text,
                 UserID = selectedUserID.Value,
-                EvaluatorName = "TestowaAnkieta",
+                EvaluatorNameID = 3,
                 Date = DateTime.Now,
                 Question1 = Question1TextBox.Text,
                 Question2 = Question2TextBox.Text,
@@ -144,7 +144,7 @@ namespace Ocena_Pracownicza
                 {
                     var evaluations = context.Evaluations
                                              .Where(e => e.UserID == LoggedUser.UserID)
-                                             .Select(e => new EvaluationRecord { evaluation = e } )
+                                             .Select(e => new EvaluationRecord { Evaluation = e } )
                                              .ToList();
                     UserEvaluationsListView.ItemsSource = evaluations;
                 }
@@ -178,7 +178,7 @@ namespace Ocena_Pracownicza
         {
             if (UserEvaluationsListView.SelectedItem is EvaluationRecord selectedEvaluationRecord)
             {
-                var selectedEvaluation = selectedEvaluationRecord.evaluation;
+                var selectedEvaluation = selectedEvaluationRecord.Evaluation;
                 UserPanel.Visibility = Visibility.Collapsed;
 
                 Question1Answer.Text = selectedEvaluation.Question1;
@@ -189,6 +189,19 @@ namespace Ocena_Pracownicza
                 Question6Answer.Text = selectedEvaluation.Question6;
 
                 EvaluationDetailsGrid.Visibility = Visibility.Visible;
+            }
+        }
+        private void Search_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            var searchText = Search.Text.ToLower();
+            using (var context = new AppDbContext())
+            {
+                var filteredEvaluations = context.Evaluations
+                    .Where(ev => ev.UserName.ToLower().Contains(searchText))
+                    .Select(ev => new EvaluationRecord { Evaluation = ev })
+                    .ToList();
+
+                UserEvaluationsListView.ItemsSource = filteredEvaluations;
             }
         }
     }
