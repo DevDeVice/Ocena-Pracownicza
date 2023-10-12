@@ -41,7 +41,7 @@
         <Grid.Background>
             <ImageBrush ImageSource="img/ocenaPracowniczav2.jpg" Stretch="UniformToFill"/>
         </Grid.Background>
-        <StackPanel x:Name="MenuPanel" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center" Visibility="Visible">
+        <StackPanel x:Name="MenuPanel" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center" Visibility="Collapsed">
             <Button x:Name="Form" Content="Formularz" Width="300" Height="40" Click="FormButton_Click" Margin="10" />
             <Button x:Name="Login" Content="Zaloguj" Width="300" Height="40" Click="LoginButton_Click" Margin="10" />
         </StackPanel>
@@ -115,11 +115,11 @@
             </StackPanel>
         </Grid>
 
-        <Grid x:Name="UserPanel" Visibility="Collapsed">
+        <Grid x:Name="UserPanel" Visibility="Visible">
             <Button Content="Wyloguj" VerticalAlignment="Top" HorizontalAlignment="Left" Width="300" Height="40" Margin="50,50,0,0" Click="LogoutButton_Click" />
-            <TextBlock x:Name="Powitanie" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,80,0,0" Width="300"/>
+            <TextBlock x:Name="Powitanie" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,80,0,0" Width="300" TextAlignment="Center"/>
             <TextBox x:Name="Search" Width="200" Height="30" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,110,0,0" TextChanged="Search_TextChanged"> </TextBox>
-            <ListView x:Name="UserEvaluationsListView" VerticalAlignment="Top" Margin="0,140,0,0" Width="500" MouseDoubleClick="UserEvaluationsListView_MouseDoubleClick">
+            <ListView x:Name="UserEvaluationsListView" VerticalAlignment="Top" Margin="0,150,0,0" Width="500" MouseDoubleClick="UserEvaluationsListView_MouseDoubleClick">
                 <!-- Możesz dostosować wygląd itemów tutaj, np. używając DataTemplate -->
             </ListView>
             <!-- Inne elementy interfejsu dla zalogowanego użytkownika tutaj -->
@@ -143,21 +143,39 @@
             <!-- Układ z szczegółami oceny -->
         </Grid>
         <Grid x:Name="AdminPanel" Visibility="Collapsed">
+            <Button Content="Wyloguj" VerticalAlignment="Top" HorizontalAlignment="Left" Width="300" Height="40" Margin="50,50,0,0" Click="LogoutButton_Click" />
             <StackPanel>
                 <TextBlock Margin="0,80,0,0" HorizontalAlignment="Center" VerticalAlignment="Top" Width="293" Text="Korzystasz z panelu Administratora!" TextAlignment="Center"/>
                 <Grid Margin="0,100,0,0" Width="500">
                     <TextBlock Text="Wybierz używaną ankiete:" HorizontalAlignment="Left"/>
-                    <ComboBox  Width="300" Grid.Row="1" HorizontalAlignment="Right"/>
+                    <ComboBox x:Name="EvaluationNamesComboBox"  Width="300" HorizontalAlignment="Right"/>
                 </Grid>
-                <Grid Margin="0,50,0,0" Width="500" HorizontalAlignment="Center">
+                <Grid Margin="0,100,0,0" Width="500" HorizontalAlignment="Center">
                     <TextBlock Text="Dodaj nową ankiete:" HorizontalAlignment="Left"/>
-                    <TextBox  Width="200"></TextBox>
-                    <Button Content="Dodaj" Width="100" HorizontalAlignment="Right"></Button>
+                    <TextBox x:Name="AddEvaluationNameTextBox"  Width="200"></TextBox>
+                    <Button x:Name="AddNewEvaluationName" Content="Dodaj" Width="120" Height="20" HorizontalAlignment="Right" Click="AddNewEvaluationName_Click"></Button>
                 </Grid>
-                <Grid Margin="0,50,0,0" Width="500" HorizontalAlignment="Center">
-                    <TextBlock Text="Dodaj użytkownika:" HorizontalAlignment="Left"/>
-                    <TextBox  Width="200"></TextBox>
-                    <Button Content="Dodaj" Width="100" HorizontalAlignment="Right"></Button>
+                <Grid Margin="0,100,0,0" Width="500" HorizontalAlignment="Center" >
+                    <StackPanel>
+                        <Grid>
+                            <TextBlock Text="Dodaj użytkownika" HorizontalAlignment="Center"/>
+                        </Grid>
+                        <Grid Margin="0,20,0,0">
+                            <TextBlock Text="Imie Nazwisko:" HorizontalAlignment="Left" Margin="5,0,0,0"/>
+                            <TextBox x:Name="AddImieNazwisko" Width="300" VerticalAlignment="Bottom" Height="20"></TextBox>
+                        </Grid>
+                        <Grid Margin="0,20,0,0">
+                            <TextBlock Text="Login:" HorizontalAlignment="Left" Margin="60,0,0,0"/>
+                            <TextBox x:Name="AddLogin" Width="300" VerticalAlignment="Bottom" Height="20"></TextBox>
+                        </Grid>
+                        <Grid Margin="0,20,0,0">
+                            <TextBlock Text="Hasło:" HorizontalAlignment="Left" Margin="60,0,0,0"/>
+                            <TextBox x:Name="AddHaslo" Width="300" VerticalAlignment="Bottom" Height="20"></TextBox>
+                        </Grid>
+                        <Grid Margin="0,20,0,0">
+                            <Button x:Name="AddNewUser" Content="Dodaj" Width="200" Height="30" HorizontalAlignment="Center" Click="AddNewUser_Click"></Button>
+                        </Grid>
+                    </StackPanel>
                 </Grid>
             </StackPanel>
         </Grid>

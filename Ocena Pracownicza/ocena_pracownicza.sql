@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Paź 10, 2023 at 02:26 PM
+-- Generation Time: Paź 12, 2023 at 02:45 PM
 -- Wersja serwera: 10.4.28-MariaDB
--- Wersja PHP: 8.0.28
+-- Wersja PHP: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -24,6 +24,26 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Struktura tabeli dla tabeli `evaluationnames`
+--
+
+CREATE TABLE `evaluationnames` (
+  `EvaluatorNameID` int(11) NOT NULL,
+  `EvaluatorName` longtext NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `evaluationnames`
+--
+
+INSERT INTO `evaluationnames` (`EvaluatorNameID`, `EvaluatorName`) VALUES
+(4, 'jeden'),
+(5, 'dwa'),
+(6, 'trzy');
+
+-- --------------------------------------------------------
+
+--
 -- Struktura tabeli dla tabeli `evaluations`
 --
 
@@ -31,22 +51,25 @@ CREATE TABLE `evaluations` (
   `EvaluationID` int(11) NOT NULL,
   `UserName` longtext NOT NULL,
   `UserID` int(11) NOT NULL,
-  `EvaluatorName` longtext NOT NULL,
   `Date` datetime(6) NOT NULL,
   `Question1` longtext NOT NULL,
   `Question2` longtext NOT NULL,
   `Question3` longtext NOT NULL,
   `Question4` longtext NOT NULL,
   `Question5` longtext NOT NULL,
-  `Question6` longtext NOT NULL
+  `Question6` longtext NOT NULL,
+  `EvaluatorNameID` int(11) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+-- --------------------------------------------------------
+
 --
--- Dumping data for table `evaluations`
+-- Struktura tabeli dla tabeli `globalsettings`
 --
 
-INSERT INTO `evaluations` (`EvaluationID`, `UserName`, `UserID`, `EvaluatorName`, `Date`, `Question1`, `Question2`, `Question3`, `Question4`, `Question5`, `Question6`) VALUES
-(1, 'test', 1, 'TestowaAnkieta', '2023-10-10 14:06:00.816453', 'test', 'test', 'test', 'test', 'test', 'test');
+CREATE TABLE `globalsettings` (
+  `CurrentEvaluationName` longtext NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -66,7 +89,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`UserID`, `FullName`, `Password`, `Login`) VALUES
-(1, 'Testowy Test', 'test', 'test');
+(1, 'Testowy Test', 'test', 'test'),
+(2, 'Administrator', 'admin', 'admin');
 
 -- --------------------------------------------------------
 
@@ -89,11 +113,19 @@ INSERT INTO `__efmigrationshistory` (`MigrationId`, `ProductVersion`) VALUES
 ('20231010112107_[UserNameToString]', '7.0.11'),
 ('20231010113407_[PrimaryKey]', '7.0.11'),
 ('20231010115206_[DeleteEva]', '7.0.11'),
-('20231010120504_[ChangeEvaluationToINT2]', '7.0.11');
+('20231010120504_[ChangeEvaluationToINT2]', '7.0.11'),
+('20231012102702_[GlobalSettings]', '7.0.11'),
+('20231012103124_[NewDB]', '7.0.11');
 
 --
 -- Indeksy dla zrzutów tabel
 --
+
+--
+-- Indeksy dla tabeli `evaluationnames`
+--
+ALTER TABLE `evaluationnames`
+  ADD PRIMARY KEY (`EvaluatorNameID`);
 
 --
 -- Indeksy dla tabeli `evaluations`
@@ -118,16 +150,22 @@ ALTER TABLE `__efmigrationshistory`
 --
 
 --
+-- AUTO_INCREMENT for table `evaluationnames`
+--
+ALTER TABLE `evaluationnames`
+  MODIFY `EvaluatorNameID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
 -- AUTO_INCREMENT for table `evaluations`
 --
 ALTER TABLE `evaluations`
-  MODIFY `EvaluationID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `EvaluationID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `UserID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `UserID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

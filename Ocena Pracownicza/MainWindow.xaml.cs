@@ -35,6 +35,7 @@ namespace Ocena_Pracownicza
         {
             InitializeComponent();
             LoadAccounts();
+            LoadEvaluationName();
         }
         private void LoadAccounts()
         {
@@ -44,7 +45,15 @@ namespace Ocena_Pracownicza
                 AccountsComboBox.ItemsSource = accounts;
             }
         }
-        
+        private void LoadEvaluationName()
+        {
+            using (var context = new AppDbContext())
+            {
+                var evaluationNames = context.EvaluationNames.Select(e => e.EvaluatorName).ToList();
+                EvaluationNamesComboBox.ItemsSource = evaluationNames;
+            }
+        }
+
         private void SaveFormButton_Click(object sender, RoutedEventArgs e)
         {
             // 1. Walidacja wprowadzonych danych:
@@ -99,7 +108,6 @@ namespace Ocena_Pracownicza
                 context.Evaluations.Add(evaluation);
                 context.SaveChanges();
             }
-
             MessageBox.Show("Ankieta została pomyślnie zapisana!");
         }
         private void FormButton_Click(object sender, RoutedEventArgs e)
@@ -127,6 +135,7 @@ namespace Ocena_Pracownicza
         {
             MenuPanel.Visibility = Visibility.Visible;
             UserPanel.Visibility = Visibility.Collapsed;
+            AdminPanel.Visibility = Visibility.Collapsed;
         }
         private void ReturnButton_Click(object sender, RoutedEventArgs e)
         {
@@ -140,19 +149,28 @@ namespace Ocena_Pracownicza
 
             if (ValidateLogin(username, password))
             {
-                using (var context = new AppDbContext())
+                if (username.ToLower() == "admin")
                 {
-                    var evaluations = context.Evaluations
-                                             .Where(e => e.UserID == LoggedUser.UserID)
-                                             .Select(e => new EvaluationRecord { Evaluation = e } )
-                                             .ToList();
-                    UserEvaluationsListView.ItemsSource = evaluations;
+                    LoginPanel.Visibility = Visibility.Collapsed;
+                    BackButton.Visibility = Visibility.Collapsed;
+                    AdminPanel.Visibility = Visibility.Visible;
                 }
-                //MessageBox.Show("Prawidłowe Hasło!");
-                Powitanie.Text = $"Witaj, {LoggedUser.FullName}!";
-                LoginPanel.Visibility = Visibility.Collapsed;
-                BackButton.Visibility = Visibility.Collapsed;
-                UserPanel.Visibility = Visibility.Visible;
+                else
+                {
+                    using (var context = new AppDbContext())
+                    {
+                        var evaluations = context.Evaluations
+                                                 .Where(e => e.UserID == LoggedUser.UserID)
+                                                 .Select(e => new EvaluationRecord { Evaluation = e } )
+                                                 .ToList();
+                        UserEvaluationsListView.ItemsSource = evaluations;
+                    }
+                    //MessageBox.Show("Prawidłowe Hasło!");
+                    Powitanie.Text = $"Witaj, {LoggedUser.FullName}!";
+                    LoginPanel.Visibility = Visibility.Collapsed;
+                    BackButton.Visibility = Visibility.Collapsed;
+                    UserPanel.Visibility = Visibility.Visible;
+                }
             }
             else
             {
@@ -203,6 +221,51 @@ namespace Ocena_Pracownicza
 
                 UserEvaluationsListView.ItemsSource = filteredEvaluations;
             }
+        }
+
+        private void AddNewEvaluationName_Click(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrEmpty(AddEvaluationNameTextBox.Text))
+            {
+                MessageBox.Show("Podaj nazwe!");
+                return;
+            }
+
+            var evaluationName = new EvaluationName
+            {
+                EvaluatorName = AddEvaluationNameTextBox.Text
+            };
+
+            using (var context = new AppDbContext())
+            {
+                context.EvaluationNames.Add(evaluationName);
+                context.SaveChanges();
+            }
+            LoadEvaluationName();
+            MessageBox.Show($"Utworzono: {AddEvaluationNameTextBox.Text}");
+        }
+        private void AddNewUser_Click(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrEmpty(AddImieNazwisko.Text)|| string.IsNullOrEmpty(AddLogin.Text) || string.IsNullOrEmpty(AddHaslo.Text))
+            {
+                MessageBox.Show("Uzupełnij pola!");
+                return;
+            }
+
+            var user = new User
+            {
+                FullName = AddImieNazwisko.Text,
+                Login = AddLogin.Text,
+                Password = AddHaslo.Text,
+            };
+
+            using (var context = new AppDbContext())
+            {
+                context.Users.Add(user);
+                context.SaveChanges();
+            }
+            LoadAccounts();
+            MessageBox.Show($"Utworzono: {AddImieNazwisko.Text}");
         }
     }
 }
