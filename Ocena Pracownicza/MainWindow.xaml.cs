@@ -51,6 +51,7 @@ namespace Ocena_Pracownicza
             {
                 var evaluationNames = context.EvaluationNames.Select(e => e.EvaluatorName).ToList();
                 EvaluationNamesComboBox.ItemsSource = evaluationNames;
+                EvaluationNameComboBox.ItemsSource = evaluationNames;
             }
         }
 
@@ -308,6 +309,47 @@ namespace Ocena_Pracownicza
                     globalSetting.CurrentEvaluationName = selectedEvaluationName;
                     context.SaveChanges();
                 }
+            }
+        }
+
+        private void EvaluationNameComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (EvaluationNameComboBox.SelectedItem == null)
+                return;
+
+            string selectedEvaluationName = EvaluationNameComboBox.SelectedItem.ToString();
+
+            using (var context = new AppDbContext())
+            {
+                // Pobierz ID wybranej nazwy oceny.
+                int? selectedEvaluatorNameID = context.EvaluationNames
+                                                      .Where(en => en.EvaluatorName == selectedEvaluationName)
+                                                      .Select(en => (int?)en.EvaluatorNameID)
+                                                      .FirstOrDefault();
+
+                if (!selectedEvaluatorNameID.HasValue)
+                {
+                    MessageBox.Show("Wybrana nazwa oceny nie istnieje w bazie danych!");
+                    return;
+                }
+
+                // Filtruj oceny według wybranego ID i wyświetl je w ListView.
+                var filteredEvaluations = context.Evaluations
+                                                 .Where(ev => ev.EvaluatorNameID == selectedEvaluatorNameID.Value)
+                                                 .Select(ev => new EvaluationRecord { Evaluation = ev })
+                                                 .ToList();
+
+                UserEvaluationsListView.ItemsSource = filteredEvaluations;
+            }
+        }
+
+        private void PrintButton_Click(object sender, RoutedEventArgs e)
+        {
+            PrintDialog printDialog = new PrintDialog();
+            if (printDialog.ShowDialog() == true)
+            {
+                // Jeśli masz konkretny Grid, który chcesz wydrukować, zmień nazwę 'YourGridName' na odpowiednią nazwę.
+                printDialog.PrintVisual(TestDruk, "Wydruk z aplikacji WPF");
             }
         }
     }
