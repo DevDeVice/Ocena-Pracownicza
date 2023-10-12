@@ -88,11 +88,30 @@ namespace Ocena_Pracownicza
             }
 
             // 2. Stworzenie instancji klasy Evaluation i przypisanie jej wartości:
+            string currentEvaluationName;
+            using (var context = new AppDbContext())
+            {
+                currentEvaluationName = context.GlobalSettings.FirstOrDefault()?.CurrentEvaluationName;
+            }
+            int? evaluatorNameID;
+            using (var context = new AppDbContext())
+            {
+                evaluatorNameID = context.EvaluationNames
+                                         .Where(en => en.EvaluatorName == currentEvaluationName)
+                                         .Select(en => (int?)en.EvaluatorNameID)
+                                         .FirstOrDefault();
+            }
+            if (!evaluatorNameID.HasValue)
+            {
+                MessageBox.Show("Nie znaleziono nazwy oceny w bazie danych!");
+                return;
+            }
+
             var evaluation = new Evaluation
             {
                 UserName = NameTextBox.Text,
                 UserID = selectedUserID.Value,
-                EvaluatorNameID = 3,
+                EvaluatorNameID = evaluatorNameID.Value,
                 Date = DateTime.Now,
                 Question1 = Question1TextBox.Text,
                 Question2 = Question2TextBox.Text,
@@ -266,6 +285,30 @@ namespace Ocena_Pracownicza
             }
             LoadAccounts();
             MessageBox.Show($"Utworzono: {AddImieNazwisko.Text}");
+        }
+
+        private void EvaluationNamesComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (EvaluationNamesComboBox.SelectedItem != null)
+            {
+                string selectedEvaluationName = EvaluationNamesComboBox.SelectedItem.ToString();
+
+                // Zaktualizuj wartość w GlobalSettings:
+                using (var context = new AppDbContext())
+                {
+                    var globalSetting = context.GlobalSettings.FirstOrDefault();
+
+                    // Jeśli nie istnieje rekord w GlobalSettings, to stwórz nowy:
+                    if (globalSetting == null)
+                    {
+                        globalSetting = new GlobalSettings();
+                        context.GlobalSettings.Add(globalSetting);
+                    }
+
+                    globalSetting.CurrentEvaluationName = selectedEvaluationName;
+                    context.SaveChanges();
+                }
+            }
         }
     }
 }
