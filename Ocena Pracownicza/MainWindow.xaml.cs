@@ -36,12 +36,16 @@ namespace Ocena_Pracownicza
             InitializeComponent();
             LoadAccounts();
             LoadEvaluationName();
+            LoadComboBoxData();
         }
         private void LoadAccounts()
         {
             using (var context = new AppDbContext())
             {
-                var accounts = context.Users.Select(user => user.FullName).ToList();
+                var accounts = context.Users
+                                      .Where(user => user.FullName != "Administrator")
+                                      .Select(user => user.FullName)
+                                      .ToList();
                 AccountsComboBox.ItemsSource = accounts;
             }
         }
@@ -53,6 +57,36 @@ namespace Ocena_Pracownicza
                 EvaluationNamesComboBox.ItemsSource = evaluationNames;
                 EvaluationNameComboBox.ItemsSource = evaluationNames;
             }
+        }
+        private void LoadComboBoxData()
+        {
+            using (var context = new AppDbContext())
+            {
+                var evaluatorNames = context.EvaluationNames.Select(en => en.EvaluatorName).ToList();
+
+                // Dodaj opcję "Wszystkie" na początek listy
+                evaluatorNames.Insert(0, "Wszystkie");
+
+                EvaluationNameComboBox.ItemsSource = evaluatorNames;
+                EvaluationNameComboBox.SelectedIndex = 0;
+            }
+        }
+        private void ClearTextBoxesInGrid()
+        {
+            NameTextBox.Text = string.Empty;
+            AccountsComboBox.SelectedItem = null;
+            for (int i = 1; i <= 6; i++)
+            {
+                var textBoxName = $"Question{i}TextBox";
+                var textBox = this.FindName(textBoxName) as TextBox;
+                if (textBox != null)
+                {
+                    textBox.Text = string.Empty;
+                }
+            }
+            UsernameBox.Text = string.Empty;
+            PasswordBox.Password = string.Empty;
+
         }
 
         private void SaveFormButton_Click(object sender, RoutedEventArgs e)
@@ -150,17 +184,20 @@ namespace Ocena_Pracownicza
             LoginPanel.Visibility = Visibility.Collapsed;
             FormPanel.Visibility = Visibility.Collapsed;
             BackButton.Visibility = Visibility.Collapsed;
+            ClearTextBoxesInGrid();
         }
         private void LogoutButton_Click(object sender, RoutedEventArgs e)
         {
             MenuPanel.Visibility = Visibility.Visible;
             UserPanel.Visibility = Visibility.Collapsed;
             AdminPanel.Visibility = Visibility.Collapsed;
+            ClearTextBoxesInGrid();
         }
         private void ReturnButton_Click(object sender, RoutedEventArgs e)
         {
             UserPanel.Visibility = Visibility.Visible;
             EvaluationDetailsGrid.Visibility = Visibility.Collapsed;
+            ClearTextBoxesInGrid();
         }
         private void OnLoginAttempt(object sender, RoutedEventArgs e)
         {
@@ -227,19 +264,6 @@ namespace Ocena_Pracownicza
                 Question6Answer.Text = selectedEvaluation.Question6;
 
                 EvaluationDetailsGrid.Visibility = Visibility.Visible;
-            }
-        }
-        private void Search_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            var searchText = Search.Text.ToLower();
-            using (var context = new AppDbContext())
-            {
-                var filteredEvaluations = context.Evaluations
-                    .Where(ev => ev.UserName.ToLower().Contains(searchText))
-                    .Select(ev => new EvaluationRecord { Evaluation = ev })
-                    .ToList();
-
-                UserEvaluationsListView.ItemsSource = filteredEvaluations;
             }
         }
 
@@ -312,35 +336,56 @@ namespace Ocena_Pracownicza
             }
         }
 
-        private void EvaluationNameComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (EvaluationNameComboBox.SelectedItem == null)
-                return;
 
-            string selectedEvaluationName = EvaluationNameComboBox.SelectedItem.ToString();
+        private void SearchAndFilterEvaluations()
+        {
+            string searchText = Search.Text.ToLower();
+
+            string selectedEvaluationName = EvaluationNameComboBox.SelectedItem?.ToString();
+            int? selectedEvaluatorNameID = null;
 
             using (var context = new AppDbContext())
             {
-                // Pobierz ID wybranej nazwy oceny.
-                int? selectedEvaluatorNameID = context.EvaluationNames
-                                                      .Where(en => en.EvaluatorName == selectedEvaluationName)
-                                                      .Select(en => (int?)en.EvaluatorNameID)
-                                                      .FirstOrDefault();
-
-                if (!selectedEvaluatorNameID.HasValue)
+                if (selectedEvaluationName != null && selectedEvaluationName != "Wszystkie")
                 {
-                    MessageBox.Show("Wybrana nazwa oceny nie istnieje w bazie danych!");
-                    return;
+                    // Pobierz ID wybranej nazwy oceny.
+                    selectedEvaluatorNameID = context.EvaluationNames
+                                                     .Where(en => en.EvaluatorName == selectedEvaluationName)
+                                                     .Select(en => (int?)en.EvaluatorNameID)
+                                                     .FirstOrDefault();
+
+                    if (!selectedEvaluatorNameID.HasValue)
+                    {
+                        MessageBox.Show("Wybrana nazwa oceny nie istnieje w bazie danych!");
+                        return;
+                    }
                 }
 
-                // Filtruj oceny według wybranego ID i wyświetl je w ListView.
-                var filteredEvaluations = context.Evaluations
-                                                 .Where(ev => ev.EvaluatorNameID == selectedEvaluatorNameID.Value)
-                                                 .Select(ev => new EvaluationRecord { Evaluation = ev })
-                                                 .ToList();
+                // Filtruj oceny według wyszukiwanego tekstu oraz wybranego ID (jeśli jest wybrane).
+                IQueryable<Evaluation> evaluationsQuery = context.Evaluations.Where(ev => ev.UserName.ToLower().Contains(searchText));
+
+                if (selectedEvaluatorNameID.HasValue)
+                {
+                    evaluationsQuery = evaluationsQuery.Where(ev => ev.EvaluatorNameID == selectedEvaluatorNameID.Value);
+                }
+
+                var filteredEvaluations = evaluationsQuery
+                                          .Select(ev => new EvaluationRecord { Evaluation = ev })
+                                          .ToList();
 
                 UserEvaluationsListView.ItemsSource = filteredEvaluations;
             }
+        }
+
+
+        private void Search_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            SearchAndFilterEvaluations();
+        }
+
+        private void EvaluationNameComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            SearchAndFilterEvaluations();
         }
 
         private void PrintButton_Click(object sender, RoutedEventArgs e)
