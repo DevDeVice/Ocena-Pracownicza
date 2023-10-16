@@ -86,7 +86,12 @@ namespace Ocena_Pracownicza
             }
             UsernameBox.Text = string.Empty;
             PasswordBox.Password = string.Empty;
-
+            //admin panel
+            EvaluationNamesComboBox.SelectedItem = null;
+            AddEvaluationNameTextBox.Text = string.Empty;
+            AddImieNazwisko.Text = string.Empty;
+            AddLogin.Text = string.Empty;
+            AddHaslo.Text = string.Empty;
         }
 
         private void SaveFormButton_Click(object sender, RoutedEventArgs e)
