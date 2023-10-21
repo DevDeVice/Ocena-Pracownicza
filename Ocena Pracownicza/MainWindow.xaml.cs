@@ -79,7 +79,7 @@ namespace Ocena_Pracownicza
             {
                 var textBoxName = $"Question{i}TextBox";
                 var textBox = this.FindName(textBoxName) as TextBox;
-                if (textBox != null)
+                if (textBox != null) 
                 {
                     textBox.Text = string.Empty;
                 }
