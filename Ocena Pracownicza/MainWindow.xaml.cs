@@ -79,7 +79,7 @@ namespace Ocena_Pracownicza
             {
                 var textBoxName = $"Question{i}TextBox";
                 var textBox = this.FindName(textBoxName) as TextBox;
-                if (textBox != null)
+                if (textBox != null) 
                 {
                     textBox.Text = string.Empty;
                 }
@@ -87,7 +87,7 @@ namespace Ocena_Pracownicza
             UsernameBox.Text = string.Empty;
             PasswordBox.Password = string.Empty;
             //admin panel
-            EvaluationNamesComboBox.SelectedItem = null;
+            EvaluationNamesComboBox.SelectedItem = null; 
             AddEvaluationNameTextBox.Text = string.Empty;
             AddImieNazwisko.Text = string.Empty;
             AddLogin.Text = string.Empty;
