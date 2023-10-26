@@ -180,12 +180,14 @@ namespace Ocena_Pracownicza
         {
             LoginPanel.Visibility = Visibility.Visible;
             BackButton.Visibility = Visibility.Visible;
+            Login.Visibility = Visibility.Collapsed;
             MenuPanel.Visibility = Visibility.Collapsed;
         }
 
         private void Back_Click(object sender, RoutedEventArgs e)
         {
             MenuPanel.Visibility = Visibility.Visible;
+            Login.Visibility = Visibility.Visible;
             LoginPanel.Visibility = Visibility.Collapsed;
             FormPanel.Visibility = Visibility.Collapsed;
             BackButton.Visibility = Visibility.Collapsed;
@@ -196,6 +198,7 @@ namespace Ocena_Pracownicza
             MenuPanel.Visibility = Visibility.Visible;
             UserPanel.Visibility = Visibility.Collapsed;
             AdminPanel.Visibility = Visibility.Collapsed;
+            Login.Visibility = Visibility.Visible;
             ClearTextBoxesInGrid();
         }
         private void ReturnButton_Click(object sender, RoutedEventArgs e)
