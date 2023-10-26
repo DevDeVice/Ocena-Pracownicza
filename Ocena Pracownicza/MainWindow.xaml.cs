@@ -25,7 +25,7 @@ namespace Ocena_Pracownicza
         public User LoggedUser { get; set; }
         public struct EvaluationRecord
         {
-            public Evaluation Evaluation { get; set; }
+            public EvaluationBiuro Evaluation { get; set; }
             public override string ToString()
             {
                 return Evaluation.UserName;
@@ -104,7 +104,12 @@ namespace Ocena_Pracownicza
                 string.IsNullOrEmpty(Question3TextBox.Text) ||
                 string.IsNullOrEmpty(Question4TextBox.Text) ||
                 string.IsNullOrEmpty(Question5TextBox.Text) ||
-                string.IsNullOrEmpty(Question6TextBox.Text)
+                string.IsNullOrEmpty(Question6TextBox.Text) 
+                //string.IsNullOrEmpty(Question7TextBox.Text) ||
+                //string.IsNullOrEmpty(Question8TextBox.Text) ||
+                //string.IsNullOrEmpty(Question9TextBox.Text) ||
+                //string.IsNullOrEmpty(Question10TextBox.Text) ||
+                //string.IsNullOrEmpty(Question11TextBox.Text)
                 )
             {
                 MessageBox.Show("Wszystkie pola muszą być wypełnione!");
@@ -147,7 +152,7 @@ namespace Ocena_Pracownicza
                 return;
             }
 
-            var evaluation = new Evaluation
+            var evaluation = new EvaluationBiuro
             {
                 UserName = NameTextBox.Text,
                 UserID = selectedUserID.Value,
@@ -159,6 +164,11 @@ namespace Ocena_Pracownicza
                 Question4 = Question4TextBox.Text,
                 Question5 = Question5TextBox.Text,
                 Question6 = Question6TextBox.Text
+                //Question7 = Question7TextBox.Text,
+                //Question8 = Question8TextBox.Text,
+                //Question9 = Question9TextBox.Text,
+                //Question10 = Question10TextBox.Text,
+               //Question11 = Question11TextBox.Text,
             };
 
             // 3. Zapisanie instancji w bazie danych:
@@ -370,18 +380,18 @@ namespace Ocena_Pracownicza
                 }
 
                 // Filtruj oceny według wyszukiwanego tekstu oraz wybranego ID (jeśli jest wybrane).
-                IQueryable<Evaluation> evaluationsQuery = context.Evaluations.Where(ev => ev.UserName.ToLower().Contains(searchText));
+                IQueryable<EvaluationBiuro> evaluationsQuery = context.Evaluations.Where(ev => ev.UserName.ToLower().Contains(searchText));
 
                 if (selectedEvaluatorNameID.HasValue)
                 {
                     evaluationsQuery = evaluationsQuery.Where(ev => ev.EvaluatorNameID == selectedEvaluatorNameID.Value);
                 }
 
-                var filteredEvaluations = evaluationsQuery
-                                          .Select(ev => new EvaluationRecord { Evaluation = ev })
-                                          .ToList();
+                //var filteredEvaluations = evaluationsQuery
+                                          //.Select(ev => new EvaluationRecord { Evaluation = ev })
+                                          //.ToList();
 
-                UserEvaluationsListView.ItemsSource = filteredEvaluations;
+                //UserEvaluationsListView.ItemsSource = filteredEvaluations;
             }
         }
 

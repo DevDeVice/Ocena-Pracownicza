@@ -100,6 +100,26 @@
                             <TextBlock Text="Odpowiedź na pytanie 6:" Grid.Row="0" HorizontalAlignment="Center"/>
                             <TextBox x:Name="Question6TextBox" Width="300" AcceptsReturn="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" Margin="0,20,0,0"/>
                         </Grid>
+                        <Grid Margin="0,20,0,0" Width="300">
+                            <TextBlock Text="Odpowiedź na pytanie 7:" Grid.Row="0" HorizontalAlignment="Center"/>
+                            <TextBox x:Name="Question7TextBox" Width="300" AcceptsReturn="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" Margin="0,20,0,0"/>
+                        </Grid>
+                        <Grid Margin="0,20,0,0" Width="300">
+                            <TextBlock Text="Odpowiedź na pytanie 8:" Grid.Row="0" HorizontalAlignment="Center"/>
+                            <TextBox x:Name="Question8TextBox" Width="300" AcceptsReturn="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" Margin="0,20,0,0"/>
+                        </Grid>
+                        <Grid Margin="0,20,0,0" Width="300">
+                            <TextBlock Text="Odpowiedź na pytanie 9:" Grid.Row="0" HorizontalAlignment="Center"/>
+                            <TextBox x:Name="Question9TextBox" Width="300" AcceptsReturn="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" Margin="0,20,0,0"/>
+                        </Grid>
+                        <Grid Margin="0,20,0,0" Width="300">
+                            <TextBlock Text="Odpowiedź na pytanie 10:" Grid.Row="0" HorizontalAlignment="Center"/>
+                            <TextBox x:Name="Question10TextBox" Width="300" AcceptsReturn="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" Margin="0,20,0,0"/>
+                        </Grid>
+                        <Grid Margin="0,20,0,0" Width="300">
+                            <TextBlock Text="Odpowiedź na pytanie 11:" Grid.Row="0" HorizontalAlignment="Center"/>
+                            <TextBox x:Name="Question11TextBox" Width="300" AcceptsReturn="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" Margin="0,20,0,0"/>
+                        </Grid>
                         <Button Content="Zapisz" Width="300" HorizontalAlignment="Center" Margin="-1,20,0,20" Click="SaveFormButton_Click" Panel.ZIndex="2" VerticalAlignment="Center"/>
                     </StackPanel>
                 </StackPanel>
