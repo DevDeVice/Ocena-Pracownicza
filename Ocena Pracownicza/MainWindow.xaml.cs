@@ -104,12 +104,12 @@ namespace Ocena_Pracownicza
                 string.IsNullOrEmpty(Question3TextBox.Text) ||
                 string.IsNullOrEmpty(Question4TextBox.Text) ||
                 string.IsNullOrEmpty(Question5TextBox.Text) ||
-                string.IsNullOrEmpty(Question6TextBox.Text) 
-                //string.IsNullOrEmpty(Question7TextBox.Text) ||
-                //string.IsNullOrEmpty(Question8TextBox.Text) ||
-                //string.IsNullOrEmpty(Question9TextBox.Text) ||
-                //string.IsNullOrEmpty(Question10TextBox.Text) ||
-                //string.IsNullOrEmpty(Question11TextBox.Text)
+                string.IsNullOrEmpty(Question6TextBox.Text) ||
+                string.IsNullOrEmpty(Question7TextBox.Text) ||
+                string.IsNullOrEmpty(Question8TextBox.Text) ||
+                string.IsNullOrEmpty(Question9TextBox.Text) ||
+                string.IsNullOrEmpty(Question10TextBox.Text) ||
+                string.IsNullOrEmpty(Question11TextBox.Text)
                 )
             {
                 MessageBox.Show("Wszystkie pola muszą być wypełnione!");
@@ -163,12 +163,12 @@ namespace Ocena_Pracownicza
                 Question3 = Question3TextBox.Text,
                 Question4 = Question4TextBox.Text,
                 Question5 = Question5TextBox.Text,
-                Question6 = Question6TextBox.Text
-                //Question7 = Question7TextBox.Text,
-                //Question8 = Question8TextBox.Text,
-                //Question9 = Question9TextBox.Text,
-                //Question10 = Question10TextBox.Text,
-               //Question11 = Question11TextBox.Text,
+                Question6 = Question6TextBox.Text,
+                Question7 = Question7TextBox.Text,
+                Question8 = Question8TextBox.Text,
+                Question9 = Question9TextBox.Text,
+                Question10 = Question10TextBox.Text,
+                Question11 = Question11TextBox.Text,
             };
 
             // 3. Zapisanie instancji w bazie danych:
@@ -181,7 +181,7 @@ namespace Ocena_Pracownicza
         }
         private void FormButton_Click(object sender, RoutedEventArgs e)
         {
-            FormPanel.Visibility = Visibility.Visible;
+            FormPanelBiuro.Visibility = Visibility.Visible;
             BackButton.Visibility = Visibility.Visible;
             MenuPanel.Visibility = Visibility.Collapsed;
         }
@@ -199,7 +199,7 @@ namespace Ocena_Pracownicza
             MenuPanel.Visibility = Visibility.Visible;
             Login.Visibility = Visibility.Visible;
             LoginPanel.Visibility = Visibility.Collapsed;
-            FormPanel.Visibility = Visibility.Collapsed;
+            FormPanelBiuro.Visibility = Visibility.Collapsed;
             BackButton.Visibility = Visibility.Collapsed;
             ClearTextBoxesInGrid();
         }
@@ -280,6 +280,11 @@ namespace Ocena_Pracownicza
                 Question4Answer.Text = selectedEvaluation.Question4;
                 Question5Answer.Text = selectedEvaluation.Question5;
                 Question6Answer.Text = selectedEvaluation.Question6;
+                Question7Answer.Text = selectedEvaluation.Question7;
+                Question8Answer.Text = selectedEvaluation.Question8;
+                Question9Answer.Text = selectedEvaluation.Question9;
+                Question10Answer.Text = selectedEvaluation.Question10;
+                Question11Answer.Text = selectedEvaluation.Question11;
 
                 EvaluationDetailsGrid.Visibility = Visibility.Visible;
             }
@@ -418,6 +423,11 @@ namespace Ocena_Pracownicza
         private void CloseButton_Click(object sender, RoutedEventArgs e)
         {
             Application.Current.Shutdown();
+        }
+
+        private void FormBiuroButton_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
