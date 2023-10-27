@@ -193,37 +193,58 @@
             <TextBlock HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,115,350,0" Width="150" Height="20" Text="Wyszukaj:"/>
             <TextBox x:Name="Search" Width="200" Height="30" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,110,160,0" TextChanged="Search_TextChanged"></TextBox>
             <ComboBox x:Name="EvaluationNameComboBox" Width="200" Height="30" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="300,110,0,0" SelectionChanged="EvaluationNameComboBox_SelectionChanged"/>
-            <ListView x:Name="UserEvaluationsListView" VerticalAlignment="Top" Margin="0,150,0,0" Width="500" MouseDoubleClick="UserEvaluationsListView_MouseDoubleClick">
-                <!-- Możesz dostosować wygląd itemów tutaj, np. używając DataTemplate -->
-            </ListView>
+            <StackPanel HorizontalAlignment="Center" Margin="0,150,0,0">
+                <ListView x:Name="UserEvaluationsBListView" VerticalAlignment="Top" Width="500" MouseDoubleClick="UserEvaluationsBListView_MouseDoubleClick">
+                    <!-- Możesz dostosować wygląd itemów tutaj, np. używając DataTemplate -->
+                </ListView>
+                <ListView x:Name="UserEvaluationsPListView" VerticalAlignment="Top" Width="500" Margin="0,100,0,0" MouseDoubleClick="UserEvaluationsPListView_MouseDoubleClick">
+                    <!-- Możesz dostosować wygląd itemów tutaj, np. używając DataTemplate -->
+                </ListView>
+            </StackPanel>
             <!-- Inne elementy interfejsu dla zalogowanego użytkownika tutaj -->
         </Grid>
-        <Grid x:Name="EvaluationDetailsGrid" Visibility="Collapsed" Width="1000">
+        <Grid x:Name="EvaluationDetailsGridB" Visibility="Collapsed" Width="1000">
             <Button Content="Return" VerticalAlignment="Top" HorizontalAlignment="Left" Width="300" Height="40" Margin="-410,50,0,0" Click="ReturnButton_Click" Panel.ZIndex="1" />
-            <StackPanel x:Name="TestDruk" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,100,0,0">
+            <StackPanel x:Name="TestDrukB" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,100,0,0">
                 <TextBlock Text="Pytanie 1" Margin="0,10"/>
-                <TextBlock x:Name="Question1Answer" Text="Odpowiedź na pytanie 1:" Margin="0,10"/>
+                <TextBlock x:Name="Question1AnswerB" Text="Odpowiedź na pytanie 1:" Margin="0,10"/>
                 <TextBlock Text="Pytanie 2" Margin="0,10"/>
-                <TextBlock x:Name="Question2Answer" Text="Odpowiedź na pytanie 2:" Margin="0,10"/>
+                <TextBlock x:Name="Question2AnswerB" Text="Odpowiedź na pytanie 2:" Margin="0,10"/>
                 <TextBlock Text="Pytanie 3" Margin="0,10"/>
-                <TextBlock x:Name="Question3Answer" Text="Odpowiedź na pytanie 3:" Margin="0,10"/>
+                <TextBlock x:Name="Question3AnswerB" Text="Odpowiedź na pytanie 3:" Margin="0,10"/>
                 <TextBlock Text="Pytanie 4" Margin="0,10"/>
-                <TextBlock x:Name="Question4Answer" Text="Odpowiedź na pytanie 4:" Margin="0,10"/>
+                <TextBlock x:Name="Question4AnswerB" Text="Odpowiedź na pytanie 4:" Margin="0,10"/>
                 <TextBlock Text="Pytanie 5" Margin="0,10"/>
-                <TextBlock x:Name="Question5Answer" Text="Odpowiedź na pytanie 5:" Margin="0,10"/>
+                <TextBlock x:Name="Question5AnswerB" Text="Odpowiedź na pytanie 5:" Margin="0,10"/>
                 <TextBlock Text="Pytanie 6" Margin="0,10"/>
-                <TextBlock x:Name="Question6Answer" Text="Odpowiedź na pytanie 6:" Margin="0,10"/>
+                <TextBlock x:Name="Question6AnswerB" Text="Odpowiedź na pytanie 6:" Margin="0,10"/>
                 <TextBlock Text="Pytanie 7" Margin="0,10"/>
-                <TextBlock x:Name="Question7Answer" Text="Odpowiedź na pytanie 7:" Margin="0,10"/>
+                <TextBlock x:Name="Question7AnswerB" Text="Odpowiedź na pytanie 7:" Margin="0,10"/>
                 <TextBlock Text="Pytanie 8" Margin="0,10"/>
-                <TextBlock x:Name="Question8Answer" Text="Odpowiedź na pytanie 8:" Margin="0,10"/>
+                <TextBlock x:Name="Question8AnswerB" Text="Odpowiedź na pytanie 8:" Margin="0,10"/>
                 <TextBlock Text="Pytanie 9" Margin="0,10"/>
-                <TextBlock x:Name="Question9Answer" Text="Odpowiedź na pytanie 9:" Margin="0,10"/>
+                <TextBlock x:Name="Question9AnswerB" Text="Odpowiedź na pytanie 9:" Margin="0,10"/>
                 <TextBlock Text="Pytanie 10" Margin="0,10"/>
-                <TextBlock x:Name="Question10Answer" Text="Odpowiedź na pytanie 10:" Margin="0,10"/>
+                <TextBlock x:Name="Question10AnswerB" Text="Odpowiedź na pytanie 10:" Margin="0,10"/>
                 <TextBlock Text="Pytanie 11" Margin="0,10"/>
-                <TextBlock x:Name="Question11Answer" Text="Odpowiedź na pytanie 11:" Margin="0,10"/>
-                <Button Content="Drukuj" Click="PrintButton_Click" Width="150" Height="30"></Button>
+                <TextBlock x:Name="Question11AnswerB" Text="Odpowiedź na pytanie 11:" Margin="0,10"/>
+                <Button Content="Drukuj" Click="PrintButtonB_Click" Width="150" Height="30"></Button>
+            </StackPanel>
+            <!-- Układ z szczegółami oceny -->
+        </Grid>
+        <Grid x:Name="EvaluationDetailsGridP" Visibility="Collapsed" Width="1000">
+            <Button Content="Return" VerticalAlignment="Top" HorizontalAlignment="Left" Width="300" Height="40" Margin="-410,50,0,0" Click="ReturnButton_Click" Panel.ZIndex="1" />
+            <StackPanel x:Name="TestDrukP" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,100,0,0">
+                <TextBlock Text="Pytanie 1" Margin="0,10"/>
+                <TextBlock x:Name="Question1AnswerP" Text="Odpowiedź na pytanie 1:" Margin="0,10"/>
+                <TextBlock Text="Pytanie 2" Margin="0,10"/>
+                <TextBlock x:Name="Question2AnswerP" Text="Odpowiedź na pytanie 2:" Margin="0,10"/>
+                <TextBlock Text="Pytanie 3" Margin="0,10"/>
+                <TextBlock x:Name="Question3AnswerP" Text="Odpowiedź na pytanie 3:" Margin="0,10"/>
+                <TextBlock Text="Pytanie 4" Margin="0,10"/>
+                <TextBlock x:Name="Question4AnswerP" Text="Odpowiedź na pytanie 4:" Margin="0,10"/>
+                <TextBlock Text="Pytanie 5" Margin="0,10"/>
+                <Button Content="Drukuj" Click="PrintButtonP_Click" Width="150" Height="30"></Button>
             </StackPanel>
             <!-- Układ z szczegółami oceny -->
         </Grid>

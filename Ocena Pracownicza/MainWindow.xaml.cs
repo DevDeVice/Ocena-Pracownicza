@@ -23,12 +23,20 @@ namespace Ocena_Pracownicza
     public partial class MainWindow : Window
     {
         public User LoggedUser { get; set; }
-        public struct EvaluationRecord
+        public struct EvaluationRecordB
         {
-            public EvaluationBiuro Evaluation { get; set; }
+            public EvaluationBiuro EvaluationB { get; set; }
             public override string ToString()
             {
-                return Evaluation.UserName;
+                return EvaluationB.UserName;
+            }
+        }
+        public struct EvaluationRecordP
+        {
+            public EvaluationProdukcja EvaluationP { get; set; }
+            public override string ToString()
+            {
+                return EvaluationP.UserName;
             }
         }
         public MainWindow()
@@ -306,7 +314,8 @@ namespace Ocena_Pracownicza
         private void ReturnButton_Click(object sender, RoutedEventArgs e)
         {
             UserPanel.Visibility = Visibility.Visible;
-            EvaluationDetailsGrid.Visibility = Visibility.Collapsed;
+            EvaluationDetailsGridB.Visibility = Visibility.Collapsed;
+            EvaluationDetailsGridP.Visibility = Visibility.Collapsed;
             ClearTextBoxesInGrid();
         }
         private void OnLoginAttempt(object sender, RoutedEventArgs e)
@@ -326,11 +335,18 @@ namespace Ocena_Pracownicza
                 {
                     using (var context = new AppDbContext())
                     {
-                        var evaluations = context.Evaluations
-                                                 .Where(e => e.UserID == LoggedUser.UserID)
-                                                 .Select(e => new EvaluationRecord { Evaluation = e } )
-                                                 .ToList();
-                        UserEvaluationsListView.ItemsSource = evaluations;
+                        var evaluationsB = context.Evaluations
+                          .Where(e => e.UserID == LoggedUser.UserID)
+                          .Select(e => new EvaluationRecordB { EvaluationB = e })
+                          .ToList();
+                        UserEvaluationsBListView.ItemsSource = evaluationsB;
+
+                        var evaluationsP = context.EvaluationsProdukcja
+                                                  .Where(e => e.UserID == LoggedUser.UserID)
+                                                  .Select(e => new EvaluationRecordP { EvaluationP = e })
+                                                  .ToList();
+
+                        UserEvaluationsPListView.ItemsSource = evaluationsP;
                     }
                     //MessageBox.Show("Prawidłowe Hasło!");
                     Powitanie.Text = $"Witaj, {LoggedUser.FullName}!";
@@ -359,26 +375,41 @@ namespace Ocena_Pracownicza
             return false;
         }
 
-        private void UserEvaluationsListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        private void UserEvaluationsBListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            if (UserEvaluationsListView.SelectedItem is EvaluationRecord selectedEvaluationRecord)
+            if (UserEvaluationsBListView.SelectedItem is EvaluationRecordB selectedEvaluationRecord)
             {
-                var selectedEvaluation = selectedEvaluationRecord.Evaluation;
+                var selectedEvaluation = selectedEvaluationRecord.EvaluationB;
                 UserPanel.Visibility = Visibility.Collapsed;
 
-                Question1Answer.Text = selectedEvaluation.Question1;
-                Question2Answer.Text = selectedEvaluation.Question2;
-                Question3Answer.Text = selectedEvaluation.Question3;
-                Question4Answer.Text = selectedEvaluation.Question4;
-                Question5Answer.Text = selectedEvaluation.Question5;
-                Question6Answer.Text = selectedEvaluation.Question6;
-                Question7Answer.Text = selectedEvaluation.Question7;
-                Question8Answer.Text = selectedEvaluation.Question8;
-                Question9Answer.Text = selectedEvaluation.Question9;
-                Question10Answer.Text = selectedEvaluation.Question10;
-                Question11Answer.Text = selectedEvaluation.Question11;
+                Question1AnswerB.Text = selectedEvaluation.Question1;
+                Question2AnswerB.Text = selectedEvaluation.Question2;
+                Question3AnswerB.Text = selectedEvaluation.Question3;
+                Question4AnswerB.Text = selectedEvaluation.Question4;
+                Question5AnswerB.Text = selectedEvaluation.Question5;
+                Question6AnswerB.Text = selectedEvaluation.Question6;
+                Question7AnswerB.Text = selectedEvaluation.Question7;
+                Question8AnswerB.Text = selectedEvaluation.Question8;
+                Question9AnswerB.Text = selectedEvaluation.Question9;
+                Question10AnswerB.Text = selectedEvaluation.Question10;
+                Question11AnswerB.Text = selectedEvaluation.Question11;
 
-                EvaluationDetailsGrid.Visibility = Visibility.Visible;
+                EvaluationDetailsGridB.Visibility = Visibility.Visible;
+            }
+        }
+        private void UserEvaluationsPListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            if (UserEvaluationsPListView.SelectedItem is EvaluationRecordP selectedEvaluationRecord)
+            {
+                var selectedEvaluation = selectedEvaluationRecord.EvaluationP;
+                UserPanel.Visibility = Visibility.Collapsed;
+
+                Question1AnswerP.Text = selectedEvaluation.Question1;
+                Question2AnswerP.Text = selectedEvaluation.Question2;
+                Question3AnswerP.Text = selectedEvaluation.Question3;
+                Question4AnswerP.Text = selectedEvaluation.Question4;
+
+                EvaluationDetailsGridP.Visibility = Visibility.Visible;
             }
         }
 
@@ -477,18 +508,31 @@ namespace Ocena_Pracownicza
                 }
 
                 // Filtruj oceny według wyszukiwanego tekstu oraz wybranego ID (jeśli jest wybrane).
-                IQueryable<EvaluationBiuro> evaluationsQuery = context.Evaluations.Where(ev => ev.UserName.ToLower().Contains(searchText));
+                IQueryable<EvaluationBiuro> evaluationsQueryB = context.Evaluations.Where(ev => ev.UserName.ToLower().Contains(searchText));
+                IQueryable<EvaluationProdukcja> evaluationsQueryP = context.EvaluationsProdukcja.Where(ev => ev.UserName.ToLower().Contains(searchText));
 
                 if (selectedEvaluatorNameID.HasValue)
                 {
-                    evaluationsQuery = evaluationsQuery.Where(ev => ev.EvaluatorNameID == selectedEvaluatorNameID.Value);
+                    evaluationsQueryB = evaluationsQueryB.Where(ev => ev.EvaluatorNameID == selectedEvaluatorNameID.Value);
+                    evaluationsQueryP = evaluationsQueryP.Where(ev => ev.EvaluatorNameID == selectedEvaluatorNameID.Value);
                 }
 
-                //var filteredEvaluations = evaluationsQuery
-                                          //.Select(ev => new EvaluationRecord { Evaluation = ev })
-                                          //.ToList();
+                if (LoggedUser != null)
+                {
+                    evaluationsQueryB = evaluationsQueryB.Where(ev => ev.UserID == LoggedUser.UserID);
+                    evaluationsQueryP = evaluationsQueryP.Where(ev => ev.UserID == LoggedUser.UserID);
+                }
 
-                //UserEvaluationsListView.ItemsSource = filteredEvaluations;
+
+                var filteredEvaluationsB = evaluationsQueryB
+                                          .Select(ev => new EvaluationRecordB { EvaluationB = ev })
+                                          .ToList();
+                var filteredEvaluationsP = evaluationsQueryP
+                                          .Select(ev => new EvaluationRecordP { EvaluationP = ev })
+                                          .ToList();
+
+                UserEvaluationsBListView.ItemsSource = filteredEvaluationsB;
+                UserEvaluationsPListView.ItemsSource = filteredEvaluationsP;
             }
         }
 
@@ -503,12 +547,20 @@ namespace Ocena_Pracownicza
             SearchAndFilterEvaluations();
         }
 
-        private void PrintButton_Click(object sender, RoutedEventArgs e)
+        private void PrintButtonB_Click(object sender, RoutedEventArgs e)
         {
             PrintDialog printDialog = new PrintDialog();
             if (printDialog.ShowDialog() == true)
             {
-                printDialog.PrintVisual(TestDruk, "Wydruk z aplikacji WPF");
+                printDialog.PrintVisual(TestDrukB, "Wydruk z aplikacji WPF");
+            }
+        }
+        private void PrintButtonP_Click(object sender, RoutedEventArgs e)
+        {
+            PrintDialog printDialog = new PrintDialog();
+            if (printDialog.ShowDialog() == true)
+            {
+                printDialog.PrintVisual(TestDrukP, "Wydruk z aplikacji WPF");
             }
         }
 

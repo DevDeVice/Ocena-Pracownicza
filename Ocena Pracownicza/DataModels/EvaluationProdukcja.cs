@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Ocena_Pracownicza.DataModels
 {
-    class EvaluationProdukcja
+    public class EvaluationProdukcja
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
