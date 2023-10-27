@@ -46,7 +46,8 @@ namespace Ocena_Pracownicza
                                       .Where(user => user.FullName != "Administrator")
                                       .Select(user => user.FullName)
                                       .ToList();
-                AccountsComboBox.ItemsSource = accounts;
+                AccountsComboBoxP.ItemsSource = accounts;
+                AccountsComboBoxB.ItemsSource = accounts;
             }
         }
         private void LoadEvaluationName()
@@ -73,13 +74,24 @@ namespace Ocena_Pracownicza
         }
         private void ClearTextBoxesInGrid()
         {
-            NameTextBox.Text = string.Empty;
-            AccountsComboBox.SelectedItem = null;
-            for (int i = 1; i <= 6; i++)
+            NameTextBoxB.Text = string.Empty;
+            NameTextBoxP.Text = string.Empty;
+            AccountsComboBoxB.SelectedItem = null;
+            AccountsComboBoxP.SelectedItem = null;
+            for (int i = 1; i <= 11; i++)
             {
-                var textBoxName = $"Question{i}TextBox";
+                var textBoxName = $"Question{i}TextBoxB";
                 var textBox = this.FindName(textBoxName) as TextBox;
                 if (textBox != null) 
+                {
+                    textBox.Text = string.Empty;
+                }
+            }
+            for (int i = 1; i <= 4; i++)
+            {
+                var textBoxName = $"Question{i}TextBoxP";
+                var textBox = this.FindName(textBoxName) as TextBox;
+                if (textBox != null)
                 {
                     textBox.Text = string.Empty;
                 }
@@ -94,22 +106,22 @@ namespace Ocena_Pracownicza
             AddHaslo.Text = string.Empty;
         }
 
-        private void SaveFormButton_Click(object sender, RoutedEventArgs e)
+        private void SaveFormButtonB_Click(object sender, RoutedEventArgs e)
         {
             // 1. Walidacja wprowadzonych danych:
-            if (string.IsNullOrEmpty(NameTextBox.Text) ||
-                AccountsComboBox.SelectedItem == null ||
-                string.IsNullOrEmpty(Question1TextBox.Text) ||
-                string.IsNullOrEmpty(Question2TextBox.Text) ||
-                string.IsNullOrEmpty(Question3TextBox.Text) ||
-                string.IsNullOrEmpty(Question4TextBox.Text) ||
-                string.IsNullOrEmpty(Question5TextBox.Text) ||
-                string.IsNullOrEmpty(Question6TextBox.Text) ||
-                string.IsNullOrEmpty(Question7TextBox.Text) ||
-                string.IsNullOrEmpty(Question8TextBox.Text) ||
-                string.IsNullOrEmpty(Question9TextBox.Text) ||
-                string.IsNullOrEmpty(Question10TextBox.Text) ||
-                string.IsNullOrEmpty(Question11TextBox.Text)
+            if (string.IsNullOrEmpty(NameTextBoxB.Text) ||
+                AccountsComboBoxB.SelectedItem == null ||
+                string.IsNullOrEmpty(Question1TextBoxB.Text) ||
+                string.IsNullOrEmpty(Question2TextBoxB.Text) ||
+                string.IsNullOrEmpty(Question3TextBoxB.Text) ||
+                string.IsNullOrEmpty(Question4TextBoxB.Text) ||
+                string.IsNullOrEmpty(Question5TextBoxB.Text) ||
+                string.IsNullOrEmpty(Question6TextBoxB.Text) ||
+                string.IsNullOrEmpty(Question7TextBoxB.Text) ||
+                string.IsNullOrEmpty(Question8TextBoxB.Text) ||
+                string.IsNullOrEmpty(Question9TextBoxB.Text) ||
+                string.IsNullOrEmpty(Question10TextBoxB.Text) ||
+                string.IsNullOrEmpty(Question11TextBoxB.Text)
                 )
             {
                 MessageBox.Show("Wszystkie pola muszą być wypełnione!");
@@ -117,7 +129,7 @@ namespace Ocena_Pracownicza
             }
 
             int? selectedUserID = null;
-            string selectedUserName = AccountsComboBox.SelectedItem.ToString();
+            string selectedUserName = AccountsComboBoxB.SelectedItem.ToString();
             using (var context = new AppDbContext())
             {
                 selectedUserID = context.Users
@@ -154,21 +166,21 @@ namespace Ocena_Pracownicza
 
             var evaluation = new EvaluationBiuro
             {
-                UserName = NameTextBox.Text,
+                UserName = NameTextBoxB.Text,
                 UserID = selectedUserID.Value,
                 EvaluatorNameID = evaluatorNameID.Value,
                 Date = DateTime.Now,
-                Question1 = Question1TextBox.Text,
-                Question2 = Question2TextBox.Text,
-                Question3 = Question3TextBox.Text,
-                Question4 = Question4TextBox.Text,
-                Question5 = Question5TextBox.Text,
-                Question6 = Question6TextBox.Text,
-                Question7 = Question7TextBox.Text,
-                Question8 = Question8TextBox.Text,
-                Question9 = Question9TextBox.Text,
-                Question10 = Question10TextBox.Text,
-                Question11 = Question11TextBox.Text,
+                Question1 = Question1TextBoxB.Text,
+                Question2 = Question2TextBoxB.Text,
+                Question3 = Question3TextBoxB.Text,
+                Question4 = Question4TextBoxB.Text,
+                Question5 = Question5TextBoxB.Text,
+                Question6 = Question6TextBoxB.Text,
+                Question7 = Question7TextBoxB.Text,
+                Question8 = Question8TextBoxB.Text,
+                Question9 = Question9TextBoxB.Text,
+                Question10 = Question10TextBoxB.Text,
+                Question11 = Question11TextBoxB.Text,
             };
 
             // 3. Zapisanie instancji w bazie danych:
@@ -179,11 +191,90 @@ namespace Ocena_Pracownicza
             }
             MessageBox.Show("Ankieta została pomyślnie zapisana!");
         }
-        private void FormButton_Click(object sender, RoutedEventArgs e)
+        private void SaveFormButtonP_Click(object sender, RoutedEventArgs e)
+        {
+            // 1. Walidacja wprowadzonych danych:
+            if (string.IsNullOrEmpty(NameTextBoxP.Text) ||
+                AccountsComboBoxP.SelectedItem == null ||
+                string.IsNullOrEmpty(Question1TextBoxP.Text) ||
+                string.IsNullOrEmpty(Question2TextBoxP.Text) ||
+                string.IsNullOrEmpty(Question3TextBoxP.Text) ||
+                string.IsNullOrEmpty(Question4TextBoxP.Text)
+                )
+            {
+                MessageBox.Show("Wszystkie pola muszą być wypełnione!");
+                return;
+            }
+
+            int? selectedUserID = null;
+            string selectedUserName = AccountsComboBoxP.SelectedItem.ToString();
+            using (var context = new AppDbContext())
+            {
+                selectedUserID = context.Users
+                            .Where(u => u.FullName == selectedUserName)
+                            .Select(u => (int?)u.UserID) // zwracanie UserID jako nullable int
+                            .FirstOrDefault();
+
+                if (!selectedUserID.HasValue) // jeśli nie znaleziono UserID
+                {
+                    MessageBox.Show("Wybrany użytkownik nie istnieje w bazie danych!");
+                    return;
+                }
+            }
+
+            // 2. Stworzenie instancji klasy Evaluation i przypisanie jej wartości:
+            string currentEvaluationName;
+            using (var context = new AppDbContext())
+            {
+                currentEvaluationName = context.GlobalSettings.FirstOrDefault()?.CurrentEvaluationName;
+            }
+            int? evaluatorNameID;
+            using (var context = new AppDbContext())
+            {
+                evaluatorNameID = context.EvaluationNames
+                                         .Where(en => en.EvaluatorName == currentEvaluationName)
+                                         .Select(en => (int?)en.EvaluatorNameID)
+                                         .FirstOrDefault();
+            }
+            if (!evaluatorNameID.HasValue)
+            {
+                MessageBox.Show("Nie znaleziono nazwy oceny w bazie danych!");
+                return;
+            }
+
+            var evaluation = new EvaluationProdukcja
+            {
+                UserName = NameTextBoxP.Text,
+                UserID = selectedUserID.Value,
+                EvaluatorNameID = evaluatorNameID.Value,
+                Date = DateTime.Now,
+                Question1 = Question1TextBoxP.Text,
+                Question2 = Question2TextBoxP.Text,
+                Question3 = Question3TextBoxP.Text,
+                Question4 = Question4TextBoxP.Text
+            };
+
+            // 3. Zapisanie instancji w bazie danych:
+            using (var context = new AppDbContext())
+            {
+                context.EvaluationsProdukcja.Add(evaluation);
+                context.SaveChanges();
+            }
+            MessageBox.Show("Ankieta została pomyślnie zapisana!");
+        }
+        private void FormBiuroButton_Click(object sender, RoutedEventArgs e)
         {
             FormPanelBiuro.Visibility = Visibility.Visible;
             BackButton.Visibility = Visibility.Visible;
             MenuPanel.Visibility = Visibility.Collapsed;
+            Login.Visibility = Visibility.Collapsed;
+        }
+        private void FormProdukcjaButton_Click(object sender, RoutedEventArgs e)
+        {
+            FormPanelProdukcja.Visibility = Visibility.Visible;
+            BackButton.Visibility = Visibility.Visible;
+            MenuPanel.Visibility = Visibility.Collapsed;
+            Login.Visibility = Visibility.Collapsed;
         }
 
         private void LoginButton_Click(object sender, RoutedEventArgs e)
@@ -200,6 +291,7 @@ namespace Ocena_Pracownicza
             Login.Visibility = Visibility.Visible;
             LoginPanel.Visibility = Visibility.Collapsed;
             FormPanelBiuro.Visibility = Visibility.Collapsed;
+            FormPanelProdukcja.Visibility= Visibility.Collapsed;
             BackButton.Visibility = Visibility.Collapsed;
             ClearTextBoxesInGrid();
         }
@@ -423,11 +515,6 @@ namespace Ocena_Pracownicza
         private void CloseButton_Click(object sender, RoutedEventArgs e)
         {
             Application.Current.Shutdown();
-        }
-
-        private void FormBiuroButton_Click(object sender, RoutedEventArgs e)
-        {
-
         }
     }
 }
