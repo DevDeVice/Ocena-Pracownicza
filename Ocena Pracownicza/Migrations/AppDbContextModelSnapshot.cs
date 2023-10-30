@@ -84,7 +84,7 @@ namespace Ocena_Pracownicza.Migrations
 
                     b.HasKey("EvaluationID");
 
-                    b.ToTable("Evaluations", (string)null);
+                    b.ToTable("Evaluations");
                 });
 
             modelBuilder.Entity("Ocena_Pracownicza.DataModels.EvaluationName", b =>
@@ -99,7 +99,7 @@ namespace Ocena_Pracownicza.Migrations
 
                     b.HasKey("EvaluatorNameID");
 
-                    b.ToTable("EvaluationNames", (string)null);
+                    b.ToTable("EvaluationNames");
                 });
 
             modelBuilder.Entity("Ocena_Pracownicza.DataModels.EvaluationProdukcja", b =>
@@ -139,7 +139,7 @@ namespace Ocena_Pracownicza.Migrations
 
                     b.HasKey("EvaluationID");
 
-                    b.ToTable("EvaluationsProdukcja", (string)null);
+                    b.ToTable("EvaluationsProdukcja");
                 });
 
             modelBuilder.Entity("Ocena_Pracownicza.DataModels.GlobalSettings", b =>
@@ -154,7 +154,7 @@ namespace Ocena_Pracownicza.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("GlobalSettings", (string)null);
+                    b.ToTable("GlobalSettings");
                 });
 
             modelBuilder.Entity("Ocena_Pracownicza.DataModels.User", b =>
@@ -162,6 +162,9 @@ namespace Ocena_Pracownicza.Migrations
                     b.Property<int>("UserID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    b.Property<bool>("Enabled")
+                        .HasColumnType("tinyint(1)");
 
                     b.Property<string>("FullName")
                         .IsRequired()
@@ -177,7 +180,7 @@ namespace Ocena_Pracownicza.Migrations
 
                     b.HasKey("UserID");
 
-                    b.ToTable("Users", (string)null);
+                    b.ToTable("Users");
                 });
 #pragma warning restore 612, 618
         }

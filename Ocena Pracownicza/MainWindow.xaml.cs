@@ -51,11 +51,13 @@ namespace Ocena_Pracownicza
             using (var context = new AppDbContext())
             {
                 var accounts = context.Users
-                                      .Where(user => user.FullName != "Administrator")
+                                      .Where(user => user.FullName != "Administrator" && user.Enabled != false)
                                       .Select(user => user.FullName)
                                       .ToList();
                 AccountsComboBoxP.ItemsSource = accounts;
                 AccountsComboBoxB.ItemsSource = accounts;
+                AccountsComboBoxDelete.ItemsSource = accounts;
+                AccountsComboBoxResetPassword.ItemsSource = accounts;
             }
         }
         private void LoadEvaluationName()
@@ -366,7 +368,7 @@ namespace Ocena_Pracownicza
             using (var context = new AppDbContext())
             {
                 var user = context.Users.FirstOrDefault(u => u.Login == username);
-                if (user != null && user.Password == password)
+                if (user != null && user.Password == password && user.Enabled != false)
                 {
                     LoggedUser = user;
                     return true;
@@ -567,6 +569,68 @@ namespace Ocena_Pracownicza
         private void CloseButton_Click(object sender, RoutedEventArgs e)
         {
             Application.Current.Shutdown();
+        }
+
+        private void AccountsDeleteButton_Click(object sender, RoutedEventArgs e)
+        {
+            // 1. Odczytaj wartość z ComboBox
+            var selectedUserName = AccountsComboBoxDelete.SelectedItem as string;
+
+            if (string.IsNullOrEmpty(selectedUserName))
+            {
+                MessageBox.Show("Wybierz użytkownika z listy!");
+                return;
+            }
+
+            using (var context = new AppDbContext())
+            {
+                // 2. Znajdź użytkownika o wybranej nazwie
+                var user = context.Users.FirstOrDefault(u => u.FullName == selectedUserName);
+
+                if (user == null)
+                {
+                    MessageBox.Show("Nie znaleziono użytkownika!");
+                    return;
+                }
+
+                // 3. Zmień wartość Enabled na 0
+                user.Enabled = false;
+
+                // 4. Zapisz zmiany w bazie danych
+                context.SaveChanges();
+            }
+            MessageBox.Show($"Użytkownik {selectedUserName} został dezaktywowany!");
+            LoadAccounts();
+        }
+
+        private void AccountsResetButton_Click(object sender, RoutedEventArgs e)
+        {
+            var selectedUserName = AccountsComboBoxResetPassword.SelectedItem as string;
+
+            if (string.IsNullOrEmpty(selectedUserName))
+            {
+                MessageBox.Show("Wybierz użytkownika z listy!");
+                return;
+            }
+
+            using (var context = new AppDbContext())
+            {
+                // 2. Znajdź użytkownika o wybranej nazwie
+                var user = context.Users.FirstOrDefault(u => u.FullName == selectedUserName);
+
+                if (user == null)
+                {
+                    MessageBox.Show("Nie znaleziono użytkownika!");
+                    return;
+                }
+
+                // 3. Zmień wartość Enabled na 0
+                user.Password = ResetPassword.Text;
+
+                // 4. Zapisz zmiany w bazie danych
+                context.SaveChanges();
+            }
+            MessageBox.Show($"Hasło użytkownika {selectedUserName} zostało zmienione!");
         }
     }
 }
