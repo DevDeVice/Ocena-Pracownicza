@@ -45,6 +45,7 @@ namespace Ocena_Pracownicza
             LoadAccounts();
             LoadEvaluationName();
             LoadComboBoxData();
+            LoadDelatedUser();
         }
         private void LoadAccounts()
         {
@@ -58,6 +59,7 @@ namespace Ocena_Pracownicza
                 AccountsComboBoxB.ItemsSource = accounts;
                 AccountsComboBoxDelete.ItemsSource = accounts;
                 AccountsComboBoxResetPassword.ItemsSource = accounts;
+                AccountsComboBoxAdd.ItemsSource = accounts;
             }
         }
         private void LoadEvaluationName()
@@ -82,6 +84,18 @@ namespace Ocena_Pracownicza
                 EvaluationNameComboBox.SelectedIndex = 0;
             }
         }
+        private void LoadDelatedUser()
+        {
+            using (var context = new AppDbContext())
+            {
+                var accounts = context.Users
+                                      .Where(user => user.FullName != "Administrator" && user.Enabled == false)
+                                      .Select(user => user.FullName)
+                                      .ToList();
+                AccountsComboBoxRestore.ItemsSource = accounts;
+            }
+        }
+
         private void ClearTextBoxesInGrid()
         {
             NameTextBoxB.Text = string.Empty;
@@ -443,16 +457,21 @@ namespace Ocena_Pracownicza
                 MessageBox.Show("Uzupełnij pola!");
                 return;
             }
-
-            var user = new User
-            {
-                FullName = AddImieNazwisko.Text,
-                Login = AddLogin.Text,
-                Password = AddHaslo.Text,
-            };
-
+            
             using (var context = new AppDbContext())
             {
+                string? selectedManagerName = AccountsComboBoxAdd.SelectedItem.ToString();
+
+                var manager = context.Users.FirstOrDefault(u => u.FullName == selectedManagerName);
+
+                var user = new User
+                {
+                    FullName = AddImieNazwisko.Text,
+                    Login = AddLogin.Text,
+                    Password = AddHaslo.Text,
+                    ManagerId = manager.UserID,
+                };
+
                 context.Users.Add(user);
                 context.SaveChanges();
             }
@@ -601,6 +620,38 @@ namespace Ocena_Pracownicza
             }
             MessageBox.Show($"Użytkownik {selectedUserName} został dezaktywowany!");
             LoadAccounts();
+            LoadDelatedUser();
+        }
+        private void AccountsRestoryButton_Click(object sender, RoutedEventArgs e)
+        {
+            var selectedUserName = AccountsComboBoxRestore.SelectedItem as string;
+
+            if (string.IsNullOrEmpty(selectedUserName))
+            {
+                MessageBox.Show("Wybierz użytkownika z listy!");
+                return;
+            }
+
+            using (var context = new AppDbContext())
+            {
+                // 2. Znajdź użytkownika o wybranej nazwie
+                var user = context.Users.FirstOrDefault(u => u.FullName == selectedUserName);
+
+                if (user == null)
+                {
+                    MessageBox.Show("Nie znaleziono użytkownika!");
+                    return;
+                }
+
+                // 3. Zmień wartość Enabled na 0
+                user.Enabled = true;
+
+                // 4. Zapisz zmiany w bazie danych
+                context.SaveChanges();
+            }
+            MessageBox.Show($"Użytkownik {selectedUserName} został aktywowany!");
+            LoadAccounts();
+            LoadDelatedUser();
         }
 
         private void AccountsResetButton_Click(object sender, RoutedEventArgs e)

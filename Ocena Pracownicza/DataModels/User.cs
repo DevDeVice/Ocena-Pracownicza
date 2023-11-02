@@ -16,6 +16,7 @@ namespace Ocena_Pracownicza.DataModels
         public string FullName { get; set; }
         public string Login { get; set; }
         public string Password { get; set; }
+        public int? ManagerId { get; set; }
         public bool Enabled { get; set; }
 
     }
