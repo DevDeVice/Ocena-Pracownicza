@@ -200,6 +200,12 @@
                 <ListView x:Name="UserEvaluationsPListView" VerticalAlignment="Top" Width="500" Margin="0,100,0,0" MouseDoubleClick="UserEvaluationsPListView_MouseDoubleClick">
                     <!-- Możesz dostosować wygląd itemów tutaj, np. używając DataTemplate -->
                 </ListView>
+                <ListView x:Name="UserEvaluationsBListViewAll" VerticalAlignment="Top" Width="500" MouseDoubleClick="UserEvaluationsBListView_MouseDoubleClick">
+                    <!-- Możesz dostosować wygląd itemów tutaj, np. używając DataTemplate -->
+                </ListView>
+                <ListView x:Name="UserEvaluationsPListViewAll" VerticalAlignment="Top" Width="500" Margin="0,100,0,0" MouseDoubleClick="UserEvaluationsPListView_MouseDoubleClick">
+                    <!-- Możesz dostosować wygląd itemów tutaj, np. używając DataTemplate -->
+                </ListView>
             </StackPanel>
             <!-- Inne elementy interfejsu dla zalogowanego użytkownika tutaj -->
         </Grid>

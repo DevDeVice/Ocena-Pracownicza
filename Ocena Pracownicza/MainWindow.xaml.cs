@@ -369,6 +369,36 @@ namespace Ocena_Pracownicza
                     LoginPanel.Visibility = Visibility.Collapsed;
                     BackButton.Visibility = Visibility.Collapsed;
                     UserPanel.Visibility = Visibility.Visible;
+
+                    List<User> subordinates;
+                    using (var context = new AppDbContext())
+                    {
+                        subordinates = context.Users
+                                              .Where(u => u.ManagerId == LoggedUser.UserID)
+                                              .ToList();
+                    }
+                    List<EvaluationRecordB> allEvaluationsB = new List<EvaluationRecordB>();
+                    List<EvaluationRecordP> allEvaluationsP = new List<EvaluationRecordP>();
+
+                    foreach (var subordinate in subordinates)
+                    {
+                        using (var context = new AppDbContext())
+                        {
+                            var evaluationsB = context.Evaluations
+                                                      .Where(e => e.UserID == subordinate.UserID)
+                                                      .Select(e => new EvaluationRecordB { EvaluationB = e })
+                                                      .ToList();
+                            allEvaluationsB.AddRange(evaluationsB);
+
+                            var evaluationsP = context.EvaluationsProdukcja
+                                                      .Where(e => e.UserID == subordinate.UserID)
+                                                      .Select(e => new EvaluationRecordP { EvaluationP = e })
+                                                      .ToList();
+                            allEvaluationsP.AddRange(evaluationsP);
+                        }
+                    }
+                    UserEvaluationsBListViewAll.ItemsSource = allEvaluationsB;
+                    UserEvaluationsPListViewAll.ItemsSource = allEvaluationsP;
                 }
             }
             else
@@ -469,6 +499,7 @@ namespace Ocena_Pracownicza
                     FullName = AddImieNazwisko.Text,
                     Login = AddLogin.Text,
                     Password = AddHaslo.Text,
+                    Enabled = true,
                     ManagerId = manager.UserID,
                 };
 
