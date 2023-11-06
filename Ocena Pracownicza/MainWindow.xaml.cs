@@ -44,7 +44,7 @@ namespace Ocena_Pracownicza
             InitializeComponent();
             LoadAccounts();
             LoadEvaluationName();
-            LoadComboBoxData();
+            LoadComboBoxData(); 
             LoadDelatedUser();
         }
         private void LoadAccounts()
