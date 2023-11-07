@@ -493,6 +493,13 @@ namespace Ocena_Pracownicza
             
             using (var context = new AppDbContext())
             {
+                bool loginExists = context.Users.Any(u => u.Login == AddLogin.Text);
+
+                if (loginExists)
+                {
+                    MessageBox.Show("Użytkownik o takim loginie już istnieje.");
+                    return;
+                }
                 string? selectedManagerName = AccountsComboBoxAdd.SelectedItem.ToString();
 
                 var manager = context.Users.FirstOrDefault(u => u.FullName == selectedManagerName);
