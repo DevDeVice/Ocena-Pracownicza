@@ -1,4 +1,5 @@
-﻿using Ocena_Pracownicza.DataModels;
+﻿using Microsoft.Extensions.Options;
+using Ocena_Pracownicza.DataModels;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -41,6 +42,8 @@ namespace Ocena_Pracownicza
         }
         public MainWindow()
         {
+            LoggedUser= new User();
+            LoggedUser.UserID = 0;
             InitializeComponent();
             LoadAccounts();
             LoadEvaluationName();
@@ -585,6 +588,52 @@ namespace Ocena_Pracownicza
 
                 UserEvaluationsBListView.ItemsSource = filteredEvaluationsB;
                 UserEvaluationsPListView.ItemsSource = filteredEvaluationsP;
+
+                List<User> subordinates;
+                subordinates = context.Users
+                    .Where(u => u.ManagerId == LoggedUser.UserID)
+                    .ToList();
+                List<EvaluationRecordB> allEvaluationsB = new List<EvaluationRecordB>();
+                List<EvaluationRecordP> allEvaluationsP = new List<EvaluationRecordP>();
+
+                foreach (var subordinate in subordinates)
+                {
+                    evaluationsQueryB = context.Evaluations.Where(ev => ev.UserName.ToLower().Contains(searchText) && ev.UserID == subordinate.UserID);
+                    evaluationsQueryP = context.EvaluationsProdukcja.Where(ev => ev.UserName.ToLower().Contains(searchText) && ev.UserID == subordinate.UserID);
+                  
+                    if (selectedEvaluatorNameID.HasValue)
+                    {
+                        evaluationsQueryB = evaluationsQueryB.Where(ev => ev.EvaluatorNameID == selectedEvaluatorNameID.Value);
+                    }
+                    if (LoggedUser != null)
+                    {
+                        evaluationsQueryB = evaluationsQueryB.Where(ev => ev.UserID == LoggedUser.UserID);
+                    }
+                    filteredEvaluationsB = evaluationsQueryB
+                                          .Select(ev => new EvaluationRecordB { EvaluationB = ev })
+                                          .ToList();
+                    allEvaluationsB.AddRange(filteredEvaluationsB);
+
+                    var evaluationsP = context.EvaluationsProdukcja
+                        .Where(e => e.UserID == subordinate.UserID && e.UserName.ToLower().Contains(searchText))
+                        .Select(e => new EvaluationRecordP { EvaluationP = e })
+                        .ToList();
+                    if (selectedEvaluatorNameID.HasValue)
+                    {
+                        evaluationsQueryP = evaluationsQueryP.Where(ev => ev.EvaluatorNameID == selectedEvaluatorNameID.Value);
+                    }
+
+                    if (LoggedUser != null)
+                    {
+                        evaluationsQueryP = evaluationsQueryP.Where(ev => ev.UserID == LoggedUser.UserID);
+                    }
+                    filteredEvaluationsP = evaluationsQueryP
+                                          .Select(ev => new EvaluationRecordP { EvaluationP = ev })
+                                          .ToList();
+                    allEvaluationsP.AddRange(filteredEvaluationsP);
+                }
+                UserEvaluationsBListViewAll.ItemsSource = allEvaluationsB;
+                UserEvaluationsPListViewAll.ItemsSource = allEvaluationsP;
             }
         }
 
