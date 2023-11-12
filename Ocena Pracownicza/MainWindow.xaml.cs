@@ -466,7 +466,7 @@ namespace Ocena_Pracownicza
         {
             if (string.IsNullOrEmpty(AddEvaluationNameTextBox.Text))
             {
-                MessageBox.Show("Podaj nazwe!");
+                MessageBox.Show("Podaj nazwe!"); 
                 return;
             }
 
