@@ -201,7 +201,7 @@
             </StackPanel>
         </Grid>
 
-        <Grid x:Name="UserPanel" Visibility="Collapsed">
+        <Grid x:Name="UserPanel" Visibility="Visible">
             <Button Content="Wyloguj" VerticalAlignment="Top" HorizontalAlignment="Left" Width="300" Height="40" Margin="50,50,0,0" Click="LogoutButton_Click" />
             <TextBlock x:Name="Powitanie" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,80,0,0" Width="300" TextAlignment="Center"/>
             <TextBlock HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,115,350,0" Width="150" Height="20" Text="Wyszukaj:"/>
@@ -214,10 +214,10 @@
                 <ListView x:Name="UserEvaluationsPListView" VerticalAlignment="Top" Width="500" Margin="0,100,0,0" MouseDoubleClick="UserEvaluationsPListView_MouseDoubleClick">
                     <!-- Możesz dostosować wygląd itemów tutaj, np. używając DataTemplate -->
                 </ListView>
-                <ListView x:Name="UserEvaluationsBListViewAll" VerticalAlignment="Top" Width="500" Margin="0,100,0,0" MouseDoubleClick="UserEvaluationsBListView_MouseDoubleClick">
+                <ListView x:Name="UserEvaluationsBListViewAll" VerticalAlignment="Top" Width="500" Margin="0,100,0,0" MouseDoubleClick="UserEvaluationsBListViewAll_MouseDoubleClick">
                     <!-- Możesz dostosować wygląd itemów tutaj, np. używając DataTemplate -->
                 </ListView>
-                <ListView x:Name="UserEvaluationsPListViewAll" VerticalAlignment="Top" Width="500" Margin="0,100,0,0" MouseDoubleClick="UserEvaluationsPListView_MouseDoubleClick">
+                <ListView x:Name="UserEvaluationsPListViewAll" VerticalAlignment="Top" Width="500" Margin="0,100,0,0" MouseDoubleClick="UserEvaluationsPListViewAll_MouseDoubleClick">
                     <!-- Możesz dostosować wygląd itemów tutaj, np. używając DataTemplate -->
                 </ListView>
             </StackPanel>
@@ -275,18 +275,29 @@
             <Button Content="Odpowiedz" VerticalAlignment="Top" HorizontalAlignment="Right" Width="300" Height="40" Margin="0,120,-410,0"></Button>
             <!-- Układ z szczegółami oceny -->
         </Grid>
-        <Grid x:Name="EvaluationDetailsGridP" Visibility="Visible" Width="1000">
+        <Grid x:Name="EvaluationDetailsGridP" Visibility="Collapsed" Width="1000">
             <Button Content="Return" VerticalAlignment="Top" HorizontalAlignment="Left" Width="300" Height="40" Margin="-410,50,0,0" Click="ReturnButton_Click" Panel.ZIndex="1" />
             <StackPanel x:Name="TestDrukP" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,50,0,0" Width="700px">
-                <TextBlock Text="Pytanie 1" Style="{StaticResource QuestionStyle}"/>
+                <Border Background="#FFFCCE17" CornerRadius="10" Padding="5">
+                    <TextBlock Text="Pytanie 1" Style="{StaticResource QuestionStyle}"/>
+                </Border>
                 <TextBlock x:Name="Question1AnswerP" Text="Odpowiedź na pytanie 1:" Style="{StaticResource AnswerStyle}" TextWrapping="Wrap"/>
-                <TextBlock Text="Pytanie 2" Style="{StaticResource QuestionStyle}"/>
+                <Border Background="#FFFCCE17" CornerRadius="10" Padding="5">
+                    <TextBlock Text="Pytanie 2" Style="{StaticResource QuestionStyle}"/>
+                </Border>
                 <TextBlock x:Name="Question2AnswerP" Text="Odpowiedź na pytanie 2:" Style="{StaticResource AnswerStyle}" TextWrapping="Wrap"/>
-                <TextBlock Text="Pytanie 3" Style="{StaticResource QuestionStyle}"/>
+                <Border Background="#FFFCCE17" CornerRadius="10" Padding="5">
+                    <TextBlock Text="Pytanie 3" Style="{StaticResource QuestionStyle}"/>
+                </Border>
                 <TextBlock x:Name="Question3AnswerP" Text="Odpowiedź na pytanie 3:" Style="{StaticResource AnswerStyle}" TextWrapping="Wrap"/>
-                <TextBlock Text="Pytanie 4" Style="{StaticResource QuestionStyle}"/>
+                <Border Background="#FFFCCE17" CornerRadius="10" Padding="5">
+                    <TextBlock Text="Pytanie 4" Style="{StaticResource QuestionStyle}"/>
+                </Border>
                 <TextBlock x:Name="Question4AnswerP" Text="Odpowiedź na pytanie 4:" Style="{StaticResource AnswerStyle}" TextWrapping="Wrap"/>
-                <TextBlock Text="Pytanie 5" Style="{StaticResource QuestionStyle}"/>
+                <Border Background="#FFFCCE17" CornerRadius="10" Padding="5">
+                    <TextBlock Text="Pytanie 5" Style="{StaticResource QuestionStyle}"/>
+                </Border>
+                <TextBlock x:Name="Question5AnswerP" Text="Odpowiedź na pytanie 5:" Style="{StaticResource AnswerStyle}" TextWrapping="Wrap"/>
             </StackPanel>
             <Button Content="Drukuj" VerticalAlignment="Top" HorizontalAlignment="Right" Width="300" Height="40" Margin="0,50,-410,0" Click="PrintButtonB_Click"></Button>
             <Button Content="Odpowiedz" VerticalAlignment="Top" HorizontalAlignment="Right" Width="300" Height="40" Margin="0,120,-410,0"></Button>

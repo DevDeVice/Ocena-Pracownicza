@@ -441,7 +441,31 @@ namespace Ocena_Pracownicza
 
         private void UserEvaluationsBListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
+
             if (UserEvaluationsBListView.SelectedItem is EvaluationRecordB selectedEvaluationRecord)
+            {
+                var selectedEvaluation = selectedEvaluationRecord.EvaluationB;
+                UserPanel.Visibility = Visibility.Collapsed;
+
+                Question1AnswerB.Text = selectedEvaluation.Question1;
+                Question2AnswerB.Text = selectedEvaluation.Question2;
+                Question3AnswerB.Text = selectedEvaluation.Question3;
+                Question4AnswerB.Text = selectedEvaluation.Question4;
+                Question5AnswerB.Text = selectedEvaluation.Question5;
+                Question6AnswerB.Text = selectedEvaluation.Question6;
+                Question7AnswerB.Text = selectedEvaluation.Question7;
+                Question8AnswerB.Text = selectedEvaluation.Question8;
+                Question9AnswerB.Text = selectedEvaluation.Question9;
+                Question10AnswerB.Text = selectedEvaluation.Question10;
+                Question11AnswerB.Text = selectedEvaluation.Question11;
+
+                EvaluationDetailsGridB.Visibility = Visibility.Visible;
+            }
+        }
+        private void UserEvaluationsBListViewAll_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+
+            if (UserEvaluationsBListViewAll.SelectedItem is EvaluationRecordB selectedEvaluationRecord)
             {
                 var selectedEvaluation = selectedEvaluationRecord.EvaluationB;
                 UserPanel.Visibility = Visibility.Collapsed;
@@ -464,6 +488,21 @@ namespace Ocena_Pracownicza
         private void UserEvaluationsPListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             if (UserEvaluationsPListView.SelectedItem is EvaluationRecordP selectedEvaluationRecord)
+            {
+                var selectedEvaluation = selectedEvaluationRecord.EvaluationP;
+                UserPanel.Visibility = Visibility.Collapsed;
+
+                Question1AnswerP.Text = selectedEvaluation.Question1;
+                Question2AnswerP.Text = selectedEvaluation.Question2;
+                Question3AnswerP.Text = selectedEvaluation.Question3;
+                Question4AnswerP.Text = selectedEvaluation.Question4;
+
+                EvaluationDetailsGridP.Visibility = Visibility.Visible;
+            }
+        }
+        private void UserEvaluationsPListViewAll_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            if (UserEvaluationsPListViewAll.SelectedItem is EvaluationRecordP selectedEvaluationRecord)
             {
                 var selectedEvaluation = selectedEvaluationRecord.EvaluationP;
                 UserPanel.Visibility = Visibility.Collapsed;
