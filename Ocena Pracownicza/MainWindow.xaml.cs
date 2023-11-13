@@ -63,6 +63,7 @@ namespace Ocena_Pracownicza
                 AccountsComboBoxDelete.ItemsSource = accounts;
                 AccountsComboBoxResetPassword.ItemsSource = accounts;
                 AccountsComboBoxAdd.ItemsSource = accounts;
+                AccountsComboBoxToChangeManager.ItemsSource = accounts;
             }
         }
         private void LoadEvaluationName()
@@ -383,23 +384,8 @@ namespace Ocena_Pracownicza
                     List<EvaluationRecordB> allEvaluationsB = new List<EvaluationRecordB>();
                     List<EvaluationRecordP> allEvaluationsP = new List<EvaluationRecordP>();
 
-                    foreach (var subordinate in subordinates)
-                    {
-                        using (var context = new AppDbContext())
-                        {
-                            var evaluationsB = context.Evaluations
-                                                      .Where(e => e.UserID == subordinate.UserID)
-                                                      .Select(e => new EvaluationRecordB { EvaluationB = e })
-                                                      .ToList();
-                            allEvaluationsB.AddRange(evaluationsB);
+                    FetchEvaluationsAndSubordinates(LoggedUser.UserID, allEvaluationsB, allEvaluationsP);
 
-                            var evaluationsP = context.EvaluationsProdukcja
-                                                      .Where(e => e.UserID == subordinate.UserID)
-                                                      .Select(e => new EvaluationRecordP { EvaluationP = e })
-                                                      .ToList();
-                            allEvaluationsP.AddRange(evaluationsP);
-                        }
-                    }
                     UserEvaluationsBListViewAll.ItemsSource = allEvaluationsB;
                     UserEvaluationsPListViewAll.ItemsSource = allEvaluationsP;
                 }
@@ -407,6 +393,35 @@ namespace Ocena_Pracownicza
             else
             {
                 MessageBox.Show("Nieprawidłowy login lub hasło!");
+            }
+        }
+        private void FetchEvaluationsAndSubordinates(int userId, List<EvaluationRecordB> allEvaluationsB, List<EvaluationRecordP> allEvaluationsP)
+        {
+            using (var context = new AppDbContext())
+            {
+                // Pobierz oceny dla użytkownika
+                var evaluationsB = context.Evaluations
+                                          .Where(e => e.UserID == userId)
+                                          .Select(e => new EvaluationRecordB { EvaluationB = e })
+                                          .ToList();
+                allEvaluationsB.AddRange(evaluationsB);
+
+                var evaluationsP = context.EvaluationsProdukcja
+                                          .Where(e => e.UserID == userId)
+                                          .Select(e => new EvaluationRecordP { EvaluationP = e })
+                                          .ToList();
+                allEvaluationsP.AddRange(evaluationsP);
+
+                // Pobierz podwładnych użytkownika
+                var subordinates = context.Users
+                                          .Where(u => u.ManagerId == userId)
+                                          .ToList();
+
+                // Rekurencyjne wywołanie dla każdego podwładnego
+                foreach (var subordinate in subordinates)
+                {
+                    FetchEvaluationsAndSubordinates(subordinate.UserID, allEvaluationsB, allEvaluationsP);
+                }
             }
         }
 
@@ -547,8 +562,13 @@ namespace Ocena_Pracownicza
 
         private void SearchAndFilterEvaluations()
         {
-            string searchText = Search.Text.ToLower();
+            if (LoggedUser == null)
+            {
+                MessageBox.Show("Brak zalogowanego użytkownika!");
+                return;
+            }
 
+            string searchText = Search.Text.ToLower();
             string selectedEvaluationName = EvaluationNameComboBox.SelectedItem?.ToString();
             int? selectedEvaluatorNameID = null;
 
@@ -556,7 +576,6 @@ namespace Ocena_Pracownicza
             {
                 if (selectedEvaluationName != null && selectedEvaluationName != "Wszystkie")
                 {
-                    // Pobierz ID wybranej nazwy oceny.
                     selectedEvaluatorNameID = context.EvaluationNames
                                                      .Where(en => en.EvaluatorName == selectedEvaluationName)
                                                      .Select(en => (int?)en.EvaluatorNameID)
@@ -569,72 +588,44 @@ namespace Ocena_Pracownicza
                     }
                 }
 
-                // Filtruj oceny według wyszukiwanego tekstu oraz wybranego ID (jeśli jest wybrane).
-                IQueryable<EvaluationBiuro> evaluationsQueryB = context.Evaluations.Where(ev => ev.UserName.ToLower().Contains(searchText));
-                IQueryable<EvaluationProdukcja> evaluationsQueryP = context.EvaluationsProdukcja.Where(ev => ev.UserName.ToLower().Contains(searchText));
-
-                if (selectedEvaluatorNameID.HasValue)
-                {
-                    evaluationsQueryB = evaluationsQueryB.Where(ev => ev.EvaluatorNameID == selectedEvaluatorNameID.Value);
-                    evaluationsQueryP = evaluationsQueryP.Where(ev => ev.EvaluatorNameID == selectedEvaluatorNameID.Value);
-                }
-
-                if (LoggedUser != null)
-                {
-                    evaluationsQueryB = evaluationsQueryB.Where(ev => ev.UserID == LoggedUser.UserID);
-                    evaluationsQueryP = evaluationsQueryP.Where(ev => ev.UserID == LoggedUser.UserID);
-                }
-
-
-                var filteredEvaluationsB = evaluationsQueryB
-                                          .Select(ev => new EvaluationRecordB { EvaluationB = ev })
-                                          .ToList();
-                var filteredEvaluationsP = evaluationsQueryP
-                                          .Select(ev => new EvaluationRecordP { EvaluationP = ev })
-                                          .ToList();
-
-                UserEvaluationsBListView.ItemsSource = filteredEvaluationsB;
-                UserEvaluationsPListView.ItemsSource = filteredEvaluationsP;
-
-
-
-
-                List<User> subordinates;
-                subordinates = context.Users
-                    .Where(u => u.ManagerId == LoggedUser.UserID)
-                    .ToList();
                 List<EvaluationRecordB> allEvaluationsB = new List<EvaluationRecordB>();
                 List<EvaluationRecordP> allEvaluationsP = new List<EvaluationRecordP>();
 
-                foreach (var subordinate in subordinates)
-                {
-                    evaluationsQueryB = context.Evaluations.Where(ev => ev.UserName.ToLower().Contains(searchText) && ev.UserID == subordinate.UserID);
-                    evaluationsQueryP = context.EvaluationsProdukcja.Where(ev => ev.UserName.ToLower().Contains(searchText) && ev.UserID == subordinate.UserID);
-                  
-                    if (selectedEvaluatorNameID.HasValue)
-                    {
-                        evaluationsQueryB = evaluationsQueryB.Where(ev => ev.EvaluatorNameID == selectedEvaluatorNameID.Value);
-                    }
-                    filteredEvaluationsB = evaluationsQueryB
-                                          .Select(ev => new EvaluationRecordB { EvaluationB = ev })
-                                          .ToList();
-                    allEvaluationsB.AddRange(filteredEvaluationsB);
+                FilterEvaluationsForUserAndSubordinates(LoggedUser.UserID, searchText, selectedEvaluatorNameID, allEvaluationsB, allEvaluationsP);
 
-                    var evaluationsP = context.EvaluationsProdukcja
-                        .Where(e => e.UserID == subordinate.UserID && e.UserName.ToLower().Contains(searchText))
-                        .Select(e => new EvaluationRecordP { EvaluationP = e })
-                        .ToList();
-                    if (selectedEvaluatorNameID.HasValue)
-                    {
-                        evaluationsQueryP = evaluationsQueryP.Where(ev => ev.EvaluatorNameID == selectedEvaluatorNameID.Value);
-                    }
-                    filteredEvaluationsP = evaluationsQueryP
-                                          .Select(ev => new EvaluationRecordP { EvaluationP = ev })
-                                          .ToList();
-                    allEvaluationsP.AddRange(filteredEvaluationsP);
-                }
                 UserEvaluationsBListViewAll.ItemsSource = allEvaluationsB;
                 UserEvaluationsPListViewAll.ItemsSource = allEvaluationsP;
+            }
+        }
+
+        private void FilterEvaluationsForUserAndSubordinates(int userId, string searchText, int? evaluatorNameId, List<EvaluationRecordB> allEvaluationsB, List<EvaluationRecordP> allEvaluationsP)
+        {
+            using (var context = new AppDbContext())
+            {
+                var evaluationsQueryB = context.Evaluations
+                                               .Where(ev => ev.UserID == userId && ev.UserName.ToLower().Contains(searchText));
+
+                var evaluationsQueryP = context.EvaluationsProdukcja
+                                               .Where(ev => ev.UserID == userId && ev.UserName.ToLower().Contains(searchText));
+
+                if (evaluatorNameId.HasValue)
+                {
+                    evaluationsQueryB = evaluationsQueryB.Where(ev => ev.EvaluatorNameID == evaluatorNameId.Value);
+                    evaluationsQueryP = evaluationsQueryP.Where(ev => ev.EvaluatorNameID == evaluatorNameId.Value);
+                }
+
+                var filteredEvaluationsB = evaluationsQueryB.Select(ev => new EvaluationRecordB { EvaluationB = ev }).ToList();
+                var filteredEvaluationsP = evaluationsQueryP.Select(ev => new EvaluationRecordP { EvaluationP = ev }).ToList();
+
+                allEvaluationsB.AddRange(filteredEvaluationsB);
+                allEvaluationsP.AddRange(filteredEvaluationsP);
+
+                // Rekurencyjne wywołanie dla każdego podwładnego
+                var subordinates = context.Users.Where(u => u.ManagerId == userId).ToList();
+                foreach (var subordinate in subordinates)
+                {
+                    FilterEvaluationsForUserAndSubordinates(subordinate.UserID, searchText, evaluatorNameId, allEvaluationsB, allEvaluationsP);
+                }
             }
         }
 
@@ -763,6 +754,25 @@ namespace Ocena_Pracownicza
                 context.SaveChanges();
             }
             MessageBox.Show($"Hasło użytkownika {selectedUserName} zostało zmienione!");
+        }
+        private void AccountsChangeManager_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void AccountsComboBoxToChangeManager_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            AccountsComboBoxNewManager.SelectedItem = null;
+            using (var context = new AppDbContext())
+            {
+                string selectedFullName = AccountsComboBoxToChangeManager.SelectedItem?.ToString();
+                var accounts = context.Users
+                                      .Where(user => user.FullName != "Administrator" && user.Enabled != false && user.FullName != selectedFullName)
+                                      .Select(user => user.FullName)
+                                      .ToList();
+                AccountsComboBoxNewManager.ItemsSource = accounts;
+            }
+            
         }
     }
 }
