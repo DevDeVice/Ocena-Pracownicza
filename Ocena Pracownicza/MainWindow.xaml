@@ -200,7 +200,7 @@
                 <ListView x:Name="UserEvaluationsPListView" VerticalAlignment="Top" Width="500" Margin="0,100,0,0" MouseDoubleClick="UserEvaluationsPListView_MouseDoubleClick">
                     <!-- Możesz dostosować wygląd itemów tutaj, np. używając DataTemplate -->
                 </ListView>
-                <ListView x:Name="UserEvaluationsBListViewAll" VerticalAlignment="Top" Width="500" MouseDoubleClick="UserEvaluationsBListView_MouseDoubleClick">
+                <ListView x:Name="UserEvaluationsBListViewAll" VerticalAlignment="Top" Width="500" Margin="0,100,0,0" MouseDoubleClick="UserEvaluationsBListView_MouseDoubleClick">
                     <!-- Możesz dostosować wygląd itemów tutaj, np. używając DataTemplate -->
                 </ListView>
                 <ListView x:Name="UserEvaluationsPListViewAll" VerticalAlignment="Top" Width="500" Margin="0,100,0,0" MouseDoubleClick="UserEvaluationsPListView_MouseDoubleClick">
@@ -234,8 +234,9 @@
                 <TextBlock x:Name="Question10AnswerB" Text="Odpowiedź na pytanie 10:" Margin="0,10"/>
                 <TextBlock Text="Pytanie 11" Margin="0,10"/>
                 <TextBlock x:Name="Question11AnswerB" Text="Odpowiedź na pytanie 11:" Margin="0,10"/>
-                <Button Content="Drukuj" Click="PrintButtonB_Click" Width="150" Height="30"></Button>
             </StackPanel>
+            <Button Content="Drukuj" VerticalAlignment="Top" HorizontalAlignment="Left" Width="300" Height="40" Margin="-410,150,0,0" Click="PrintButtonB_Click"></Button>
+            <Button Content="Odpowiedz" VerticalAlignment="Top" HorizontalAlignment="Left" Width="300" Height="40" Margin="-410,210,0,0"></Button>
             <!-- Układ z szczegółami oceny -->
         </Grid>
         <Grid x:Name="EvaluationDetailsGridP" Visibility="Collapsed" Width="1000">
@@ -250,8 +251,9 @@
                 <TextBlock Text="Pytanie 4" Margin="0,10"/>
                 <TextBlock x:Name="Question4AnswerP" Text="Odpowiedź na pytanie 4:" Margin="0,10"/>
                 <TextBlock Text="Pytanie 5" Margin="0,10"/>
-                <Button Content="Drukuj" Click="PrintButtonP_Click" Width="150" Height="30"></Button>
             </StackPanel>
+            <Button Content="Drukuj" VerticalAlignment="Top" HorizontalAlignment="Left" Width="300" Height="40" Margin="-410,150,0,0" Click="PrintButtonP_Click" ></Button>
+            <Button Content="Odpowiedz" VerticalAlignment="Top" HorizontalAlignment="Left" Width="300" Height="40" Margin="-410,210,0,0"></Button>
             <!-- Układ z szczegółami oceny -->
         </Grid>
         <Grid x:Name="AdminPanel" Visibility="Collapsed">

@@ -596,6 +596,9 @@ namespace Ocena_Pracownicza
                 UserEvaluationsBListView.ItemsSource = filteredEvaluationsB;
                 UserEvaluationsPListView.ItemsSource = filteredEvaluationsP;
 
+
+
+
                 List<User> subordinates;
                 subordinates = context.Users
                     .Where(u => u.ManagerId == LoggedUser.UserID)
@@ -612,10 +615,6 @@ namespace Ocena_Pracownicza
                     {
                         evaluationsQueryB = evaluationsQueryB.Where(ev => ev.EvaluatorNameID == selectedEvaluatorNameID.Value);
                     }
-                    if (LoggedUser != null)
-                    {
-                        evaluationsQueryB = evaluationsQueryB.Where(ev => ev.UserID == LoggedUser.UserID);
-                    }
                     filteredEvaluationsB = evaluationsQueryB
                                           .Select(ev => new EvaluationRecordB { EvaluationB = ev })
                                           .ToList();
@@ -628,11 +627,6 @@ namespace Ocena_Pracownicza
                     if (selectedEvaluatorNameID.HasValue)
                     {
                         evaluationsQueryP = evaluationsQueryP.Where(ev => ev.EvaluatorNameID == selectedEvaluatorNameID.Value);
-                    }
-
-                    if (LoggedUser != null)
-                    {
-                        evaluationsQueryP = evaluationsQueryP.Where(ev => ev.UserID == LoggedUser.UserID);
                     }
                     filteredEvaluationsP = evaluationsQueryP
                                           .Select(ev => new EvaluationRecordP { EvaluationP = ev })
