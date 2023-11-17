@@ -3,6 +3,7 @@ using Ocena_Pracownicza.DataModels;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,6 +25,8 @@ namespace Ocena_Pracownicza
     public partial class MainWindow : Window
     {
         public User LoggedUser { get; set; }
+        public int FormVersion { get; set; }
+        public int IDAnkiety { get; set; }
         public struct EvaluationRecordB
         {
             public EvaluationBiuro EvaluationB { get; set; }
@@ -292,6 +295,7 @@ namespace Ocena_Pracownicza
         }
         private void FormBiuroButton_Click(object sender, RoutedEventArgs e)
         {
+            FormVersion = 1;
             FormPanelBiuro.Visibility = Visibility.Visible;
             BackButton.Visibility = Visibility.Visible;
             MenuPanel.Visibility = Visibility.Collapsed;
@@ -299,6 +303,7 @@ namespace Ocena_Pracownicza
         }
         private void FormProdukcjaButton_Click(object sender, RoutedEventArgs e)
         {
+            FormVersion = 1;
             FormPanelProdukcja.Visibility = Visibility.Visible;
             BackButton.Visibility = Visibility.Visible;
             MenuPanel.Visibility = Visibility.Collapsed;
@@ -307,6 +312,7 @@ namespace Ocena_Pracownicza
 
         private void LoginButton_Click(object sender, RoutedEventArgs e)
         {
+            FormVersion = 2;
             LoginPanel.Visibility = Visibility.Visible;
             BackButton.Visibility = Visibility.Visible;
             Login.Visibility = Visibility.Collapsed;
