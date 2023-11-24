@@ -42,7 +42,7 @@ namespace Ocena_Pracownicza
             {
                 return EvaluationP.UserName;
             }
-        }
+        } 
         public MainWindow()
         {
             LoggedUser= new User();
