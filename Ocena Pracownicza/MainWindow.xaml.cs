@@ -34,7 +34,7 @@ namespace Ocena_Pracownicza
             {
                 return EvaluationB.UserName;
             }
-        }
+        } 
         public struct EvaluationRecordP
         {
             public EvaluationProdukcja EvaluationP { get; set; }
