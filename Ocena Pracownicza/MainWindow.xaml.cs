@@ -26,7 +26,6 @@ namespace Ocena_Pracownicza
     {
         public User LoggedUser { get; set; }
         public int FormVersion { get; set; }
-        public int IDAnkiety { get; set; }
         public struct EvaluationRecordB
         {
             public EvaluationBiuro EvaluationB { get; set; }
@@ -212,6 +211,7 @@ namespace Ocena_Pracownicza
                 Question9 = Question9TextBoxB.Text,
                 Question10 = Question10TextBoxB.Text,
                 Question11 = Question11TextBoxB.Text,
+                EvaluationAnswerID = 0,
             };
 
             // 3. Zapisanie instancji w bazie danych:
@@ -282,7 +282,8 @@ namespace Ocena_Pracownicza
                 Question1 = Question1TextBoxP.Text,
                 Question2 = Question2TextBoxP.Text,
                 Question3 = Question3TextBoxP.Text,
-                Question4 = Question4TextBoxP.Text
+                Question4 = Question4TextBoxP.Text,
+                EvaluationAnswerID = 0,
             };
 
             // 3. Zapisanie instancji w bazie danych:
@@ -296,6 +297,8 @@ namespace Ocena_Pracownicza
         private void FormBiuroButton_Click(object sender, RoutedEventArgs e)
         {
             FormVersion = 1;
+            ToHideB1.Visibility = Visibility.Visible;
+            ToHideB2.Visibility = Visibility.Visible;
             FormPanelBiuro.Visibility = Visibility.Visible;
             BackButton.Visibility = Visibility.Visible;
             MenuPanel.Visibility = Visibility.Collapsed;
@@ -304,6 +307,8 @@ namespace Ocena_Pracownicza
         private void FormProdukcjaButton_Click(object sender, RoutedEventArgs e)
         {
             FormVersion = 1;
+            ToHideP1.Visibility = Visibility.Visible;
+            ToHideP2.Visibility = Visibility.Visible;
             FormPanelProdukcja.Visibility = Visibility.Visible;
             BackButton.Visibility = Visibility.Visible;
             MenuPanel.Visibility = Visibility.Collapsed;
@@ -313,6 +318,10 @@ namespace Ocena_Pracownicza
         private void LoginButton_Click(object sender, RoutedEventArgs e)
         {
             FormVersion = 2;
+            ToHideB1.Visibility = Visibility.Visible;
+            ToHideB2.Visibility = Visibility.Visible;
+            ToHideP1.Visibility = Visibility.Visible;
+            ToHideP2.Visibility = Visibility.Visible;
             LoginPanel.Visibility = Visibility.Visible;
             BackButton.Visibility = Visibility.Visible;
             Login.Visibility = Visibility.Collapsed;
@@ -447,7 +456,6 @@ namespace Ocena_Pracownicza
 
         private void UserEvaluationsBListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-
             if (UserEvaluationsBListView.SelectedItem is EvaluationRecordB selectedEvaluationRecord)
             {
                 var selectedEvaluation = selectedEvaluationRecord.EvaluationB;
@@ -468,6 +476,34 @@ namespace Ocena_Pracownicza
                 EvaluationDetailsGridB.Visibility = Visibility.Visible;
             }
         }
+
+        /*Testowe zmiana ktora zapisuje ankiete uzytkownika
+         * 
+         * private void UserEvaluationsBListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            if (UserEvaluationsBListView.SelectedItem is EvaluationRecordB selectedEvaluationRecord)
+            {
+                historyEvaluationB = selectedEvaluationRecord.EvaluationB;
+            }
+            if (historyEvaluationB is EvaluationBiuro)
+            {
+                UserPanel.Visibility = Visibility.Collapsed;
+
+                Question1AnswerB.Text = historyEvaluationB.Question1;
+                Question2AnswerB.Text = historyEvaluationB.Question2;
+                Question3AnswerB.Text = historyEvaluationB.Question3;
+                Question4AnswerB.Text = historyEvaluationB.Question4;
+                Question5AnswerB.Text = historyEvaluationB.Question5;
+                Question6AnswerB.Text = historyEvaluationB.Question6;
+                Question7AnswerB.Text = historyEvaluationB.Question7;
+                Question8AnswerB.Text = historyEvaluationB.Question8;
+                Question9AnswerB.Text = historyEvaluationB.Question9;
+                Question10AnswerB.Text = historyEvaluationB.Question10;
+                Question11AnswerB.Text = historyEvaluationB.Question11;
+
+                EvaluationDetailsGridB.Visibility = Visibility.Visible;
+            }
+        }*/
         private void UserEvaluationsBListViewAll_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
 

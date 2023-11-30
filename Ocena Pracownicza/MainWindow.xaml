@@ -55,21 +55,21 @@
         <Grid.Background>
             <ImageBrush ImageSource="img/ocenaPracowniczav2.jpg" Stretch="UniformToFill"/>
         </Grid.Background>
-        <StackPanel x:Name="MenuPanel" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center" Visibility="Visible" Margin="0,0,0,200">
+        <StackPanel x:Name="MenuPanel" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center" Visibility="Collapsed" Margin="0,0,0,200">
             <Button x:Name="FormBiuro" Content="Biuro" Width="300" Height="40" Click="FormBiuroButton_Click" Margin="10" />
             <Button x:Name="FormProdukcja" Content="Produkcja" Width="300" Height="40" Margin="10" Click="FormProdukcjaButton_Click" />
         </StackPanel>
-        <Button x:Name="Login" Content="Zaloguj" Width="300" Height="40" Click="LoginButton_Click" Margin="10,100,10,10" Visibility="Visible"/>
+        <Button x:Name="Login" Content="Zaloguj" Width="300" Height="40" Click="LoginButton_Click" Margin="10,100,10,10" Visibility="Collapsed"/>
         <Button Content="X" Click="CloseButton_Click" Width="30" Height="30" VerticalAlignment="Top" Margin="0,0,2,0" HorizontalAlignment="Right" Panel.ZIndex="1"/>
         <Button Content="Back" Click="Back_Click" VerticalAlignment="Top" HorizontalAlignment="Left" Width="300" Height="40" Margin="50,50,0,0" Visibility="Collapsed" x:Name="BackButton" Panel.ZIndex="2"/>
         <Button Content="Back2" Click="Back2_Click" VerticalAlignment="Top" HorizontalAlignment="Left" Width="300" Height="40" Margin="50,50,0,0" Visibility="Collapsed" x:Name="BackButton2" Panel.ZIndex="2"/>
         <Button Content="Back3" Click="Back3_Click" VerticalAlignment="Top" HorizontalAlignment="Left" Width="300" Height="40" Margin="50,50,0,0" Visibility="Collapsed" x:Name="BackButton3" Panel.ZIndex="2"/>
 
-        <Grid x:Name="FormPanelBiuro" Visibility="Collapsed">
+        <Grid x:Name="FormPanelBiuro" Visibility="Visible">
             <ScrollViewer VerticalScrollBarVisibility="Auto" >
                 <StackPanel Margin="-2,100,0,0">
                     <!-- Imię i nazwisko -->
-                    <Grid Margin="0,20,0,0" Width="300">
+                    <Grid x:Name="ToHideB1" Margin="0,20,0,0" Width="300" >
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
@@ -79,7 +79,7 @@
                     </Grid>
 
                     <!-- Lista rozwijana z kontami -->
-                    <Grid Margin="0,20,0,0" Width="300">
+                    <Grid x:Name="ToHideB2" Margin="0,20,0,0" Width="300">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
@@ -146,7 +146,7 @@
             <ScrollViewer VerticalScrollBarVisibility="Auto" >
                 <StackPanel Margin="-2,100,0,0">
                     <!-- Imię i nazwisko -->
-                    <Grid Margin="0,20,0,0" Width="300">
+                    <Grid x:Name="ToHideP1" Margin="0,20,0,0" Width="300">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
@@ -156,7 +156,7 @@
                     </Grid>
 
                     <!-- Lista rozwijana z kontami -->
-                    <Grid Margin="0,20,0,0" Width="300">
+                    <Grid x:Name="ToHideP2" Margin="0,20,0,0" Width="300" >
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
