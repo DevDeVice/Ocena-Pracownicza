@@ -14,6 +14,8 @@ namespace Ocena_Pracownicza.DataModels
         public DbSet<EvaluationProdukcja> EvaluationsProdukcja { get; set; }
         public DbSet<EvaluationName> EvaluationNames { get; set; }
         public DbSet<GlobalSettings> GlobalSettings { get; set; }
+        public DbSet<EvaluationBiuroAnswer> EvaluationBiuroAnswers { get; set; }
+        public DbSet<EvaluationProdukcjaAnswer> EvaluationProdukcjaAnswers { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
