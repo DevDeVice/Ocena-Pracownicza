@@ -138,6 +138,10 @@ namespace Ocena_Pracownicza
 
         private void SaveFormButtonB_Click(object sender, RoutedEventArgs e)
         {
+            if (FormVersion == 2)
+            {
+
+            }
             // 1. Walidacja wprowadzonych danych:
             if (string.IsNullOrEmpty(NameTextBoxB.Text) ||
                 AccountsComboBoxB.SelectedItem == null ||
@@ -318,10 +322,10 @@ namespace Ocena_Pracownicza
         private void LoginButton_Click(object sender, RoutedEventArgs e)
         {
             FormVersion = 2;
-            ToHideB1.Visibility = Visibility.Visible;
-            ToHideB2.Visibility = Visibility.Visible;
-            ToHideP1.Visibility = Visibility.Visible;
-            ToHideP2.Visibility = Visibility.Visible;
+            ToHideB1.Visibility = Visibility.Collapsed;
+            ToHideB2.Visibility = Visibility.Collapsed;
+            ToHideP1.Visibility = Visibility.Collapsed;
+            ToHideP2.Visibility = Visibility.Collapsed;
             LoginPanel.Visibility = Visibility.Visible;
             BackButton.Visibility = Visibility.Visible;
             Login.Visibility = Visibility.Collapsed;
