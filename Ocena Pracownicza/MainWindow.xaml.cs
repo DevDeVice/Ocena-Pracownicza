@@ -819,5 +819,32 @@ namespace Ocena_Pracownicza
             }
             
         }
+
+        private void OdpowiedzP_Click(object sender, RoutedEventArgs e)
+        {
+            FormPanelProdukcja.Visibility = Visibility.Visible;
+            BackButton2.Visibility = Visibility.Visible;
+            EvaluationDetailsGridP.Visibility = Visibility.Collapsed;
+        }
+
+        private void OdpowiedzB_Click(object sender, RoutedEventArgs e)
+        {
+            FormPanelBiuro.Visibility = Visibility.Visible;
+            BackButton3.Visibility = Visibility.Visible;
+            EvaluationDetailsGridB.Visibility = Visibility.Collapsed;
+        }
+
+        private void Back2_Click(object sender, RoutedEventArgs e)
+        {
+            FormPanelProdukcja.Visibility = Visibility.Collapsed;
+            BackButton2.Visibility = Visibility.Collapsed;
+            EvaluationDetailsGridP.Visibility = Visibility.Visible;
+        }
+        private void Back3_Click(object sender, RoutedEventArgs e)
+        {
+            FormPanelBiuro.Visibility = Visibility.Collapsed;
+            BackButton3.Visibility = Visibility.Collapsed;
+            EvaluationDetailsGridP.Visibility = Visibility.Visible;
+        }
     }
 }
