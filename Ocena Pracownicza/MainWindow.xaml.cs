@@ -153,7 +153,7 @@ namespace Ocena_Pracownicza
                 string.IsNullOrEmpty(Question6TextBoxB.Text) ||
                 string.IsNullOrEmpty(Question7TextBoxB.Text) ||
                 string.IsNullOrEmpty(Question8TextBoxB.Text) ||
-                string.IsNullOrEmpty(Question9TextBoxB.Text) ||
+                string.IsNullOrEmpty(Question9TextBoxB.Text) || 
                 string.IsNullOrEmpty(Question10TextBoxB.Text) ||
                 string.IsNullOrEmpty(Question11TextBoxB.Text)
                 )
