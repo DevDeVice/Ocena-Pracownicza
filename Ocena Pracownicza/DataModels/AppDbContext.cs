@@ -16,7 +16,7 @@ namespace Ocena_Pracownicza.DataModels
         public DbSet<GlobalSettings> GlobalSettings { get; set; }
         public DbSet<EvaluationBiuroAnswer> EvaluationBiuroAnswers { get; set; }
         public DbSet<EvaluationProdukcjaAnswer> EvaluationProdukcjaAnswers { get; set; }
-
+         
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseMySql("server=localhost;database=ocena_pracownicza;user=root;password=",
