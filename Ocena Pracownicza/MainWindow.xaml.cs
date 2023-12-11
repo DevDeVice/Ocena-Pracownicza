@@ -3,6 +3,7 @@ using Ocena_Pracownicza.DataModels;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Text;
@@ -418,27 +419,27 @@ namespace Ocena_Pracownicza
         {
             using (var context = new AppDbContext())
             {
-                // Pobierz oceny dla użytkownika
-                var evaluationsB = context.Evaluations
-                                          .Where(e => e.UserID == userId)
-                                          .Select(e => new EvaluationRecordB { EvaluationB = e })
-                                          .ToList();
-                allEvaluationsB.AddRange(evaluationsB);
-
-                var evaluationsP = context.EvaluationsProdukcja
-                                          .Where(e => e.UserID == userId)
-                                          .Select(e => new EvaluationRecordP { EvaluationP = e })
-                                          .ToList();
-                allEvaluationsP.AddRange(evaluationsP);
-
                 // Pobierz podwładnych użytkownika
                 var subordinates = context.Users
                                           .Where(u => u.ManagerId == userId)
                                           .ToList();
 
-                // Rekurencyjne wywołanie dla każdego podwładnego
+                // Pobierz oceny tylko dla podwładnych
                 foreach (var subordinate in subordinates)
                 {
+                    var evaluationsB = context.Evaluations
+                                              .Where(e => e.UserID == subordinate.UserID)
+                                              .Select(e => new EvaluationRecordB { EvaluationB = e })
+                                              .ToList();
+                    allEvaluationsB.AddRange(evaluationsB);
+
+                    var evaluationsP = context.EvaluationsProdukcja
+                                              .Where(e => e.UserID == subordinate.UserID)
+                                              .Select(e => new EvaluationRecordP { EvaluationP = e })
+                                              .ToList();
+                    allEvaluationsP.AddRange(evaluationsP);
+
+                    // Rekurencyjne wywołanie dla każdego podwładnego
                     FetchEvaluationsAndSubordinates(subordinate.UserID, allEvaluationsB, allEvaluationsP);
                 }
             }
@@ -653,6 +654,8 @@ namespace Ocena_Pracownicza
                 return;
             }
 
+            Debug.WriteLine("SearchAndFilterEvaluations called."); // Debugging message
+
             string searchText = Search.Text.ToLower();
             string selectedEvaluationName = EvaluationNameComboBox.SelectedItem?.ToString();
             int? selectedEvaluatorNameID = null;
@@ -662,9 +665,9 @@ namespace Ocena_Pracownicza
                 if (selectedEvaluationName != null && selectedEvaluationName != "Wszystkie")
                 {
                     selectedEvaluatorNameID = context.EvaluationNames
-                                                     .Where(en => en.EvaluatorName == selectedEvaluationName)
-                                                     .Select(en => (int?)en.EvaluatorNameID)
-                                                     .FirstOrDefault();
+                                                         .Where(en => en.EvaluatorName == selectedEvaluationName)
+                                                         .Select(en => (int?)en.EvaluatorNameID)
+                                                         .FirstOrDefault();
 
                     if (!selectedEvaluatorNameID.HasValue)
                     {
@@ -678,10 +681,16 @@ namespace Ocena_Pracownicza
 
                 FilterEvaluationsForUserAndSubordinates(LoggedUser.UserID, searchText, selectedEvaluatorNameID, allEvaluationsB, allEvaluationsP);
 
-                UserEvaluationsBListViewAll.ItemsSource = allEvaluationsB;
-                UserEvaluationsPListViewAll.ItemsSource = allEvaluationsP;
+                // Update the list views
+                UserEvaluationsBListView.ItemsSource = allEvaluationsB;
+                UserEvaluationsPListView.ItemsSource = allEvaluationsP;
+
+                Debug.WriteLine($"B List Count: {allEvaluationsB.Count}"); // Debugging message
+                Debug.WriteLine($"P List Count: {allEvaluationsP.Count}"); // Debugging message
             }
         }
+
+
 
         private void FilterEvaluationsForUserAndSubordinates(int userId, string searchText, int? evaluatorNameId, List<EvaluationRecordB> allEvaluationsB, List<EvaluationRecordP> allEvaluationsP)
         {

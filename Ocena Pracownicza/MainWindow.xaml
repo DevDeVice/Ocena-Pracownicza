@@ -55,11 +55,11 @@
         <Grid.Background>
             <ImageBrush ImageSource="img/ocenaPracowniczav2.jpg" Stretch="UniformToFill"/>
         </Grid.Background>
-        <StackPanel x:Name="MenuPanel" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center" Visibility="Visible" Margin="0,0,0,200">
-            <Button x:Name="FormBiuro" Content="Biuro" Width="300" Height="40" Click="FormBiuroButton_Click" Margin="10" />
-            <Button x:Name="FormProdukcja" Content="Produkcja" Width="300" Height="40" Margin="10" Click="FormProdukcjaButton_Click" />
+        <StackPanel x:Name="MenuPanel" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center" Visibility="Collapsed" Margin="0,0,0,200">
+            <Button x:Name="FormBiuro" Content="Administracja/Biuro" Width="300" Height="40" Click="FormBiuroButton_Click" Margin="10" />
+            <Button x:Name="FormProdukcja" Content="Produkcja/Magazyn" Width="300" Height="40" Margin="10" Click="FormProdukcjaButton_Click" />
         </StackPanel>
-        <Button x:Name="Login" Content="Zaloguj" Width="300" Height="40" Click="LoginButton_Click" Margin="10,100,10,10" Visibility="Visible"/>
+        <Button x:Name="Login" Content="Zaloguj" Width="300" Height="40" Click="LoginButton_Click" Margin="10,100,10,10" Visibility="Collapsed"/>
         <Button Content="X" Click="CloseButton_Click" Width="30" Height="30" VerticalAlignment="Top" Margin="0,0,2,0" HorizontalAlignment="Right" Panel.ZIndex="1"/>
         <Button Content="Back" Click="Back_Click" VerticalAlignment="Top" HorizontalAlignment="Left" Width="300" Height="40" Margin="50,50,0,0" Visibility="Collapsed" x:Name="BackButton" Panel.ZIndex="2"/>
         <Button Content="Back2" Click="Back2_Click" VerticalAlignment="Top" HorizontalAlignment="Left" Width="300" Height="40" Margin="50,50,0,0" Visibility="Collapsed" x:Name="BackButton2" Panel.ZIndex="2"/>
@@ -203,7 +203,7 @@
             </StackPanel>
         </Grid>
 
-        <Grid x:Name="UserPanel" Visibility="Collapsed">
+        <Grid x:Name="UserPanel" Visibility="Visible">
             <Button Content="Wyloguj" VerticalAlignment="Top" HorizontalAlignment="Left" Width="300" Height="40" Margin="50,50,0,0" Click="LogoutButton_Click" />
             <TextBlock x:Name="Powitanie" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,80,0,0" Width="300" TextAlignment="Center"/>
             <TextBlock HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,115,350,0" Width="150" Height="20" Text="Wyszukaj:"/>
