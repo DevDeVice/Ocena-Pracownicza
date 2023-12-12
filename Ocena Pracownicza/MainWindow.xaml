@@ -55,11 +55,11 @@
         <Grid.Background>
             <ImageBrush ImageSource="img/ocenaPracowniczav2.jpg" Stretch="UniformToFill"/>
         </Grid.Background>
-        <StackPanel x:Name="MenuPanel" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center" Visibility="Collapsed" Margin="0,0,0,200">
+        <StackPanel x:Name="MenuPanel" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center" Visibility="Visible" Margin="0,0,0,200">
             <Button x:Name="FormBiuro" Content="Administracja/Biuro" Width="300" Height="40" Click="FormBiuroButton_Click" Margin="10" />
             <Button x:Name="FormProdukcja" Content="Produkcja/Magazyn" Width="300" Height="40" Margin="10" Click="FormProdukcjaButton_Click" />
         </StackPanel>
-        <Button x:Name="Login" Content="Zaloguj" Width="300" Height="40" Click="LoginButton_Click" Margin="10,100,10,10" Visibility="Collapsed"/>
+        <Button x:Name="Login" Content="Zaloguj" Width="300" Height="40" Click="LoginButton_Click" Margin="10,100,10,10" Visibility="Visible"/>
         <Button Content="X" Click="CloseButton_Click" Width="30" Height="30" VerticalAlignment="Top" Margin="0,0,2,0" HorizontalAlignment="Right" Panel.ZIndex="1"/>
         <Button Content="Back" Click="Back_Click" VerticalAlignment="Top" HorizontalAlignment="Left" Width="300" Height="40" Margin="50,50,0,0" Visibility="Collapsed" x:Name="BackButton" Panel.ZIndex="2"/>
         <Button Content="Back2" Click="Back2_Click" VerticalAlignment="Top" HorizontalAlignment="Left" Width="300" Height="40" Margin="50,50,0,0" Visibility="Collapsed" x:Name="BackButton2" Panel.ZIndex="2"/>
@@ -156,7 +156,7 @@
                     </Grid>
 
                     <!-- Lista rozwijana z kontami -->
-                    <Grid x:Name="ToHideP2" Margin="0,20,0,0" Width="300" >
+                    <Grid x:Name="ToHideP2" Margin="0,20,0,0" Width="300" Visibility="visible">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
@@ -305,7 +305,7 @@
             <Button x:Name="OdpowiedzP" Content="Odpowiedz" VerticalAlignment="Top" HorizontalAlignment="Right" Width="300" Height="40" Margin="0,120,-410,0" Click="OdpowiedzP_Click"></Button>
             <!-- Układ z szczegółami oceny -->
         </Grid>
-        <Grid x:Name="AdminPanel" Visibility="Visible">
+        <Grid x:Name="AdminPanel" Visibility="Collapsed">
             <Button Content="Wyloguj" VerticalAlignment="Top" HorizontalAlignment="Left" Width="300" Height="40" Margin="50,50,0,0" Click="LogoutButton_Click" />
             <StackPanel>
                 <TextBlock Margin="0,80,0,0" HorizontalAlignment="Center" VerticalAlignment="Top" Width="293" Text="Korzystasz z panelu Administratora!" TextAlignment="Center"/>
