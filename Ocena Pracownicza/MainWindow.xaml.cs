@@ -313,7 +313,7 @@ namespace Ocena_Pracownicza
         {
             FormVersion = 1;
             ToHideP1.Visibility = Visibility.Visible;
-            ToHideP2.Visibility = Visibility.Visible;
+            ToHideP2.Visibility = Visibility.Visible; 
             FormPanelProdukcja.Visibility = Visibility.Visible;
             BackButton.Visibility = Visibility.Visible;
             MenuPanel.Visibility = Visibility.Collapsed;
