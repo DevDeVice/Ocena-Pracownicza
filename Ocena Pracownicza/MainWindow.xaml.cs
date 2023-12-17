@@ -222,7 +222,7 @@ namespace Ocena_Pracownicza
             // 3. Zapisanie instancji w bazie danych:
             using (var context = new AppDbContext())
             {
-                context.Evaluations.Add(evaluation);
+                context.EvaluationBiuro.Add(evaluation);
                 context.SaveChanges();
             }
             MessageBox.Show("Ankieta została pomyślnie zapisana!");
@@ -576,7 +576,7 @@ namespace Ocena_Pracownicza
                 {
                     using (var context = new AppDbContext())
                     {
-                        var evaluationsB = context.Evaluations
+                        var evaluationsB = context.EvaluationBiuro
                           .Where(e => e.UserID == LoggedUser.UserID)
                           .Select(e => new EvaluationRecordB { EvaluationB = e })
                           .ToList();
@@ -628,7 +628,7 @@ namespace Ocena_Pracownicza
                 // Pobierz oceny tylko dla podwładnych
                 foreach (var subordinate in subordinates)
                 {
-                    var evaluationsB = context.Evaluations
+                    var evaluationsB = context.EvaluationBiuro
                                               .Where(e => e.UserID == subordinate.UserID)
                                               .Select(e => new EvaluationRecordB { EvaluationB = e })
                                               .ToList();
@@ -694,7 +694,7 @@ namespace Ocena_Pracownicza
         {
             using (var context = new AppDbContext())
             {
-                var evaluationsQueryB = context.Evaluations
+                var evaluationsQueryB = context.EvaluationBiuro
                                                .Where(ev => ev.UserID == userId && ev.UserName.ToLower().Contains(searchText));
 
                 var evaluationsQueryP = context.EvaluationsProdukcja

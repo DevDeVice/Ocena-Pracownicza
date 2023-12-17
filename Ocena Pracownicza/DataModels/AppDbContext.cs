@@ -10,7 +10,7 @@ namespace Ocena_Pracownicza.DataModels
     internal class AppDbContext : DbContext
     {
         public DbSet<User> Users { get; set; }
-        public DbSet<EvaluationBiuro> Evaluations { get; set; }
+        public DbSet<EvaluationBiuro> EvaluationBiuro { get; set; }
         public DbSet<EvaluationProdukcja> EvaluationsProdukcja { get; set; }
         public DbSet<EvaluationName> EvaluationNames { get; set; }
         public DbSet<GlobalSettings> GlobalSettings { get; set; }
