@@ -27,6 +27,7 @@ namespace Ocena_Pracownicza
     {
         public User LoggedUser { get; set; }
         public int FormVersion { get; set; }
+        public int EvaluationIDToAnswer { get; set; }
         public struct EvaluationRecordB
         {
             public EvaluationBiuro EvaluationB { get; set; }
@@ -141,163 +142,246 @@ namespace Ocena_Pracownicza
         {
             if (FormVersion == 2)
             {
+                if (
+                string.IsNullOrEmpty(Question1TextBoxB.Text) ||
+                string.IsNullOrEmpty(Question2TextBoxB.Text) ||
+                string.IsNullOrEmpty(Question3TextBoxB.Text) ||
+                string.IsNullOrEmpty(Question4TextBoxB.Text) ||
+                string.IsNullOrEmpty(Question5TextBoxB.Text) ||
+                string.IsNullOrEmpty(Question6TextBoxB.Text) ||
+                string.IsNullOrEmpty(Question7TextBoxB.Text) ||
+                string.IsNullOrEmpty(Question8TextBoxB.Text) ||
+                string.IsNullOrEmpty(Question9TextBoxB.Text) ||
+                string.IsNullOrEmpty(Question10TextBoxB.Text) ||
+                string.IsNullOrEmpty(Question11TextBoxB.Text)
+                )
+                {
+                    MessageBox.Show("Wszystkie pola muszą być wypełnione!");
+                    return;
+                }
+                
+                var evaluation = new EvaluationBiuroAnswer
+                {
+                    Question1 = Question1TextBoxB.Text,
+                    Question2 = Question2TextBoxB.Text,
+                    Question3 = Question3TextBoxB.Text,
+                    Question4 = Question4TextBoxB.Text,
+                    Question5 = Question5TextBoxB.Text,
+                    Question6 = Question6TextBoxB.Text,
+                    Question7 = Question7TextBoxB.Text,
+                    Question8 = Question8TextBoxB.Text,
+                    Question9 = Question9TextBoxB.Text,
+                    Question10 = Question10TextBoxB.Text,
+                    Question11 = Question11TextBoxB.Text,
+                };
+                using (var context = new AppDbContext())
+                {
+                    context.EvaluationBiuroAnswers.Add(evaluation);
+                    context.SaveChanges();
+
+                    var user = context.EvaluationBiuro.FirstOrDefault(u => u.EvaluationID == EvaluationIDToAnswer);
+                    if (user != null)
+                    {
+                        user.EvaluationAnswerID = evaluation.EvaluationID;
+                        context.SaveChanges();
+                    }
+                }
+                MessageBox.Show("Ankieta została pomyślnie zapisana!");
 
             }
-            // 1. Walidacja wprowadzonych danych:
-            if (string.IsNullOrEmpty(NameTextBoxB.Text) ||
+            else
+            {
+                if (string.IsNullOrEmpty(NameTextBoxB.Text) ||
                 AccountsComboBoxB.SelectedItem == null ||
                 string.IsNullOrEmpty(Question1TextBoxB.Text) ||
                 string.IsNullOrEmpty(Question2TextBoxB.Text) ||
                 string.IsNullOrEmpty(Question3TextBoxB.Text) ||
                 string.IsNullOrEmpty(Question4TextBoxB.Text) ||
                 string.IsNullOrEmpty(Question5TextBoxB.Text) ||
-                string.IsNullOrEmpty(Question6TextBoxB.Text) ||  
+                string.IsNullOrEmpty(Question6TextBoxB.Text) ||
                 string.IsNullOrEmpty(Question7TextBoxB.Text) ||
                 string.IsNullOrEmpty(Question8TextBoxB.Text) ||
-                string.IsNullOrEmpty(Question9TextBoxB.Text) ||  
+                string.IsNullOrEmpty(Question9TextBoxB.Text) ||
                 string.IsNullOrEmpty(Question10TextBoxB.Text) ||
                 string.IsNullOrEmpty(Question11TextBoxB.Text)
                 )
-            {
-                MessageBox.Show("Wszystkie pola muszą być wypełnione!");
-                return;
-            }
-
-            int? selectedUserID = null;
-            string selectedUserName = AccountsComboBoxB.SelectedItem.ToString();
-            using (var context = new AppDbContext())
-            {
-                selectedUserID = context.Users
-                            .Where(u => u.FullName == selectedUserName)
-                            .Select(u => (int?)u.UserID) // zwracanie UserID jako nullable int
-                            .FirstOrDefault();
-
-                if (!selectedUserID.HasValue) // jeśli nie znaleziono UserID
                 {
-                    MessageBox.Show("Wybrany użytkownik nie istnieje w bazie danych!");
+                    MessageBox.Show("Wszystkie pola muszą być wypełnione!");
                     return;
                 }
-            }
+                int? selectedUserID = null;
+                string selectedUserName = AccountsComboBoxB.SelectedItem.ToString();
+                using (var context = new AppDbContext())
+                {
+                    selectedUserID = context.Users
+                                .Where(u => u.FullName == selectedUserName)
+                                .Select(u => (int?)u.UserID) // zwracanie UserID jako nullable int
+                                .FirstOrDefault();
 
-            // 2. Stworzenie instancji klasy Evaluation i przypisanie jej wartości:
-            string currentEvaluationName;
-            using (var context = new AppDbContext())
-            {
-                currentEvaluationName = context.GlobalSettings.FirstOrDefault()?.CurrentEvaluationName;
-            }
-            int? evaluatorNameID;
-            using (var context = new AppDbContext())
-            {
-                evaluatorNameID = context.EvaluationNames
-                                         .Where(en => en.EvaluatorName == currentEvaluationName)
-                                         .Select(en => (int?)en.EvaluatorNameID)
-                                         .FirstOrDefault();
-            }
-            if (!evaluatorNameID.HasValue)
-            {
-                MessageBox.Show("Nie znaleziono nazwy oceny w bazie danych!");
-                return;
-            }
-
-            var evaluation = new EvaluationBiuro
-            {
-                UserName = NameTextBoxB.Text,
-                UserID = selectedUserID.Value,
-                EvaluatorNameID = evaluatorNameID.Value,
-                Date = DateTime.Now,
-                Question1 = Question1TextBoxB.Text,
-                Question2 = Question2TextBoxB.Text,
-                Question3 = Question3TextBoxB.Text,
-                Question4 = Question4TextBoxB.Text,
-                Question5 = Question5TextBoxB.Text,
-                Question6 = Question6TextBoxB.Text,
-                Question7 = Question7TextBoxB.Text,
-                Question8 = Question8TextBoxB.Text,
-                Question9 = Question9TextBoxB.Text,
-                Question10 = Question10TextBoxB.Text,
-                Question11 = Question11TextBoxB.Text,
-                EvaluationAnswerID = 0,
-            };
-
-            // 3. Zapisanie instancji w bazie danych:
-            using (var context = new AppDbContext())
-            {
-                context.EvaluationBiuro.Add(evaluation);
-                context.SaveChanges();
-            }
-            MessageBox.Show("Ankieta została pomyślnie zapisana!");
+                    if (!selectedUserID.HasValue) // jeśli nie znaleziono UserID
+                    {
+                        MessageBox.Show("Wybrany użytkownik nie istnieje w bazie danych!");
+                        return;
+                    }
+                }
+                // 2. Stworzenie instancji klasy Evaluation i przypisanie jej wartości:
+                string currentEvaluationName;
+                using (var context = new AppDbContext())
+                {
+                    currentEvaluationName = context.GlobalSettings.FirstOrDefault()?.CurrentEvaluationName;
+                }
+                int? evaluatorNameID;
+                using (var context = new AppDbContext())
+                {
+                    evaluatorNameID = context.EvaluationNames
+                                             .Where(en => en.EvaluatorName == currentEvaluationName)
+                                             .Select(en => (int?)en.EvaluatorNameID)
+                                             .FirstOrDefault();
+                }
+                if (!evaluatorNameID.HasValue)
+                {
+                    MessageBox.Show("Nie znaleziono nazwy oceny w bazie danych!");
+                    return;
+                }
+                var evaluation = new EvaluationBiuro
+                {
+                    UserName = NameTextBoxB.Text,
+                    UserID = selectedUserID.Value,
+                    EvaluatorNameID = evaluatorNameID.Value,
+                    Date = DateTime.Now,
+                    Question1 = Question1TextBoxB.Text,
+                    Question2 = Question2TextBoxB.Text,
+                    Question3 = Question3TextBoxB.Text,
+                    Question4 = Question4TextBoxB.Text,
+                    Question5 = Question5TextBoxB.Text,
+                    Question6 = Question6TextBoxB.Text,
+                    Question7 = Question7TextBoxB.Text,
+                    Question8 = Question8TextBoxB.Text,
+                    Question9 = Question9TextBoxB.Text,
+                    Question10 = Question10TextBoxB.Text,
+                    Question11 = Question11TextBoxB.Text,
+                    EvaluationAnswerID = 0,
+                };
+                using (var context = new AppDbContext())
+                {
+                    context.EvaluationBiuro.Add(evaluation);
+                    context.SaveChanges();
+                }
+                MessageBox.Show("Ankieta została pomyślnie zapisana!");
+            }            
         }
         private void SaveFormButtonP_Click(object sender, RoutedEventArgs e)
         {
-            // 1. Walidacja wprowadzonych danych:
-            if (string.IsNullOrEmpty(NameTextBoxP.Text) ||
+            if (FormVersion == 2)
+            {
+                if (string.IsNullOrEmpty(Question1TextBoxP.Text) ||
+                 string.IsNullOrEmpty(Question2TextBoxP.Text) ||
+                 string.IsNullOrEmpty(Question3TextBoxP.Text) ||
+                 string.IsNullOrEmpty(Question4TextBoxP.Text)
+                 )
+                {
+                    MessageBox.Show("Wszystkie pola muszą być wypełnione!");
+                    return;
+                }
+                var evaluation = new EvaluationProdukcjaAnswer
+                {
+                    Question1 = Question1TextBoxP.Text,
+                    Question2 = Question2TextBoxP.Text,
+                    Question3 = Question3TextBoxP.Text,
+                    Question4 = Question4TextBoxP.Text,
+                };
+
+                // 3. Zapisanie instancji w bazie danych:
+                using (var context = new AppDbContext())
+                {
+                    context.EvaluationProdukcjaAnswers.Add(evaluation);
+                    context.SaveChanges();
+
+                    var user = context.EvaluationsProdukcja.FirstOrDefault(u => u.EvaluationID == EvaluationIDToAnswer);
+                    if(user != null)
+                    {
+                        user.EvaluationAnswerID = evaluation.EvaluationID;
+                        context.SaveChanges();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Nie znaleziono uzytkownika $");
+                    }
+                }
+                MessageBox.Show("Ankieta została pomyślnie zapisana!");
+            } 
+            else
+            {
+                // 1. Walidacja wprowadzonych danych:
+                if (string.IsNullOrEmpty(NameTextBoxP.Text) ||
                 AccountsComboBoxP.SelectedItem == null ||
                 string.IsNullOrEmpty(Question1TextBoxP.Text) ||
                 string.IsNullOrEmpty(Question2TextBoxP.Text) ||
                 string.IsNullOrEmpty(Question3TextBoxP.Text) ||
                 string.IsNullOrEmpty(Question4TextBoxP.Text)
                 )
-            {
-                MessageBox.Show("Wszystkie pola muszą być wypełnione!");
-                return;
-            }
-
-            int? selectedUserID = null;
-            string selectedUserName = AccountsComboBoxP.SelectedItem.ToString();
-            using (var context = new AppDbContext())
-            {
-                selectedUserID = context.Users
-                            .Where(u => u.FullName == selectedUserName)
-                            .Select(u => (int?)u.UserID) // zwracanie UserID jako nullable int
-                            .FirstOrDefault();
-
-                if (!selectedUserID.HasValue) // jeśli nie znaleziono UserID
                 {
-                    MessageBox.Show("Wybrany użytkownik nie istnieje w bazie danych!");
+                    MessageBox.Show("Wszystkie pola muszą być wypełnione!");
                     return;
                 }
-            }
 
-            // 2. Stworzenie instancji klasy Evaluation i przypisanie jej wartości:
-            string currentEvaluationName;
-            using (var context = new AppDbContext())
-            {
-                currentEvaluationName = context.GlobalSettings.FirstOrDefault()?.CurrentEvaluationName;
-            }
-            int? evaluatorNameID;
-            using (var context = new AppDbContext())
-            {
-                evaluatorNameID = context.EvaluationNames
-                                         .Where(en => en.EvaluatorName == currentEvaluationName)
-                                         .Select(en => (int?)en.EvaluatorNameID)
-                                         .FirstOrDefault();
-            }
-            if (!evaluatorNameID.HasValue)
-            {
-                MessageBox.Show("Nie znaleziono nazwy oceny w bazie danych!");
-                return;
-            }
+                int? selectedUserID = null;
+                string selectedUserName = AccountsComboBoxP.SelectedItem.ToString();
+                using (var context = new AppDbContext())
+                {
+                    selectedUserID = context.Users
+                                .Where(u => u.FullName == selectedUserName)
+                                .Select(u => (int?)u.UserID) // zwracanie UserID jako nullable int
+                                .FirstOrDefault();
 
-            var evaluation = new EvaluationProdukcja
-            {
-                UserName = NameTextBoxP.Text,
-                UserID = selectedUserID.Value,
-                EvaluatorNameID = evaluatorNameID.Value,
-                Date = DateTime.Now,
-                Question1 = Question1TextBoxP.Text,
-                Question2 = Question2TextBoxP.Text,
-                Question3 = Question3TextBoxP.Text,
-                Question4 = Question4TextBoxP.Text,
-                EvaluationAnswerID = 0,
-            };
+                    if (!selectedUserID.HasValue) // jeśli nie znaleziono UserID
+                    {
+                        MessageBox.Show("Wybrany użytkownik nie istnieje w bazie danych!");
+                        return;
+                    }
+                }
 
-            // 3. Zapisanie instancji w bazie danych:
-            using (var context = new AppDbContext())
-            {
-                context.EvaluationsProdukcja.Add(evaluation);
-                context.SaveChanges();
+                // 2. Stworzenie instancji klasy Evaluation i przypisanie jej wartości:
+                string currentEvaluationName;
+                using (var context = new AppDbContext())
+                {
+                    currentEvaluationName = context.GlobalSettings.FirstOrDefault()?.CurrentEvaluationName;
+                }
+                int? evaluatorNameID;
+                using (var context = new AppDbContext())
+                {
+                    evaluatorNameID = context.EvaluationNames
+                                             .Where(en => en.EvaluatorName == currentEvaluationName)
+                                             .Select(en => (int?)en.EvaluatorNameID)
+                                             .FirstOrDefault();
+                }
+                if (!evaluatorNameID.HasValue)
+                {
+                    MessageBox.Show("Nie znaleziono nazwy oceny w bazie danych!");
+                    return;
+                }
+
+                var evaluation = new EvaluationProdukcja
+                {
+                    UserName = NameTextBoxP.Text,
+                    UserID = selectedUserID.Value,
+                    EvaluatorNameID = evaluatorNameID.Value,
+                    Date = DateTime.Now,
+                    Question1 = Question1TextBoxP.Text,
+                    Question2 = Question2TextBoxP.Text,
+                    Question3 = Question3TextBoxP.Text,
+                    Question4 = Question4TextBoxP.Text,
+                    EvaluationAnswerID = 0,
+                };
+
+                // 3. Zapisanie instancji w bazie danych:
+                using (var context = new AppDbContext())
+                {
+                    context.EvaluationsProdukcja.Add(evaluation);
+                    context.SaveChanges();
+                }
+                MessageBox.Show("Ankieta została pomyślnie zapisana!");
             }
-            MessageBox.Show("Ankieta została pomyślnie zapisana!");
         }
         private void FormBiuroButton_Click(object sender, RoutedEventArgs e)
         {
@@ -379,6 +463,17 @@ namespace Ocena_Pracownicza
             if (UserEvaluationsBListView.SelectedItem is EvaluationRecordB selectedEvaluationRecord)
             {
                 var selectedEvaluation = selectedEvaluationRecord.EvaluationB;
+                EvaluationIDToAnswer = selectedEvaluation.EvaluationID;
+
+                if (selectedEvaluation.EvaluationAnswerID > 1)
+                {
+                    OdpowiedzB.Content = "Sprawdz odpowiedz";
+                }
+                else
+                {
+                    OdpowiedzB.Content = "Odpowiedz";
+                }
+
                 UserPanel.Visibility = Visibility.Collapsed;
 
                 Question1AnswerB.Text = selectedEvaluation.Question1;
@@ -430,6 +525,17 @@ namespace Ocena_Pracownicza
             if (UserEvaluationsBListViewAll.SelectedItem is EvaluationRecordB selectedEvaluationRecord)
             {
                 var selectedEvaluation = selectedEvaluationRecord.EvaluationB;
+                EvaluationIDToAnswer = selectedEvaluation.EvaluationID;
+
+                if (selectedEvaluation.EvaluationAnswerID > 1)
+                {
+                    OdpowiedzB.Content = "Sprawdz odpowiedz";
+                }
+                else
+                {
+                    OdpowiedzB.Content = "Odpowiedz";
+                }
+
                 UserPanel.Visibility = Visibility.Collapsed;
 
                 Question1AnswerB.Text = selectedEvaluation.Question1;
@@ -452,6 +558,16 @@ namespace Ocena_Pracownicza
             if (UserEvaluationsPListView.SelectedItem is EvaluationRecordP selectedEvaluationRecord)
             {
                 var selectedEvaluation = selectedEvaluationRecord.EvaluationP;
+                EvaluationIDToAnswer = selectedEvaluation.EvaluationID;
+
+                if (selectedEvaluation.EvaluationAnswerID > 1)
+                {
+                    OdpowiedzP.Content = "Sprawdz odpowiedz";
+                }
+                else
+                {
+                    OdpowiedzP.Content = "Odpowiedz";
+                }
                 UserPanel.Visibility = Visibility.Collapsed;
 
                 Question1AnswerP.Text = selectedEvaluation.Question1;
@@ -467,6 +583,16 @@ namespace Ocena_Pracownicza
             if (UserEvaluationsPListViewAll.SelectedItem is EvaluationRecordP selectedEvaluationRecord)
             {
                 var selectedEvaluation = selectedEvaluationRecord.EvaluationP;
+                EvaluationIDToAnswer = selectedEvaluation.EvaluationID;
+
+                if (selectedEvaluation.EvaluationAnswerID > 1)
+                {
+                    OdpowiedzP.Content = "Sprawdz odpowiedz";
+                }
+                else
+                {
+                    OdpowiedzP.Content = "Odpowiedz";
+                }
                 UserPanel.Visibility = Visibility.Collapsed;
 
                 Question1AnswerP.Text = selectedEvaluation.Question1;
