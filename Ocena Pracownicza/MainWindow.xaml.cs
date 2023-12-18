@@ -1025,7 +1025,7 @@ namespace Ocena_Pracownicza
         {
             FormPanelBiuro.Visibility = Visibility.Collapsed;
             BackButton3.Visibility = Visibility.Collapsed;
-            EvaluationDetailsGridP.Visibility = Visibility.Visible;
+            EvaluationDetailsGridB.Visibility = Visibility.Visible;
         }
     }
 }
