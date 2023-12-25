@@ -956,7 +956,7 @@ namespace Ocena_Pracownicza
         {
             var selectedUserName = AccountsComboBoxResetPassword.SelectedItem as string;
 
-            if (string.IsNullOrEmpty(selectedUserName))
+            if (string.IsNullOrEmpty(selectedUserName)) 
             {
                 MessageBox.Show("Wybierz użytkownika z listy!");
                 return;
