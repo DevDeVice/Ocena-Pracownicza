@@ -963,7 +963,7 @@ namespace Ocena_Pracownicza
             }
 
             using (var context = new AppDbContext())
-            {
+             
                 // 2. Znajdź użytkownika o wybranej nazwie
                 var user = context.Users.FirstOrDefault(u => u.FullName == selectedUserName);
 
