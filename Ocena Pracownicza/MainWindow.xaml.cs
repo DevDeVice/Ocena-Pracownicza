@@ -967,7 +967,7 @@ namespace Ocena_Pracownicza
                 // 2. Znajdź użytkownika o wybranej nazwie
                 var user = context.Users.FirstOrDefault(u => u.FullName == selectedUserName);
 
-                if (user == null) 
+                if (user == null)  
                 {
                     MessageBox.Show("Nie znaleziono użytkownika!");
                     return;
