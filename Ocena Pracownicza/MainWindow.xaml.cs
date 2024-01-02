@@ -17,7 +17,9 @@ namespace Ocena_Pracownicza
         public int FormVersion { get; set; }
         public int EvaluationIDToAnswer { get; set; }
         public EvaluationBiuro historyEvaluationB {get;set;}
+        public int? historyAnswerBID { get; set; }
         public EvaluationProdukcja historyEvaluationP {get;set;}
+        public int? historyAnswerPID { get; set; }
         public struct EvaluationRecordB
         {
             public EvaluationBiuro EvaluationB { get; set; }
@@ -489,6 +491,7 @@ namespace Ocena_Pracownicza
             {
                 var selectedEvaluation = selectedEvaluationRecord.EvaluationB;
                 historyEvaluationB = selectedEvaluation;  // Przypisanie do historyEvaluationB
+                historyAnswerBID = selectedEvaluation.EvaluationAnswerID;
 
                 EvaluationIDToAnswer = selectedEvaluation.EvaluationID;
 
@@ -526,6 +529,7 @@ namespace Ocena_Pracownicza
             {
                 var selectedEvaluation = selectedEvaluationRecord.EvaluationB;
                 historyEvaluationB = selectedEvaluation;
+                historyAnswerBID = selectedEvaluation.EvaluationAnswerID;
 
                 EvaluationIDToAnswer = selectedEvaluation.EvaluationID;
 
@@ -561,6 +565,7 @@ namespace Ocena_Pracownicza
             {
                 var selectedEvaluation = selectedEvaluationRecord.EvaluationP;
                 historyEvaluationP = selectedEvaluation;
+                historyAnswerPID = selectedEvaluation.EvaluationAnswerID;
 
                 EvaluationIDToAnswer = selectedEvaluation.EvaluationID;
 
@@ -588,6 +593,7 @@ namespace Ocena_Pracownicza
             {
                 var selectedEvaluation = selectedEvaluationRecord.EvaluationP;
                 historyEvaluationP = selectedEvaluation;
+                historyAnswerPID = selectedEvaluation.EvaluationAnswerID;
 
                 EvaluationIDToAnswer = selectedEvaluation.EvaluationID;
 
@@ -1018,7 +1024,32 @@ namespace Ocena_Pracownicza
         {
             if (OdpowiedzP.Content.ToString() == "Sprawdz odpowiedz")
             {
-                MessageBox.Show("Już istnieje odp - teraz podmiana odp");
+                using (var context = new AppDbContext())
+                {
+                    var evaluationAnswer = context.EvaluationProdukcjaAnswers
+                                                  .FirstOrDefault(ea => ea.EvaluationID == historyAnswerPID);
+
+                    if (evaluationAnswer != null)
+                    {
+                        Question1AnswerP.Text = evaluationAnswer.Question1;
+                        Question2AnswerP.Text = evaluationAnswer.Question2;
+                        Question3AnswerP.Text = evaluationAnswer.Question3;
+                        Question4AnswerP.Text = evaluationAnswer.Question4;
+                        OdpowiedzP.Content = "Sprawdz pytanie";
+                    }
+                    else if (OdpowiedzP.Content.ToString() == "Sprawdz pytanie")
+                    {
+                        Question1AnswerP.Text = historyEvaluationP.Question1;
+                        Question2AnswerP.Text = historyEvaluationP.Question2;
+                        Question3AnswerP.Text = historyEvaluationP.Question3;
+                        Question4AnswerP.Text = historyEvaluationP.Question4;
+                        OdpowiedzP.Content = "Sprawdz odpowiedz";
+                    }
+                    else
+                    {
+                        MessageBox.Show("Brak danych odpowiedzi.");
+                    }
+                }
             }
             else
             {
@@ -1032,7 +1063,45 @@ namespace Ocena_Pracownicza
         {
             if (OdpowiedzB.Content.ToString() == "Sprawdz odpowiedz")
             {
-                MessageBox.Show("Już istnieje odp - teraz podmiana odp");
+                using (var context = new AppDbContext()) // Załóżmy, że AppDbContext to twoja klasa kontekstu EF
+                {
+                    var evaluationAnswer = context.EvaluationBiuroAnswers
+                                                  .FirstOrDefault(ea => ea.EvaluationID == historyAnswerBID);
+
+                    if (evaluationAnswer != null)
+                    {
+                        Question1AnswerB.Text = evaluationAnswer.Question1;
+                        Question2AnswerB.Text = evaluationAnswer.Question2;
+                        Question3AnswerB.Text = evaluationAnswer.Question3;
+                        Question4AnswerB.Text = evaluationAnswer.Question4;
+                        Question5AnswerB.Text = evaluationAnswer.Question5;
+                        Question6AnswerB.Text = evaluationAnswer.Question6;
+                        Question7AnswerB.Text = evaluationAnswer.Question7;
+                        Question8AnswerB.Text = evaluationAnswer.Question8;
+                        Question9AnswerB.Text = evaluationAnswer.Question9;
+                        Question10AnswerB.Text = evaluationAnswer.Question10;
+                        Question11AnswerB.Text = evaluationAnswer.Question11;
+                        OdpowiedzB.Content = "Sprawdz pytanie";
+                    }
+                    else
+                    {
+                        MessageBox.Show("Brak danych odpowiedzi.");
+                    }
+                }
+            }else if(OdpowiedzB.Content.ToString() == "Sprawdz pytanie")
+            {
+                Question1AnswerB.Text = historyEvaluationB.Question1;
+                Question2AnswerB.Text = historyEvaluationB.Question2;
+                Question3AnswerB.Text = historyEvaluationB.Question3;
+                Question4AnswerB.Text = historyEvaluationB.Question4;
+                Question5AnswerB.Text = historyEvaluationB.Question5;
+                Question6AnswerB.Text = historyEvaluationB.Question6;
+                Question7AnswerB.Text = historyEvaluationB.Question7;
+                Question8AnswerB.Text = historyEvaluationB.Question8;
+                Question9AnswerB.Text = historyEvaluationB.Question9;
+                Question10AnswerB.Text = historyEvaluationB.Question10;
+                Question11AnswerB.Text = historyEvaluationB.Question11;
+                OdpowiedzB.Content = "Sprawdz odpowiedz";
             }
             else
             {
