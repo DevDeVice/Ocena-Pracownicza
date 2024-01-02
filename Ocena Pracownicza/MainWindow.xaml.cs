@@ -1,22 +1,10 @@
-﻿using Microsoft.Extensions.Options;
-using Ocena_Pracownicza.DataModels;
+﻿using Ocena_Pracownicza.DataModels;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Diagnostics;
-using System.Globalization;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace Ocena_Pracownicza
 {
@@ -28,6 +16,8 @@ namespace Ocena_Pracownicza
         public User LoggedUser { get; set; }
         public int FormVersion { get; set; }
         public int EvaluationIDToAnswer { get; set; }
+        public EvaluationBiuro historyEvaluationB {get;set;}
+        public EvaluationProdukcja historyEvaluationP {get;set;}
         public struct EvaluationRecordB
         {
             public EvaluationBiuro EvaluationB { get; set; }
@@ -458,6 +448,7 @@ namespace Ocena_Pracownicza
             return false;
         }
 
+        /* Wersja bez zapisywania
         private void UserEvaluationsBListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             if (UserEvaluationsBListView.SelectedItem is EvaluationRecordB selectedEvaluationRecord)
@@ -490,41 +481,52 @@ namespace Ocena_Pracownicza
 
                 EvaluationDetailsGridB.Visibility = Visibility.Visible;
             }
-        }
+        }*/
 
-        /*Testowe zmiana ktora zapisuje ankiete uzytkownika
-         * 
-         * private void UserEvaluationsBListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        private void UserEvaluationsBListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             if (UserEvaluationsBListView.SelectedItem is EvaluationRecordB selectedEvaluationRecord)
             {
-                historyEvaluationB = selectedEvaluationRecord.EvaluationB;
-            }
-            if (historyEvaluationB is EvaluationBiuro)
-            {
+                var selectedEvaluation = selectedEvaluationRecord.EvaluationB;
+                historyEvaluationB = selectedEvaluation;  // Przypisanie do historyEvaluationB
+
+                EvaluationIDToAnswer = selectedEvaluation.EvaluationID;
+
+                if (selectedEvaluation.EvaluationAnswerID > 1)
+                {
+                    OdpowiedzB.Content = "Sprawdz odpowiedz";
+                }
+                else
+                {
+                    OdpowiedzB.Content = "Odpowiedz";
+                }
+
                 UserPanel.Visibility = Visibility.Collapsed;
 
-                Question1AnswerB.Text = historyEvaluationB.Question1;
-                Question2AnswerB.Text = historyEvaluationB.Question2;
-                Question3AnswerB.Text = historyEvaluationB.Question3;
-                Question4AnswerB.Text = historyEvaluationB.Question4;
-                Question5AnswerB.Text = historyEvaluationB.Question5;
-                Question6AnswerB.Text = historyEvaluationB.Question6;
-                Question7AnswerB.Text = historyEvaluationB.Question7;
-                Question8AnswerB.Text = historyEvaluationB.Question8;
-                Question9AnswerB.Text = historyEvaluationB.Question9;
-                Question10AnswerB.Text = historyEvaluationB.Question10;
-                Question11AnswerB.Text = historyEvaluationB.Question11;
+                Question1AnswerB.Text = selectedEvaluation.Question1;
+                Question2AnswerB.Text = selectedEvaluation.Question2;
+                Question3AnswerB.Text = selectedEvaluation.Question3;
+                Question4AnswerB.Text = selectedEvaluation.Question4;
+                Question5AnswerB.Text = selectedEvaluation.Question5;
+                Question6AnswerB.Text = selectedEvaluation.Question6;
+                Question7AnswerB.Text = selectedEvaluation.Question7;
+                Question8AnswerB.Text = selectedEvaluation.Question8;
+                Question9AnswerB.Text = selectedEvaluation.Question9;
+                Question10AnswerB.Text = selectedEvaluation.Question10;
+                Question11AnswerB.Text = selectedEvaluation.Question11;
 
                 EvaluationDetailsGridB.Visibility = Visibility.Visible;
             }
-        }*/
+        }
+
         private void UserEvaluationsBListViewAll_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
 
             if (UserEvaluationsBListViewAll.SelectedItem is EvaluationRecordB selectedEvaluationRecord)
             {
                 var selectedEvaluation = selectedEvaluationRecord.EvaluationB;
+                historyEvaluationB = selectedEvaluation;
+
                 EvaluationIDToAnswer = selectedEvaluation.EvaluationID;
 
                 if (selectedEvaluation.EvaluationAnswerID > 1)
@@ -558,6 +560,8 @@ namespace Ocena_Pracownicza
             if (UserEvaluationsPListView.SelectedItem is EvaluationRecordP selectedEvaluationRecord)
             {
                 var selectedEvaluation = selectedEvaluationRecord.EvaluationP;
+                historyEvaluationP = selectedEvaluation;
+
                 EvaluationIDToAnswer = selectedEvaluation.EvaluationID;
 
                 if (selectedEvaluation.EvaluationAnswerID > 1)
@@ -583,6 +587,8 @@ namespace Ocena_Pracownicza
             if (UserEvaluationsPListViewAll.SelectedItem is EvaluationRecordP selectedEvaluationRecord)
             {
                 var selectedEvaluation = selectedEvaluationRecord.EvaluationP;
+                historyEvaluationP = selectedEvaluation;
+
                 EvaluationIDToAnswer = selectedEvaluation.EvaluationID;
 
                 if (selectedEvaluation.EvaluationAnswerID > 1)
@@ -627,12 +633,12 @@ namespace Ocena_Pracownicza
         }
         private void AddNewUser_Click(object sender, RoutedEventArgs e)
         {
-            if (string.IsNullOrEmpty(AddImieNazwisko.Text)|| string.IsNullOrEmpty(AddLogin.Text) || string.IsNullOrEmpty(AddHaslo.Text))
+            if (string.IsNullOrEmpty(AddImieNazwisko.Text) || string.IsNullOrEmpty(AddLogin.Text) || string.IsNullOrEmpty(AddHaslo.Text))
             {
                 MessageBox.Show("Uzupełnij pola!");
                 return;
             }
-            
+
             using (var context = new AppDbContext())
             {
                 bool loginExists = context.Users.Any(u => u.Login == AddLogin.Text);
@@ -642,9 +648,14 @@ namespace Ocena_Pracownicza
                     MessageBox.Show("Użytkownik o takim loginie już istnieje.");
                     return;
                 }
-                string? selectedManagerName = AccountsComboBoxAdd.SelectedItem.ToString();
 
-                var manager = context.Users.FirstOrDefault(u => u.FullName == selectedManagerName);
+                string? selectedManagerName = AccountsComboBoxAdd.SelectedItem?.ToString();
+
+                User? manager = null;
+                if (!string.IsNullOrEmpty(selectedManagerName))
+                {
+                    manager = context.Users.FirstOrDefault(u => u.FullName == selectedManagerName);
+                }
 
                 var user = new User
                 {
@@ -652,15 +663,17 @@ namespace Ocena_Pracownicza
                     Login = AddLogin.Text,
                     Password = AddHaslo.Text,
                     Enabled = true,
-                    ManagerId = manager.UserID,
+                    ManagerId = manager?.UserID // Użyj operatora warunkowego, aby obsłużyć null
                 };
 
                 context.Users.Add(user);
                 context.SaveChanges();
             }
+
             LoadAccounts();
             MessageBox.Show($"Utworzono: {AddImieNazwisko.Text}");
         }
+
 
         private void EvaluationNamesComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
