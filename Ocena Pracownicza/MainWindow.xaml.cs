@@ -1056,7 +1056,7 @@ namespace Ocena_Pracownicza
                 FormPanelProdukcja.Visibility = Visibility.Visible;
                 BackButton2.Visibility = Visibility.Visible;
                 EvaluationDetailsGridP.Visibility = Visibility.Collapsed;
-            }
+            } 
         }
 
         private void OdpowiedzB_Click(object sender, RoutedEventArgs e)
