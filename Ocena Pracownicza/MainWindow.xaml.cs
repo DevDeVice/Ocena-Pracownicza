@@ -1073,7 +1073,7 @@ namespace Ocena_Pracownicza
                         Question1AnswerB.Text = evaluationAnswer.Question1;
                         Question2AnswerB.Text = evaluationAnswer.Question2;
                         Question3AnswerB.Text = evaluationAnswer.Question3;
-                        Question4AnswerB.Text = evaluationAnswer.Question4;
+                        Question4AnswerB.Text = evaluationAnswer.Question4; 
                         Question5AnswerB.Text = evaluationAnswer.Question5;
                         Question6AnswerB.Text = evaluationAnswer.Question6;
                         Question7AnswerB.Text = evaluationAnswer.Question7;
