@@ -17,5 +17,6 @@ namespace Ocena_Pracownicza.DataModels
         public string Question2 { get; set; }
         public string Question3 { get; set; }
         public string Question4 { get; set; }
+        public string Question5 { get; set; }
     }
 }

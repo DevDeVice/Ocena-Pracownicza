@@ -281,6 +281,7 @@ namespace Ocena_Pracownicza
                     Question2 = Question2TextBoxP.Text,
                     Question3 = Question3TextBoxP.Text,
                     Question4 = Question4TextBoxP.Text,
+                    Question5 = Question5TextBoxP.Text,
                 };
 
                 // 3. Zapisanie instancji w bazie danych:
@@ -363,6 +364,7 @@ namespace Ocena_Pracownicza
                     Question2 = Question2TextBoxP.Text,
                     Question3 = Question3TextBoxP.Text,
                     Question4 = Question4TextBoxP.Text,
+                    Question5 = Question5TextBoxP.Text,
                     EvaluationAnswerID = 0,
                 };
 
@@ -583,6 +585,7 @@ namespace Ocena_Pracownicza
                 Question2AnswerP.Text = selectedEvaluation.Question2;
                 Question3AnswerP.Text = selectedEvaluation.Question3;
                 Question4AnswerP.Text = selectedEvaluation.Question4;
+                Question5AnswerP.Text = selectedEvaluation.Question5;
 
                 EvaluationDetailsGridP.Visibility = Visibility.Visible;
             }
@@ -611,6 +614,7 @@ namespace Ocena_Pracownicza
                 Question2AnswerP.Text = selectedEvaluation.Question2;
                 Question3AnswerP.Text = selectedEvaluation.Question3;
                 Question4AnswerP.Text = selectedEvaluation.Question4;
+                Question5AnswerP.Text = selectedEvaluation.Question5;
 
                 EvaluationDetailsGridP.Visibility = Visibility.Visible;
             }
@@ -1035,6 +1039,7 @@ namespace Ocena_Pracownicza
                         Question2AnswerP.Text = evaluationAnswer.Question2;
                         Question3AnswerP.Text = evaluationAnswer.Question3;
                         Question4AnswerP.Text = evaluationAnswer.Question4;
+                        Question5AnswerP.Text = evaluationAnswer.Question5;
                         OdpowiedzP.Content = "Sprawdz pytanie";
                     }
                     else if (OdpowiedzP.Content.ToString() == "Sprawdz pytanie")
@@ -1043,6 +1048,7 @@ namespace Ocena_Pracownicza
                         Question2AnswerP.Text = historyEvaluationP.Question2;
                         Question3AnswerP.Text = historyEvaluationP.Question3;
                         Question4AnswerP.Text = historyEvaluationP.Question4;
+                        Question5AnswerP.Text = historyEvaluationP.Question5;
                         OdpowiedzP.Content = "Sprawdz odpowiedz";
                     }
                     else
