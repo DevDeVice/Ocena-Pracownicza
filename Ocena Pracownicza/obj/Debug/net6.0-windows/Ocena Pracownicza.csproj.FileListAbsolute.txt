@@ -140,3 +140,4 @@ C:\Users\sebastiand\Desktop\GitHub\Ocena-Pracownicza\Ocena Pracownicza\obj\Debug
 C:\Users\sebastiand\Desktop\GitHub\Ocena-Pracownicza\Ocena Pracownicza\obj\Debug\net6.0-windows\Ocena Pracownicza.pdb
 C:\Users\sebastiand\Desktop\GitHub\Ocena-Pracownicza\Ocena Pracownicza\obj\Debug\net6.0-windows\Ocena Pracownicza.genruntimeconfig.cache
 C:\Users\sebastiand\Desktop\GitHub\Ocena-Pracownicza\Ocena Pracownicza\obj\Debug\net6.0-windows\ref\Ocena Pracownicza.dll
+C:\Users\sejko\Desktop\Wpf\Ocena Pracownicza\Ocena Pracownicza\bin\Debug\net6.0-windows\BCrypt.Net-Next.dll

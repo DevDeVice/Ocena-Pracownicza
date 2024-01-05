@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "oHs2QL3FQp1ICgPIUeEE92bxw49iRHK5mdtgy6fJBTODDm0V+yICK8M5F+t9e7ruMF9fe5JKUrAckI0Rb433Kg==",
+  "dgSpecHash": "/FYpjVnTjBtpjVeCQ5CQJLimgD42PufmpXLUND23YNeJECsrdCRRFn+NAtddOBL+gLEJuaHxj27adgaZ98PhkQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\sejko\\Desktop\\Wpf\\Ocena Pracownicza\\Ocena Pracownicza\\Ocena Pracownicza.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\sejko\\.nuget\\packages\\bcrypt.net-next\\4.0.3\\bcrypt.net-next.4.0.3.nupkg.sha512",
     "C:\\Users\\sejko\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\sejko\\.nuget\\packages\\microsoft.data.sqlite.core\\7.0.11\\microsoft.data.sqlite.core.7.0.11.nupkg.sha512",
     "C:\\Users\\sejko\\.nuget\\packages\\microsoft.entityframeworkcore\\7.0.11\\microsoft.entityframeworkcore.7.0.11.nupkg.sha512",

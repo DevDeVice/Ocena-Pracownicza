@@ -5,6 +5,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using BCrypt.Net;
 
 namespace Ocena_Pracownicza
 {
@@ -451,16 +452,17 @@ namespace Ocena_Pracownicza
             EvaluationDetailsGridP.Visibility = Visibility.Collapsed;
             ClearTextBoxesInGrid();
         }
-        
+
 
         private bool ValidateLogin(string username, string password)
         {
             using (var context = new AppDbContext())
             {
                 var user = context.Users.FirstOrDefault(u => u.Login == username);
-                if (user != null && user.Password == password && user.Enabled != false)
+
+                if (user != null && BCrypt.Net.BCrypt.Verify(password, user.Password))
                 {
-                    LoggedUser = user;
+                    LoggedUser = user; // Załóżmy, że istnieje globalna zmienna LoggedUser do przechowywania zalogowanego użytkownika
                     return true;
                 }
             }
@@ -682,13 +684,16 @@ namespace Ocena_Pracownicza
                     manager = context.Users.FirstOrDefault(u => u.FullName == selectedManagerName);
                 }
 
+                // Haszowanie hasła przed zapisaniem do bazy
+                string passwordHash = BCrypt.Net.BCrypt.HashPassword(AddHaslo.Text);
+
                 var user = new User
                 {
                     FullName = AddImieNazwisko.Text,
                     Login = AddLogin.Text,
-                    Password = AddHaslo.Text,
-                    Enabled = true,
-                    ManagerId = manager?.UserID // Użyj operatora warunkowego, aby obsłużyć null
+                    Password = passwordHash, // Zapisujemy haszowane hasło
+                    ManagerId = manager?.UserID,
+                    Enabled = true
                 };
 
                 context.Users.Add(user);
@@ -994,31 +999,37 @@ namespace Ocena_Pracownicza
         {
             var selectedUserName = AccountsComboBoxResetPassword.SelectedItem as string;
 
-            if (string.IsNullOrEmpty(selectedUserName)) 
+            if (string.IsNullOrEmpty(selectedUserName))
             {
                 MessageBox.Show("Wybierz użytkownika z listy!");
                 return;
             }
 
+            if (string.IsNullOrEmpty(ResetPassword.Text))
+            {
+                MessageBox.Show("Wprowadź nowe hasło!");
+                return;
+            }
+
             using (var context = new AppDbContext())
-            { 
-                // 2. Znajdź użytkownika o wybranej nazwie
+            {
                 var user = context.Users.FirstOrDefault(u => u.FullName == selectedUserName);
 
-                if (user == null)  
+                if (user == null)
                 {
                     MessageBox.Show("Nie znaleziono użytkownika!");
                     return;
                 }
 
-                // 3. Zmień wartość Enabled na 0
-                user.Password = ResetPassword.Text;
+                // Hashowanie nowego hasła przed zapisaniem
+                string newHashedPassword = BCrypt.Net.BCrypt.HashPassword(ResetPassword.Text);
+                user.Password = newHashedPassword;
 
-                // 4. Zapisz zmiany w bazie danych
                 context.SaveChanges();
             }
             MessageBox.Show($"Hasło użytkownika {selectedUserName} zostało zmienione!");
         }
+
         private void AccountsChangeManager_Click(object sender, RoutedEventArgs e)
         {
 
