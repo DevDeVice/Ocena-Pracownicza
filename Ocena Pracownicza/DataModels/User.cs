@@ -18,6 +18,8 @@ namespace Ocena_Pracownicza.DataModels
         public string Password { get; set; }
         public int? ManagerId { get; set; }
         public bool Enabled { get; set; }
+        public bool Salt { get; set; }
+        public bool HashedPassword { get; set; }
 
     }
 }
