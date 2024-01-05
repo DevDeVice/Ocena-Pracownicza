@@ -40,11 +40,26 @@ namespace Ocena_Pracownicza
         {
             LoggedUser= new User();
             LoggedUser.UserID = 0;
+            ConnectionCheck();
             InitializeComponent();
             LoadAccounts();
             LoadEvaluationName();
             LoadComboBoxData(); 
             LoadDelatedUser();
+        }
+        private void ConnectionCheck()
+        {
+            try
+            {
+                using (var context = new AppDbContext())
+                {
+                    var data = context.EvaluationBiuro.FirstOrDefault();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Nie udało się połączyć z bazą danych: {ex.Message}", "Błąd Połączenia", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
         private void LoadAccounts()
         {
