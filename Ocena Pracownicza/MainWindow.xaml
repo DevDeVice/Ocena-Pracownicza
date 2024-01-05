@@ -55,11 +55,11 @@
         <Grid.Background>
             <ImageBrush ImageSource="img/ocenaPracowniczav2.jpg" Stretch="UniformToFill"/>
         </Grid.Background>
-        <StackPanel x:Name="MenuPanel" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center" Visibility="Visible" Margin="0,0,0,200">
+        <StackPanel x:Name="MenuPanel" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center" Visibility="Collapsed" Margin="0,0,0,200">
             <Button x:Name="FormBiuro" Content="Administracja/Biuro" Width="300" Height="40" Click="FormBiuroButton_Click" Margin="10" />
             <Button x:Name="FormProdukcja" Content="Produkcja/Magazyn" Width="300" Height="40" Margin="10" Click="FormProdukcjaButton_Click" />
         </StackPanel>
-        <Button x:Name="Login" Content="Zaloguj" Width="300" Height="40" Click="LoginButton_Click" Margin="10,100,10,10" Visibility="Visible"/>
+        <Button x:Name="Login" Content="Zaloguj" Width="300" Height="40" Click="LoginButton_Click" Margin="10,100,10,10" Visibility="Collapsed"/>
         <Button Content="X" Click="CloseButton_Click" Width="30" Height="30" VerticalAlignment="Top" Margin="0,0,2,0" HorizontalAlignment="Right" Panel.ZIndex="1"/>
         <Button Content="Back" Click="Back_Click" VerticalAlignment="Top" HorizontalAlignment="Left" Width="300" Height="40" Margin="50,50,0,0" Visibility="Collapsed" x:Name="BackButton" Panel.ZIndex="2"/>
         <Button Content="Back2" Click="Back2_Click" VerticalAlignment="Top" HorizontalAlignment="Left" Width="300" Height="40" Margin="50,50,0,0" Visibility="Collapsed" x:Name="BackButton2" Panel.ZIndex="2"/>
@@ -69,72 +69,76 @@
             <ScrollViewer VerticalScrollBarVisibility="Auto" >
                 <StackPanel Margin="-2,100,0,0">
                     <!-- Imię i nazwisko -->
-                    <Grid x:Name="ToHideB1" Margin="0,20,0,0" Width="300" >
+                    <Grid x:Name="ToHideB1" Margin="0,20,0,0" Width="500" >
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
                         </Grid.RowDefinitions>
                         <TextBlock Text="Imię i nazwisko:" Grid.Row="0" HorizontalAlignment="Center"/>
-                        <TextBox x:Name="NameTextBoxB" Width="300" Grid.Row="1"/>
+                        <TextBox x:Name="NameTextBoxB" Width="500" Grid.Row="1"/>
                     </Grid>
 
                     <!-- Lista rozwijana z kontami -->
-                    <Grid x:Name="ToHideB2" Margin="0,20,0,0" Width="300">
+                    <Grid x:Name="ToHideB2" Margin="0,20,0,0" Width="500">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
                         </Grid.RowDefinitions>
-                        <TextBlock Text="Wybierz konto:" Grid.Row="0" HorizontalAlignment="Center"/>
-                        <ComboBox x:Name="AccountsComboBoxB" Width="300" Grid.Row="1"/>
+                        <TextBlock Text="Wybierz Kierownika:" Grid.Row="0" HorizontalAlignment="Center"/>
+                        <ComboBox x:Name="AccountsComboBoxB" Width="500" Grid.Row="1"/>
                     </Grid>
 
 
                     <!-- Pytania -->
-                    <StackPanel Margin="0,20,0,0" Width="300">
+                    <StackPanel Margin="0,20,0,0" Width="500">
                         <Grid>
-                            <TextBlock Text="Odpowiedź na pytanie 1:" Grid.Row="0" HorizontalAlignment="Center"/>
-                            <TextBox x:Name="Question1TextBoxB" Width="300" AcceptsReturn="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" Margin="0,20,0,0" TabIndex="0"/>
+                            <TextBlock Text="Jakie są rezultaty Twojej pracy (konkretne wyniki)?" Grid.Row="0" HorizontalAlignment="Center"/>
+                            <TextBox x:Name="Question1TextBoxB" Width="500" AcceptsReturn="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" Margin="0,20,0,0" TabIndex="0"/>
                         </Grid>
 
-                        <Grid Margin="0,20,0,0" Width="300">
-                            <TextBlock Text="Odpowiedź na pytanie 2:" Grid.Row="0" HorizontalAlignment="Center"/>
-                            <TextBox x:Name="Question2TextBoxB" Width="300" AcceptsReturn="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" Margin="0,20,0,0" TabIndex="1"/>
+                        <Grid Margin="0,20,0,0" Width="500">
+                            <TextBlock Text="Jakie Twoje działania określił(a)byś jako pozytywne?" Grid.Row="0" HorizontalAlignment="Center"/>
+                            <TextBox x:Name="Question2TextBoxB" Width="500" AcceptsReturn="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" Margin="0,20,0,0" TabIndex="1"/>
                         </Grid>
-                        <Grid Margin="0,20,0,0" Width="300">
-                            <TextBlock Text="Odpowiedź na pytanie 3:" Grid.Row="0" HorizontalAlignment="Center"/>
-                            <TextBox x:Name="Question3TextBoxB" Width="300" AcceptsReturn="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" Margin="0,20,0,0" TabIndex="2"/>
+                        <Grid Margin="0,20,0,0" Width="500">
+                            <TextBlock Text="Jak oceniasz swoje działania i zachowania w kontekście wartości firmy?" Grid.Row="0" HorizontalAlignment="Center"/>
+                            <TextBlock Text="Uczciwość:" Grid.Row="1" HorizontalAlignment="Center" Margin="0,20,0,0"/>
+                            <TextBox x:Name="Question3TextBoxB" Width="500" AcceptsReturn="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" Margin="0,40,0,0" TabIndex="2"/>
                         </Grid>
-                        <Grid Margin="0,20,0,0" Width="300">
-                            <TextBlock Text="Odpowiedź na pytanie 4:" Grid.Row="0" HorizontalAlignment="Center"/>
-                            <TextBox x:Name="Question4TextBoxB" Width="300" AcceptsReturn="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" Margin="0,20,0,0" TabIndex="3"/>
+                        <Grid Margin="0,20,0,0" Width="500">
+                            <TextBlock Text="Odpowiedzialność:" Grid.Row="0" HorizontalAlignment="Center"/>
+                            <TextBox x:Name="Question4TextBoxB" Width="500" AcceptsReturn="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" Margin="0,20,0,0" TabIndex="3"/>
                         </Grid>
-                        <Grid Margin="0,20,0,0" Width="300">
-                            <TextBlock Text="Odpowiedź na pytanie 5:" Grid.Row="0" HorizontalAlignment="Center"/>
-                            <TextBox x:Name="Question5TextBoxB" Width="300" AcceptsReturn="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" Margin="0,20,0,0" TabIndex="4"/>
+                        <Grid Margin="0,20,0,0" Width="500">
+                            <TextBlock Text="Zaangażowanie:" Grid.Row="0" HorizontalAlignment="Center"/>
+                            <TextBox x:Name="Question5TextBoxB" Width="500" AcceptsReturn="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" Margin="0,20,0,0" TabIndex="4"/>
                         </Grid>
-                        <Grid Margin="0,20,0,0" Width="300">
-                            <TextBlock Text="Odpowiedź na pytanie 6:" Grid.Row="0" HorizontalAlignment="Center"/>
-                            <TextBox x:Name="Question6TextBoxB" Width="300" AcceptsReturn="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" Margin="0,20,0,0" TabIndex="5"/>
+                        <Grid Margin="0,20,0,0" Width="500">
+                            <TextBlock Text="Bliskie relacje:" Grid.Row="0" HorizontalAlignment="Center"/>
+                            <TextBox x:Name="Question6TextBoxB" Width="500" AcceptsReturn="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" Margin="0,20,0,0" TabIndex="5"/>
                         </Grid>
-                        <Grid Margin="0,20,0,0" Width="300">
-                            <TextBlock Text="Odpowiedź na pytanie 7:" Grid.Row="0" HorizontalAlignment="Center"/>
-                            <TextBox x:Name="Question7TextBoxB" Width="300" AcceptsReturn="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" Margin="0,20,0,0" TabIndex="6"/>
+                        <Grid Margin="0,20,0,0" Width="500">
+                            <TextBlock Text="Innowacyjność:" Grid.Row="0" HorizontalAlignment="Center"/>
+                            <TextBox x:Name="Question7TextBoxB" Width="500" AcceptsReturn="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" Margin="0,20,0,0" TabIndex="6"/>
                         </Grid>
-                        <Grid Margin="0,20,0,0" Width="300">
-                            <TextBlock Text="Odpowiedź na pytanie 8:" Grid.Row="0" HorizontalAlignment="Center"/>
-                            <TextBox x:Name="Question8TextBoxB" Width="300" AcceptsReturn="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" Margin="0,20,0,0" TabIndex="7"/>
+                        <Grid Margin="0,20,0,0" Width="500">
+                            <TextBlock Text="Jakie Twoje działania określił(a)byś jako" Grid.Row="0" HorizontalAlignment="Center"/>
+                            <TextBlock Text="utrudniające uzyskanie dobrych rezultatów?" Grid.Row="0" HorizontalAlignment="Center" Margin="0,20,0,0"/>
+                            <TextBox x:Name="Question8TextBoxB" Width="500" AcceptsReturn="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" Margin="0,40,0,0" TabIndex="7"/>
                         </Grid>
-                        <Grid Margin="0,20,0,0" Width="300">
-                            <TextBlock Text="Odpowiedź na pytanie 9:" Grid.Row="0" HorizontalAlignment="Center"/>
-                            <TextBox x:Name="Question9TextBoxB" Width="300" AcceptsReturn="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" Margin="0,20,0,0" TabIndex="8"/>
+                        <Grid Margin="0,20,0,0" Width="500">
+                            <TextBlock Text="Nad czym chcesz pracować (jakie elementy zachowania/umiejetności" Grid.Row="0" HorizontalAlignment="Center"/>
+                            <TextBlock Text="chcesz rozwijać/jakie sobie stawiasz cele)?" Grid.Row="0" HorizontalAlignment="Center" Margin="0,20,0,0"/>
+                            <TextBox x:Name="Question9TextBoxB" Width="500" AcceptsReturn="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" Margin="0,40,0,0" TabIndex="8"/>
                         </Grid>
-                        <Grid Margin="0,20,0,0" Width="300">
-                            <TextBlock Text="Odpowiedź na pytanie 10:" Grid.Row="0" HorizontalAlignment="Center"/>
-                            <TextBox x:Name="Question10TextBoxB" Width="300" AcceptsReturn="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" Margin="0,20,0,0" TabIndex="9"/>
+                        <Grid Margin="0,20,0,0" Width="500">
+                            <TextBlock Text="Określ sposób i czas monitorowania dążenia do tych celów" Grid.Row="0" HorizontalAlignment="Center"/>
+                            <TextBlock Text="(kiedy i po czym poznasz, że zostały one zrealizowane):" Grid.Row="0" HorizontalAlignment="Center" Margin="0,20,0,0"/>
+                            <TextBox x:Name="Question10TextBoxB" Width="500" AcceptsReturn="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" Margin="0,40,0,0" TabIndex="9"/>
                         </Grid>
-                        <Grid Margin="0,20,0,0" Width="300">
-                            <TextBlock Text="Odpowiedź na pytanie 11:" Grid.Row="0" HorizontalAlignment="Center"/>
-                            <TextBox x:Name="Question11TextBoxB" Width="300" AcceptsReturn="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" Margin="0,20,0,0" TabIndex="10"/>
+                        <Grid Margin="0,20,0,0" Width="500">
+                            <TextBlock Text="Uwagi:" Grid.Row="0" HorizontalAlignment="Center"/>
+                            <TextBox x:Name="Question11TextBoxB" Width="500" AcceptsReturn="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" Margin="0,20,0,0" TabIndex="10"/>
                         </Grid>
                         <Button x:Name="FormBiuroZapisz" Content="Zapisz" Width="300" Height="40" HorizontalAlignment="Center" Margin="0,20,0,20" Click="SaveFormButtonB_Click" Panel.ZIndex="2" VerticalAlignment="Center" IsDefault="True"/>
                     </StackPanel>
@@ -142,48 +146,52 @@
             </ScrollViewer>
         </Grid>
 
-        <Grid x:Name="FormPanelProdukcja" Visibility="Collapsed">
+        <Grid x:Name="FormPanelProdukcja" Visibility="Visible">
             <ScrollViewer VerticalScrollBarVisibility="Auto" >
                 <StackPanel Margin="-2,100,0,0">
                     <!-- Imię i nazwisko -->
-                    <Grid x:Name="ToHideP1" Margin="0,20,0,0" Width="300">
+                    <Grid x:Name="ToHideP1" Margin="0,20,0,0" Width="500">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
                         </Grid.RowDefinitions>
                         <TextBlock Text="Imię i nazwisko:" Grid.Row="0" HorizontalAlignment="Center"/>
-                        <TextBox x:Name="NameTextBoxP" Width="300" Grid.Row="1"/>
+                        <TextBox x:Name="NameTextBoxP" Width="500" Grid.Row="1"/>
                     </Grid>
 
                     <!-- Lista rozwijana z kontami -->
-                    <Grid x:Name="ToHideP2" Margin="0,20,0,0" Width="300" Visibility="visible">
+                    <Grid x:Name="ToHideP2" Margin="0,20,0,0" Width="500" Visibility="visible">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
                         </Grid.RowDefinitions>
                         <TextBlock Text="Wybierz konto:" Grid.Row="0" HorizontalAlignment="Center"/>
-                        <ComboBox x:Name="AccountsComboBoxP" Width="300" Grid.Row="1"/>
+                        <ComboBox x:Name="AccountsComboBoxP" Width="500" Grid.Row="1"/>
                     </Grid>
 
 
                     <!-- Pytania -->
-                    <StackPanel Margin="0,20,0,0" Width="300">
+                    <StackPanel Margin="0,20,0,0" Width="500">
                         <Grid>
-                            <TextBlock Text="Odpowiedź na pytanie 1:" Grid.Row="0" HorizontalAlignment="Center"/>
-                            <TextBox x:Name="Question1TextBoxP" Width="300" AcceptsReturn="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" Margin="0,20,0,0" TabIndex="0"/>
+                            <TextBlock Text="Jakie twoje działania określił(a)byś jako pozytywne" Grid.Row="0" HorizontalAlignment="Center"/>
+                            <TextBlock Text="(przynoszące rezultaty w twojej pracy)?" Grid.Row="0" HorizontalAlignment="Center" Margin="0,20,0,0"/>
+                            <TextBox x:Name="Question1TextBoxP" Width="500" AcceptsReturn="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" Margin="0,40,0,0" TabIndex="0"/>
                         </Grid>
 
-                        <Grid Margin="0,20,0,0" Width="300">
-                            <TextBlock Text="Odpowiedź na pytanie 2:" Grid.Row="0" HorizontalAlignment="Center"/>
-                            <TextBox x:Name="Question2TextBoxP" Width="300" AcceptsReturn="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" Margin="0,20,0,0" TabIndex="1"/>
+                        <Grid Margin="0,20,0,0" Width="500">
+                            <TextBlock Text="Jakie twoje działania określił(a)byś jako" Grid.Row="0" HorizontalAlignment="Center"/>
+                            <TextBlock Text="utrudniające uzyskanie dobrych rezultatów?" Grid.Row="0" HorizontalAlignment="Center" Margin="0,20,0,0"/>
+                            <TextBox x:Name="Question2TextBoxP" Width="500" AcceptsReturn="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" Margin="0,40,0,0" TabIndex="1"/>
                         </Grid>
-                        <Grid Margin="0,20,0,0" Width="300">
-                            <TextBlock Text="Odpowiedź na pytanie 3:" Grid.Row="0" HorizontalAlignment="Center"/>
-                            <TextBox x:Name="Question3TextBoxP" Width="300" AcceptsReturn="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" Margin="0,20,0,0" TabIndex="2"/>
+                        <Grid Margin="0,20,0,0" Width="500">
+                            <TextBlock Text="Nad czym chcesz pracować (jakie elementy zachowania/umiejętności" Grid.Row="0" HorizontalAlignment="Center"/>
+                            <TextBlock Text="chcesz rozwijać/jakie sobie stawiasz cele)?" Grid.Row="0" HorizontalAlignment="Center" Margin="0,20,0,0"/>
+                            <TextBox x:Name="Question3TextBoxP" Width="500" AcceptsReturn="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" Margin="0,40,0,0" TabIndex="2"/>
                         </Grid>
-                        <Grid Margin="0,20,0,0" Width="300">
-                            <TextBlock Text="Odpowiedź na pytanie 4:" Grid.Row="0" HorizontalAlignment="Center"/>
-                            <TextBox x:Name="Question4TextBoxP" Width="300" AcceptsReturn="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" Margin="0,20,0,0" TabIndex="3"/>
+                        <Grid Margin="0,20,0,0" Width="500">
+                            <TextBlock Text="Określ sposób i czas monitorowania dążenia do tych celów" Grid.Row="0" HorizontalAlignment="Center"/>
+                            <TextBlock Text="(kiedy i po czym poznasz, że zostały one zrealizowane):" Grid.Row="0" HorizontalAlignment="Center" Margin="0,20,0,0"/>
+                            <TextBox x:Name="Question4TextBoxP" Width="500" AcceptsReturn="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" Margin="0,40,0,0" TabIndex="3"/>
                         </Grid>
 
                         <Button x:Name="FormProdukcjaZapisz" Content="Zapisz" Width="300" HorizontalAlignment="Center" Margin="-1,20,0,20" Click="SaveFormButtonP_Click" Panel.ZIndex="2" VerticalAlignment="Center" IsDefault="True"/>
