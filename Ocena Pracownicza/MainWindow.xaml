@@ -235,6 +235,10 @@
             <Button Content="Return" VerticalAlignment="Top" HorizontalAlignment="Left" Width="300" Height="40" Margin="-410,50,0,0" Click="ReturnButton_Click" Panel.ZIndex="1" />
             <StackPanel x:Name="TestDrukB" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,50,0,0" Width="700px">
                 <Border Background="#FFFCCE17" CornerRadius="10" Padding="5">
+                    <TextBlock Text="Imie Nazwisko" Style="{StaticResource QuestionStyle}"/>
+                </Border>
+                <TextBlock x:Name="Question0AnswerB" Text="Odpowiedź na pytanie 1:" Style="{StaticResource AnswerStyle}"/>
+                <Border Background="#FFFCCE17" CornerRadius="10" Padding="5">
                     <TextBlock Text="Jakie są rezultaty Twojej pracy (konkretne wyniki)?" Style="{StaticResource QuestionStyle}"/>
                 </Border>
                 <TextBlock x:Name="Question1AnswerB" Text="Odpowiedź na pytanie 1:" Style="{StaticResource AnswerStyle}"/>
@@ -289,6 +293,10 @@
         <Grid x:Name="EvaluationDetailsGridP" Visibility="Collapsed" Width="1000">
             <Button Content="Return" VerticalAlignment="Top" HorizontalAlignment="Left" Width="300" Height="40" Margin="-410,50,0,0" Click="ReturnButton_Click" Panel.ZIndex="1" />
             <StackPanel x:Name="TestDrukP" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,50,0,0" Width="700px">
+                <Border Background="#FFFCCE17" CornerRadius="10" Padding="5">
+                    <TextBlock Text="Imie Nazwisko" Style="{StaticResource QuestionStyle}"/>
+                </Border>
+                <TextBlock x:Name="Question0AnswerP" Text="Odpowiedź na pytanie 1:" Style="{StaticResource AnswerStyle}"/>
                 <Border Background="#FFFCCE17" CornerRadius="10" Padding="5">
                     <TextBlock Text="Jakie twoje działania określił(a)byś jako pozytywne (przynoszące rezultaty w twojej pracy)?" Style="{StaticResource QuestionStyle}"/>
                 </Border>

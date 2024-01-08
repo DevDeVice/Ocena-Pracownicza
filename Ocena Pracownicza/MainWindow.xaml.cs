@@ -417,10 +417,10 @@ namespace Ocena_Pracownicza
         private void LoginButton_Click(object sender, RoutedEventArgs e)
         {
             FormVersion = 2;
-            //ToHideB1.Visibility = Visibility.Collapsed;
-            //ToHideB2.Visibility = Visibility.Collapsed;
-            //ToHideP1.Visibility = Visibility.Collapsed;
-            //ToHideP2.Visibility = Visibility.Collapsed;
+            ToHideB1.Visibility = Visibility.Collapsed;
+            ToHideB2.Visibility = Visibility.Collapsed;
+            ToHideP1.Visibility = Visibility.Collapsed;
+            ToHideP2.Visibility = Visibility.Collapsed;
             LoginPanel.Visibility = Visibility.Visible;
             BackButton.Visibility = Visibility.Visible;
             Login.Visibility = Visibility.Collapsed;
@@ -524,7 +524,7 @@ namespace Ocena_Pracownicza
                 }
 
                 UserPanel.Visibility = Visibility.Collapsed;
-
+                Question0AnswerB.Text = selectedEvaluation.UserName;
                 Question1AnswerB.Text = selectedEvaluation.Question1;
                 Question2AnswerB.Text = selectedEvaluation.Question2;
                 Question3AnswerB.Text = selectedEvaluation.Question3;
@@ -563,6 +563,7 @@ namespace Ocena_Pracownicza
 
                 UserPanel.Visibility = Visibility.Collapsed;
 
+                Question0AnswerB.Text = selectedEvaluation.UserName;
                 Question1AnswerB.Text = selectedEvaluation.Question1;
                 Question2AnswerB.Text = selectedEvaluation.Question2;
                 Question3AnswerB.Text = selectedEvaluation.Question3;
@@ -598,6 +599,7 @@ namespace Ocena_Pracownicza
                 }
                 UserPanel.Visibility = Visibility.Collapsed;
 
+                Question0AnswerP.Text = selectedEvaluation.UserName;
                 Question1AnswerP.Text = selectedEvaluation.Question1;
                 Question2AnswerP.Text = selectedEvaluation.Question2;
                 Question3AnswerP.Text = selectedEvaluation.Question3;
@@ -627,6 +629,7 @@ namespace Ocena_Pracownicza
                 }
                 UserPanel.Visibility = Visibility.Collapsed;
 
+                Question0AnswerP.Text = selectedEvaluation.UserName;
                 Question1AnswerP.Text = selectedEvaluation.Question1;
                 Question2AnswerP.Text = selectedEvaluation.Question2;
                 Question3AnswerP.Text = selectedEvaluation.Question3;
