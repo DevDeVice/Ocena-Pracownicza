@@ -127,7 +127,7 @@ namespace Ocena_Pracownicza
                     textBox.Text = string.Empty;
                 }
             }
-            for (int i = 1; i <= 4; i++)
+            for (int i = 1; i <= 5; i++)
             {
                 var textBoxName = $"Question{i}TextBoxP";
                 var textBox = this.FindName(textBoxName) as TextBox;
@@ -191,11 +191,12 @@ namespace Ocena_Pracownicza
                     if (user != null)
                     {
                         user.EvaluationAnswerID = evaluation.EvaluationID;
+                        OdpowiedzB.Content = "Sprawdz odpowiedz";
+                        historyAnswerBID = user.EvaluationAnswerID;
                         context.SaveChanges();
+                        MessageBox.Show("Ankieta została pomyślnie zapisana!");
                     }
                 }
-                MessageBox.Show("Ankieta została pomyślnie zapisana!");
-
             }
             else
             {
@@ -310,6 +311,9 @@ namespace Ocena_Pracownicza
                     if(user != null)
                     {
                         user.EvaluationAnswerID = evaluation.EvaluationID;
+                        OdpowiedzP.Content = "Sprawdz odpowiedz";
+                        historyAnswerPID = user.EvaluationAnswerID;
+                        MessageBox.Show("Ankieta została pomyślnie zapisana!");
                         context.SaveChanges();
                     }
                     else
@@ -317,7 +321,7 @@ namespace Ocena_Pracownicza
                         MessageBox.Show("Nie znaleziono uzytkownika $");
                     }
                 }
-                MessageBox.Show("Ankieta została pomyślnie zapisana!");
+                
             } 
             else
             {
