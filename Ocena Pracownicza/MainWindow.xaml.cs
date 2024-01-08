@@ -417,10 +417,10 @@ namespace Ocena_Pracownicza
         private void LoginButton_Click(object sender, RoutedEventArgs e)
         {
             FormVersion = 2;
-            ToHideB1.Visibility = Visibility.Collapsed;
-            ToHideB2.Visibility = Visibility.Collapsed;
-            ToHideP1.Visibility = Visibility.Collapsed;
-            ToHideP2.Visibility = Visibility.Collapsed;
+            //ToHideB1.Visibility = Visibility.Collapsed;
+            //ToHideB2.Visibility = Visibility.Collapsed;
+            //ToHideP1.Visibility = Visibility.Collapsed;
+            //ToHideP2.Visibility = Visibility.Collapsed;
             LoginPanel.Visibility = Visibility.Visible;
             BackButton.Visibility = Visibility.Visible;
             Login.Visibility = Visibility.Collapsed;
@@ -1068,20 +1068,20 @@ namespace Ocena_Pracownicza
                         Question5AnswerP.Text = evaluationAnswer.Question5;
                         OdpowiedzP.Content = "Sprawdz pytanie";
                     }
-                    else if (OdpowiedzP.Content.ToString() == "Sprawdz pytanie")
-                    {
-                        Question1AnswerP.Text = historyEvaluationP.Question1;
-                        Question2AnswerP.Text = historyEvaluationP.Question2;
-                        Question3AnswerP.Text = historyEvaluationP.Question3;
-                        Question4AnswerP.Text = historyEvaluationP.Question4;
-                        Question5AnswerP.Text = historyEvaluationP.Question5;
-                        OdpowiedzP.Content = "Sprawdz odpowiedz";
-                    }
                     else
                     {
                         MessageBox.Show("Brak danych odpowiedzi.");
                     }
                 }
+            }
+            else if (OdpowiedzP.Content.ToString() == "Sprawdz pytanie")
+            {
+                Question1AnswerP.Text = historyEvaluationP.Question1;
+                Question2AnswerP.Text = historyEvaluationP.Question2;
+                Question3AnswerP.Text = historyEvaluationP.Question3;
+                Question4AnswerP.Text = historyEvaluationP.Question4;
+                Question5AnswerP.Text = historyEvaluationP.Question5;
+                OdpowiedzP.Content = "Sprawdz odpowiedz";
             }
             else
             {

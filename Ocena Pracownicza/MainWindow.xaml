@@ -71,7 +71,7 @@
             <ScrollViewer VerticalScrollBarVisibility="Auto" >
                 <StackPanel Margin="-2,100,0,0">
                     <!-- Imię i nazwisko -->
-                    <Grid  Margin="0,20,0,0" Width="500" >
+                    <Grid x:Name="ToHideB1" Margin="0,20,0,0" Width="500" >
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
@@ -235,47 +235,50 @@
             <Button Content="Return" VerticalAlignment="Top" HorizontalAlignment="Left" Width="300" Height="40" Margin="-410,50,0,0" Click="ReturnButton_Click" Panel.ZIndex="1" />
             <StackPanel x:Name="TestDrukB" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,50,0,0" Width="700px">
                 <Border Background="#FFFCCE17" CornerRadius="10" Padding="5">
-                    <TextBlock Text="Pytanie 1" Style="{StaticResource QuestionStyle}"/>
+                    <TextBlock Text="Jakie są rezultaty Twojej pracy (konkretne wyniki)?" Style="{StaticResource QuestionStyle}"/>
                 </Border>
-                <TextBlock x:Name="Question1AnswerB" Text="Odpowiedź na pytanie 1Odpowiedź na pytanie 1Odpowiedź na pytanie 1OOdpowiedź na pytanie 1Odpowiedź na pytanie 1Odpowiedź na pytanie 1OOdpowiedź na pytanie 1Odpowiedź na pytanie 1Odpowiedź na pytanie 1Odpowiedź na pytanie 1Odpowiedź na pytanie 1Odpowiedź na pytanie 1Odpowiedź na pytanie 1:" Style="{StaticResource AnswerStyle}"/>
+                <TextBlock x:Name="Question1AnswerB" Text="Odpowiedź na pytanie 1:" Style="{StaticResource AnswerStyle}"/>
                 <Border Background="#FFFCCE17" CornerRadius="10" Padding="5">
-                    <TextBlock Text="Pytanie 2" Style="{StaticResource QuestionStyle}"/>
+                    <TextBlock Text="Jakie Twoje działania określił(a)byś jako pozytywne?" Style="{StaticResource QuestionStyle}"/>
                 </Border>
                 <TextBlock x:Name="Question2AnswerB" Text="Odpowiedź na pytanie 2:" Style="{StaticResource AnswerStyle}"/>
+                <Border Background="#FFFCCE17" CornerRadius="10" Padding="5" Margin="0,0,0,-15">
+                    <TextBlock Text="Jak oceniasz swoje działania i zachowania w kontekście wartości firmy?" Style="{StaticResource QuestionStyle}"/>
+                </Border>
                 <Border Background="#FFFCCE17" CornerRadius="10" Padding="5">
-                    <TextBlock Text="Pytanie 3" Style="{StaticResource QuestionStyle}"/>
+                    <TextBlock Text="Uczciwość:" Style="{StaticResource QuestionStyle}"/>
                 </Border>
                 <TextBlock x:Name="Question3AnswerB" Text="Odpowiedź na pytanie 3:" Style="{StaticResource AnswerStyle}"/>
                 <Border Background="#FFFCCE17" CornerRadius="10" Padding="5">
-                    <TextBlock Text="Pytanie 4" Style="{StaticResource QuestionStyle}"/>
+                    <TextBlock Text="Odpowiedzialność:" Style="{StaticResource QuestionStyle}"/>
                 </Border>
                 <TextBlock x:Name="Question4AnswerB" Text="Odpowiedź na pytanie 4:" Style="{StaticResource AnswerStyle}"/>
                 <Border Background="#FFFCCE17" CornerRadius="10" Padding="5">
-                    <TextBlock Text="Pytanie 5" Style="{StaticResource QuestionStyle}"/>
+                    <TextBlock Text="Zaangażowanie:" Style="{StaticResource QuestionStyle}"/>
                 </Border>
                 <TextBlock x:Name="Question5AnswerB" Text="Odpowiedź na pytanie 5:" Style="{StaticResource AnswerStyle}"/>
                 <Border Background="#FFFCCE17" CornerRadius="10" Padding="5">
-                    <TextBlock Text="Pytanie 6" Style="{StaticResource QuestionStyle}"/>
+                    <TextBlock Text="Bliskie relacje:" Style="{StaticResource QuestionStyle}"/>
                 </Border>
                 <TextBlock x:Name="Question6AnswerB" Text="Odpowiedź na pytanie 6:" Style="{StaticResource AnswerStyle}"/>
                 <Border Background="#FFFCCE17" CornerRadius="10" Padding="5">
-                    <TextBlock Text="Pytanie 7" Style="{StaticResource QuestionStyle}"/>
+                    <TextBlock Text="Innowacyjność:" Style="{StaticResource QuestionStyle}"/>
                 </Border>
                 <TextBlock x:Name="Question7AnswerB" Text="Odpowiedź na pytanie 7:" Style="{StaticResource AnswerStyle}"/>
                 <Border Background="#FFFCCE17" CornerRadius="10" Padding="5">
-                    <TextBlock Text="Pytanie 8" Style="{StaticResource QuestionStyle}"/>
+                    <TextBlock Text="Jakie Twoje działania określił(a)byś jako utrudniające uzyskanie dobrych rezultatów?" Style="{StaticResource QuestionStyle}"/>
                 </Border>
                 <TextBlock x:Name="Question8AnswerB" Text="Odpowiedź na pytanie 8:" Style="{StaticResource AnswerStyle}"/>
                 <Border Background="#FFFCCE17" CornerRadius="10" Padding="5">
-                    <TextBlock Text="Pytanie 9" Style="{StaticResource QuestionStyle}"/>
+                    <TextBlock Text="Nad czym chcesz pracować (jakie elementy zachowania/umiejetności chcesz rozwijać/jakie sobie stawiasz cele)?" Style="{StaticResource QuestionStyle}"/>
                 </Border>
                 <TextBlock x:Name="Question9AnswerB" Text="Odpowiedź na pytanie 9:" Style="{StaticResource AnswerStyle}"/>
                 <Border Background="#FFFCCE17" CornerRadius="10" Padding="5">
-                    <TextBlock Text="Pytanie 10" Style="{StaticResource QuestionStyle}"/>
+                    <TextBlock Text="Określ sposób i czas monitorowania dążenia do tych celów (kiedy i po czym poznasz, że zostały one zrealizowane):" Style="{StaticResource QuestionStyle}"/>
                 </Border>
                 <TextBlock x:Name="Question10AnswerB" Text="Odpowiedź na pytanie 10:" Style="{StaticResource AnswerStyle}"/>
                 <Border Background="#FFFCCE17" CornerRadius="10" Padding="5">
-                    <TextBlock Text="Pytanie 11" Style="{StaticResource QuestionStyle}"/>
+                    <TextBlock Text="Uwagi:" Style="{StaticResource QuestionStyle}"/>
                 </Border>
                 <TextBlock x:Name="Question11AnswerB" Text="Odpowiedź na pytanie 11:" Style="{StaticResource AnswerStyle}"/>
             </StackPanel>
