@@ -1143,7 +1143,7 @@ namespace Ocena_Pracownicza
             }
         }
 
-            private void Back2_Click(object sender, RoutedEventArgs e)
+           private void Back2_Click(object sender, RoutedEventArgs e)
         {
             FormPanelProdukcja.Visibility = Visibility.Collapsed;
             BackButton2.Visibility = Visibility.Collapsed;
