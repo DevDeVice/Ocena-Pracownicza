@@ -194,6 +194,7 @@ namespace Ocena_Pracownicza
                         OdpowiedzB.Content = "Sprawdz odpowiedz";
                         historyAnswerBID = user.EvaluationAnswerID;
                         context.SaveChanges();
+                        Back3_Click(null, null);
                         MessageBox.Show("Ankieta została pomyślnie zapisana!");
                     }
                 }
@@ -313,8 +314,9 @@ namespace Ocena_Pracownicza
                         user.EvaluationAnswerID = evaluation.EvaluationID;
                         OdpowiedzP.Content = "Sprawdz odpowiedz";
                         historyAnswerPID = user.EvaluationAnswerID;
-                        MessageBox.Show("Ankieta została pomyślnie zapisana!");
                         context.SaveChanges();
+                        Back2_Click(null, null);
+                        MessageBox.Show("Ankieta została pomyślnie zapisana!");
                     }
                     else
                     {
@@ -455,6 +457,8 @@ namespace Ocena_Pracownicza
             EvaluationDetailsGridB.Visibility = Visibility.Collapsed;
             EvaluationDetailsGridP.Visibility = Visibility.Collapsed;
             ClearTextBoxesInGrid();
+            ChangeAnswerP1();
+            ChangeAnswerB1();
         }
 
 
@@ -1080,6 +1084,7 @@ namespace Ocena_Pracownicza
                         MessageBox.Show("Brak danych odpowiedzi.");
                     }
                 }
+                ChangeAnswerP();
             }
             else if (OdpowiedzP.Content.ToString() == "Sprawdz pytanie")
             {
@@ -1089,6 +1094,7 @@ namespace Ocena_Pracownicza
                 Question4AnswerP.Text = historyEvaluationP.Question4;
                 Question5AnswerP.Text = historyEvaluationP.Question5;
                 OdpowiedzP.Content = "Sprawdz odpowiedz";
+                ChangeAnswerP1();
             }
             else
             {
@@ -1127,7 +1133,9 @@ namespace Ocena_Pracownicza
                         MessageBox.Show("Brak danych odpowiedzi.");
                     }
                 }
-            }else if(OdpowiedzB.Content.ToString() == "Sprawdz pytanie")
+                ChangeAnswerB();
+            }
+            else if(OdpowiedzB.Content.ToString() == "Sprawdz pytanie")
             {
                 Question1AnswerB.Text = historyEvaluationB.Question1;
                 Question2AnswerB.Text = historyEvaluationB.Question2;
@@ -1141,6 +1149,7 @@ namespace Ocena_Pracownicza
                 Question10AnswerB.Text = historyEvaluationB.Question10;
                 Question11AnswerB.Text = historyEvaluationB.Question11;
                 OdpowiedzB.Content = "Sprawdz odpowiedz";
+                ChangeAnswerB1();
             }
             else
             {
@@ -1149,8 +1158,43 @@ namespace Ocena_Pracownicza
                 EvaluationDetailsGridB.Visibility = Visibility.Collapsed;
             }
         }
-
-           private void Back2_Click(object sender, RoutedEventArgs e)
+        private void ChangeAnswerP()
+        {
+            AnswerP1.Text = "Imię i nazwisko pracownika:";
+            AnswerP2.Text = "Jakie działania pracownika określił(a)byś jako pozytywne (przynoszące rezultaty w jego pracy)?";
+            AnswerP3.Text = "Jakie działania pracownika określił(a)byś jako utrudniające uzyskanie dobrych rezultatów?";
+            AnswerP4.Text = "Nad czym powinien pracować (jakie elementy zachowania/umiejętności powinien rozwijać/jakie sobie stawiać cele)?";
+            AnswerP5.Text = "Określenie sposobu i czasu monitorowanie dążenia do tych celów(kiedy i po czym poznamy, że zostały one zrealizowane):";
+        }
+        private void ChangeAnswerP1()
+        {
+            AnswerP1.Text = "Imię i nazwisko:";
+            AnswerP2.Text = "Jakie twoje działania określił(a)byś jako pozytywne (przynoszące rezultaty w twojej pracy)?";
+            AnswerP3.Text = "Jakie twoje działania określił(a)byś jako utrudniające uzyskanie dobrych rezultatów?";
+            AnswerP4.Text = "Nad czym chcesz pracować (jakie elementy zachowania/ umiejętności chcesz rozwijać/ jakie sobie stawiasz cele)?";
+            AnswerP5.Text = "Określ sposób i czas monitorowania dążenia do tych celów (kiedy i po czym poznasz, że zostały one zrealizowane):";
+        }
+        private void ChangeAnswerB()
+        {
+            AnswerB1.Text = "Imię i nazwisko pracownika:";
+            AnswerB2.Text = "Jakie są rezultaty pracy pracownika (konkretne wyniki)?";
+            AnswerB3.Text = "Jakie działania pracownika określił(a)byś jako pozytywne? ";
+            AnswerB4.Text = "Jak oceniasz działania i zachowania pracownika w kontekście wartości firmy? ";
+            AnswerB5.Text = "Jakie działania pracownika określił(a)byś jako utrudniające uzyskanie dobrych rezultatów? ";
+            AnswerB6.Text = "Nad czym powinien pracować (jakie elementy zachowania/ umiejętności powinien rozwijać/ jakie sobie stawiać cele)?";
+            AnswerB7.Text = "Określenie sposobu i czasu monitorowania dążenia do tych celów (kiedy i po czym poznamy, że zostały one zrealizowane): ";
+        }
+        private void ChangeAnswerB1()
+        {
+            AnswerB1.Text = "Imię i nazwisko:";
+            AnswerB2.Text = "Jakie są rezultaty Twojej pracy (konkretne wyniki)?";
+            AnswerB3.Text = "Jakie Twoje działania określił(a)byś jako pozytywne?";
+            AnswerB4.Text = "Jak oceniasz swoje działania i zachowania w kontekście wartości firmy?";
+            AnswerB5.Text = "Jakie Twoje działania określił(a)byś jako utrudniające uzyskanie dobrych rezultatów?";
+            AnswerB6.Text = "Nad czym chcesz pracować (jakie elementy zachowania/umiejetności chcesz rozwijać/jakie sobie stawiasz cele)?";
+            AnswerB7.Text = "Określ sposób i czas monitorowania dążenia do tych celów (kiedy i po czym poznasz, że zostały one zrealizowane):";
+        }
+        private void Back2_Click(object sender, RoutedEventArgs e)
         {
             FormPanelProdukcja.Visibility = Visibility.Collapsed;
             BackButton2.Visibility = Visibility.Collapsed;

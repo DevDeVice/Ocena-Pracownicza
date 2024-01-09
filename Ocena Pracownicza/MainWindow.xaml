@@ -76,7 +76,7 @@
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
                         </Grid.RowDefinitions>
-                        <TextBlock x:Name="AnswerB1" Text="Imię i nazwisko:" Grid.Row="0" HorizontalAlignment="Center"/>
+                        <TextBlock Text="Imię i nazwisko:" Grid.Row="0" HorizontalAlignment="Center"/>
                         <TextBox x:Name="NameTextBoxB" Width="500" Grid.Row="1"/>
                     </Grid>
 
@@ -94,16 +94,16 @@
                     <!-- Pytania -->
                     <StackPanel Margin="0,20,0,0" Width="500">
                         <Grid>
-                            <TextBlock x:Name="AnswerB2" Text="Jakie są rezultaty Twojej pracy (konkretne wyniki)?" Grid.Row="0" HorizontalAlignment="Center"/>
+                            <TextBlock Text="Jakie są rezultaty Twojej pracy (konkretne wyniki)?" Grid.Row="0" HorizontalAlignment="Center"/>
                             <TextBox x:Name="Question1TextBoxB" Width="500" AcceptsReturn="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" Margin="0,20,0,0" TabIndex="0"/>
                         </Grid>
 
                         <Grid Margin="0,20,0,0" Width="500">
-                            <TextBlock x:Name="AnswerB3" Text="Jakie Twoje działania określił(a)byś jako pozytywne?" Grid.Row="0" HorizontalAlignment="Center"/>
+                            <TextBlock Text="Jakie Twoje działania określił(a)byś jako pozytywne?" Grid.Row="0" HorizontalAlignment="Center"/>
                             <TextBox x:Name="Question2TextBoxB" Width="500" AcceptsReturn="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" Margin="0,20,0,0" TabIndex="1"/>
                         </Grid>
                         <Grid Margin="0,20,0,0" Width="500">
-                            <TextBlock x:Name="AnswerB4" Text="Jak oceniasz swoje działania i zachowania w kontekście wartości firmy?" Grid.Row="0" HorizontalAlignment="Center"/>
+                            <TextBlock Text="Jak oceniasz swoje działania i zachowania w kontekście wartości firmy?" Grid.Row="0" HorizontalAlignment="Center"/>
                             <TextBlock Text="Uczciwość:" Grid.Row="1" HorizontalAlignment="Center" Margin="0,20,0,0"/>
                             <TextBox x:Name="Question3TextBoxB" Width="500" AcceptsReturn="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" Margin="0,40,0,0" TabIndex="2"/>
                         </Grid>
@@ -124,15 +124,15 @@
                             <TextBox x:Name="Question7TextBoxB" Width="500" AcceptsReturn="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" Margin="0,20,0,0" TabIndex="6"/>
                         </Grid>
                         <Grid Margin="0,20,0,0" Width="500">
-                            <TextBlock x:Name="AnswerB5" Text="Jakie Twoje działania określił(a)byś jako utrudniające uzyskanie dobrych rezultatów?" Grid.Row="0" HorizontalAlignment="Center" TextWrapping="Wrap"/>
+                            <TextBlock Text="Jakie Twoje działania określił(a)byś jako utrudniające uzyskanie dobrych rezultatów?" Grid.Row="0" HorizontalAlignment="Center" TextWrapping="Wrap"/>
                             <TextBox x:Name="Question8TextBoxB" Width="500" AcceptsReturn="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" Margin="0,40,0,0" TabIndex="7"/>
                         </Grid>
                         <Grid Margin="0,20,0,0" Width="500">
-                            <TextBlock x:Name="AnswerB6" Text="Nad czym chcesz pracować (jakie elementy zachowania/umiejetności chcesz rozwijać/jakie sobie stawiasz cele)?" Grid.Row="0" HorizontalAlignment="Center" TextWrapping="Wrap"/>
+                            <TextBlock Text="Nad czym chcesz pracować (jakie elementy zachowania/umiejetności chcesz rozwijać/jakie sobie stawiasz cele)?" Grid.Row="0" HorizontalAlignment="Center" TextWrapping="Wrap"/>
                             <TextBox x:Name="Question9TextBoxB" Width="500" AcceptsReturn="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" Margin="0,40,0,0" TabIndex="8"/>
                         </Grid>
                         <Grid Margin="0,20,0,0" Width="500">
-                            <TextBlock x:Name="AnswerB7" Text="Określ sposób i czas monitorowania dążenia do tych celów (kiedy i po czym poznasz, że zostały one zrealizowane):" Grid.Row="0" HorizontalAlignment="Center" TextWrapping="Wrap"/>
+                            <TextBlock Text="Określ sposób i czas monitorowania dążenia do tych celów (kiedy i po czym poznasz, że zostały one zrealizowane):" Grid.Row="0" HorizontalAlignment="Center" TextWrapping="Wrap"/>
                             <TextBox x:Name="Question10TextBoxB" Width="500" AcceptsReturn="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" Margin="0,40,0,0" TabIndex="9"/>
                         </Grid>
                         <Grid Margin="0,20,0,0" Width="500">
@@ -154,7 +154,7 @@
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
                         </Grid.RowDefinitions>
-                        <TextBlock x:Name="AnswerP1" Text="Imię i nazwisko:" Grid.Row="0" HorizontalAlignment="Center"/>
+                        <TextBlock Text="Imię i nazwisko:" Grid.Row="0" HorizontalAlignment="Center"/>
                         <TextBox x:Name="NameTextBoxP" Width="500" Grid.Row="1"/>
                     </Grid>
 
@@ -172,20 +172,20 @@
                     <!-- Pytania -->
                     <StackPanel Margin="0,20,0,0" Width="500">
                         <Grid>
-                            <TextBlock x:Name="AnswerP2" Text="Jakie twoje działania określił(a)byś jako pozytywne (przynoszące rezultaty w twojej pracy)?" Grid.Row="0" HorizontalAlignment="Center" TextWrapping="Wrap"/>
+                            <TextBlock Text="Jakie twoje działania określił(a)byś jako pozytywne (przynoszące rezultaty w twojej pracy)?" Grid.Row="0" HorizontalAlignment="Center" TextWrapping="Wrap"/>
                             <TextBox x:Name="Question1TextBoxP" Width="500" AcceptsReturn="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" Margin="0,40,0,0" TabIndex="0"/>
                         </Grid>
 
                         <Grid Margin="0,20,0,0" Width="500">
-                            <TextBlock x:Name="AnswerP3" Text="Jakie twoje działania określił(a)byś jako utrudniające uzyskanie dobrych rezultatów?" Grid.Row="0" HorizontalAlignment="Center" TextWrapping="Wrap"/>
+                            <TextBlock Text="Jakie twoje działania określił(a)byś jako utrudniające uzyskanie dobrych rezultatów?" Grid.Row="0" HorizontalAlignment="Center" TextWrapping="Wrap"/>
                             <TextBox x:Name="Question2TextBoxP" Width="500" AcceptsReturn="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" Margin="0,40,0,0" TabIndex="1"/>
                         </Grid>
                         <Grid Margin="0,20,0,0" Width="500">
-                            <TextBlock x:Name="AnswerP4" Text="Nad czym chcesz pracować (jakie elementy zachowania/umiejętności chcesz rozwijać/jakie sobie stawiasz cele)?" Grid.Row="0" HorizontalAlignment="Center" TextWrapping="Wrap"/>
+                            <TextBlock Text="Nad czym chcesz pracować (jakie elementy zachowania/umiejętności chcesz rozwijać/jakie sobie stawiasz cele)?" Grid.Row="0" HorizontalAlignment="Center" TextWrapping="Wrap"/>
                             <TextBox x:Name="Question3TextBoxP" Width="500" AcceptsReturn="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" Margin="0,40,0,0" TabIndex="2"/>
                         </Grid>
                         <Grid Margin="0,20,0,0" Width="500">
-                            <TextBlock x:Name="AnswerP5" Text="Określ sposób i czas monitorowania dążenia do tych celów (kiedy i po czym poznasz, że zostały one zrealizowane)" Grid.Row="0" HorizontalAlignment="Center" TextWrapping="Wrap"/>
+                            <TextBlock Text="Określ sposób i czas monitorowania dążenia do tych celów (kiedy i po czym poznasz, że zostały one zrealizowane)" Grid.Row="0" HorizontalAlignment="Center" TextWrapping="Wrap"/>
                             <TextBox x:Name="Question4TextBoxP" Width="500" AcceptsReturn="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" Margin="0,40,0,0" TabIndex="3"/>
                         </Grid>
                         <Grid Margin="0,20,0,0" Width="500">
@@ -235,19 +235,19 @@
             <Button Content="Return" VerticalAlignment="Top" HorizontalAlignment="Left" Width="300" Height="40" Margin="-410,50,0,0" Click="ReturnButton_Click" Panel.ZIndex="1" />
             <StackPanel x:Name="TestDrukB" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,50,0,0" Width="700px">
                 <Border Background="#FFFCCE17" CornerRadius="10" Padding="5">
-                    <TextBlock Text="Imie Nazwisko" Style="{StaticResource QuestionStyle}"/>
+                    <TextBlock x:Name="AnswerB1" Text="Imie Nazwisko" Style="{StaticResource QuestionStyle}"/>
                 </Border>
                 <TextBlock x:Name="Question0AnswerB" Text="Odpowiedź na pytanie 1:" Style="{StaticResource AnswerStyle}"/>
                 <Border Background="#FFFCCE17" CornerRadius="10" Padding="5">
-                    <TextBlock Text="Jakie są rezultaty Twojej pracy (konkretne wyniki)?" Style="{StaticResource QuestionStyle}"/>
+                    <TextBlock x:Name="AnswerB2" Text="Jakie są rezultaty Twojej pracy (konkretne wyniki)?" Style="{StaticResource QuestionStyle}"/>
                 </Border>
                 <TextBlock x:Name="Question1AnswerB" Text="Odpowiedź na pytanie 1:" Style="{StaticResource AnswerStyle}"/>
                 <Border Background="#FFFCCE17" CornerRadius="10" Padding="5">
-                    <TextBlock Text="Jakie Twoje działania określił(a)byś jako pozytywne?" Style="{StaticResource QuestionStyle}"/>
+                    <TextBlock x:Name="AnswerB3" Text="Jakie Twoje działania określił(a)byś jako pozytywne?" Style="{StaticResource QuestionStyle}"/>
                 </Border>
                 <TextBlock x:Name="Question2AnswerB" Text="Odpowiedź na pytanie 2:" Style="{StaticResource AnswerStyle}"/>
                 <Border Background="#FFFCCE17" CornerRadius="10" Padding="5" Margin="0,0,0,-15">
-                    <TextBlock Text="Jak oceniasz swoje działania i zachowania w kontekście wartości firmy?" Style="{StaticResource QuestionStyle}"/>
+                    <TextBlock x:Name="AnswerB4" Text="Jak oceniasz swoje działania i zachowania w kontekście wartości firmy?" Style="{StaticResource QuestionStyle}"/>
                 </Border>
                 <Border Background="#FFFCCE17" CornerRadius="10" Padding="5">
                     <TextBlock Text="Uczciwość:" Style="{StaticResource QuestionStyle}"/>
@@ -270,15 +270,15 @@
                 </Border>
                 <TextBlock x:Name="Question7AnswerB" Text="Odpowiedź na pytanie 7:" Style="{StaticResource AnswerStyle}"/>
                 <Border Background="#FFFCCE17" CornerRadius="10" Padding="5">
-                    <TextBlock Text="Jakie Twoje działania określił(a)byś jako utrudniające uzyskanie dobrych rezultatów?" Style="{StaticResource QuestionStyle}"/>
+                    <TextBlock x:Name="AnswerB5" Text="Jakie Twoje działania określił(a)byś jako utrudniające uzyskanie dobrych rezultatów?" Style="{StaticResource QuestionStyle}"/>
                 </Border>
                 <TextBlock x:Name="Question8AnswerB" Text="Odpowiedź na pytanie 8:" Style="{StaticResource AnswerStyle}"/>
                 <Border Background="#FFFCCE17" CornerRadius="10" Padding="5">
-                    <TextBlock Text="Nad czym chcesz pracować (jakie elementy zachowania/umiejetności chcesz rozwijać/jakie sobie stawiasz cele)?" Style="{StaticResource QuestionStyle}"/>
+                    <TextBlock x:Name="AnswerB6" Text="Nad czym chcesz pracować (jakie elementy zachowania/umiejetności chcesz rozwijać/jakie sobie stawiasz cele)?" Style="{StaticResource QuestionStyle}"/>
                 </Border>
                 <TextBlock x:Name="Question9AnswerB" Text="Odpowiedź na pytanie 9:" Style="{StaticResource AnswerStyle}"/>
                 <Border Background="#FFFCCE17" CornerRadius="10" Padding="5">
-                    <TextBlock Text="Określ sposób i czas monitorowania dążenia do tych celów (kiedy i po czym poznasz, że zostały one zrealizowane):" Style="{StaticResource QuestionStyle}"/>
+                    <TextBlock x:Name="AnswerB7" Text="Określ sposób i czas monitorowania dążenia do tych celów (kiedy i po czym poznasz, że zostały one zrealizowane):" Style="{StaticResource QuestionStyle}"/>
                 </Border>
                 <TextBlock x:Name="Question10AnswerB" Text="Odpowiedź na pytanie 10:" Style="{StaticResource AnswerStyle}"/>
                 <Border Background="#FFFCCE17" CornerRadius="10" Padding="5">
@@ -294,23 +294,23 @@
             <Button Content="Return" VerticalAlignment="Top" HorizontalAlignment="Left" Width="300" Height="40" Margin="-410,50,0,0" Click="ReturnButton_Click" Panel.ZIndex="1" />
             <StackPanel x:Name="TestDrukP" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,50,0,0" Width="700px">
                 <Border Background="#FFFCCE17" CornerRadius="10" Padding="5">
-                    <TextBlock Text="Imie Nazwisko" Style="{StaticResource QuestionStyle}"/>
+                    <TextBlock x:Name="AnswerP1" Text="Imie Nazwisko" Style="{StaticResource QuestionStyle}"/>
                 </Border>
                 <TextBlock x:Name="Question0AnswerP" Text="Odpowiedź na pytanie 1:" Style="{StaticResource AnswerStyle}"/>
                 <Border Background="#FFFCCE17" CornerRadius="10" Padding="5">
-                    <TextBlock Text="Jakie twoje działania określił(a)byś jako pozytywne (przynoszące rezultaty w twojej pracy)?" Style="{StaticResource QuestionStyle}"/>
+                    <TextBlock x:Name="AnswerP2" Text="Jakie twoje działania określił(a)byś jako pozytywne (przynoszące rezultaty w twojej pracy)?" Style="{StaticResource QuestionStyle}"/>
                 </Border>
                 <TextBlock x:Name="Question1AnswerP" Text="Odpowiedź na pytanie 1:" Style="{StaticResource AnswerStyle}"/>
                 <Border Background="#FFFCCE17" CornerRadius="10" Padding="5">
-                    <TextBlock Text="Jakie twoje działania określił(a)byś jako utrudniające uzyskanie dobrych rezultatów?" Style="{StaticResource QuestionStyle}"/>
+                    <TextBlock x:Name="AnswerP3" Text="Jakie twoje działania określił(a)byś jako utrudniające uzyskanie dobrych rezultatów?" Style="{StaticResource QuestionStyle}"/>
                 </Border>
                 <TextBlock x:Name="Question2AnswerP" Text="Odpowiedź na pytanie 2:" Style="{StaticResource AnswerStyle}"/>
                 <Border Background="#FFFCCE17" CornerRadius="10" Padding="5">
-                    <TextBlock Text="Nad czym chcesz pracować (jakie elementy zachowania/umiejętności chcesz rozwijać/jakie sobie stawiasz cele)?" Style="{StaticResource QuestionStyle}"/>
+                    <TextBlock x:Name="AnswerP4" Text="Nad czym chcesz pracować (jakie elementy zachowania/umiejętności chcesz rozwijać/jakie sobie stawiasz cele)?" Style="{StaticResource QuestionStyle}"/>
                 </Border>
                 <TextBlock x:Name="Question3AnswerP" Text="Odpowiedź na pytanie 3:" Style="{StaticResource AnswerStyle}"/>
                 <Border Background="#FFFCCE17" CornerRadius="10" Padding="5">
-                    <TextBlock Text="Określ sposób i czas monitorowania dążenia do tych celów (kiedy i po czym poznasz, że zostały one zrealizowane)" Style="{StaticResource QuestionStyle}"/>
+                    <TextBlock x:Name="AnswerP5" Text="Określ sposób i czas monitorowania dążenia do tych celów (kiedy i po czym poznasz, że zostały one zrealizowane)" Style="{StaticResource QuestionStyle}"/>
                 </Border>
                 <TextBlock x:Name="Question4AnswerP" Text="Odpowiedź na pytanie 4:" Style="{StaticResource AnswerStyle}"/>
                 <Border Background="#FFFCCE17" CornerRadius="10" Padding="5">
