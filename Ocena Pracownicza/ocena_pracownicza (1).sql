@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sty 07, 2024 at 11:51 PM
+-- Generation Time: Sty 10, 2024 at 02:45 PM
 -- Wersja serwera: 10.4.28-MariaDB
--- Wersja PHP: 8.2.4
+-- Wersja PHP: 8.0.28
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -20,6 +20,27 @@ SET time_zone = "+00:00";
 --
 -- Database: `ocena_pracownicza`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Struktura tabeli dla tabeli `department`
+--
+
+CREATE TABLE `department` (
+  `DepartmentID` int(11) NOT NULL,
+  `DepartmentName` longtext NOT NULL,
+  `UserID` int(11) NOT NULL,
+  `Enabled` int(11) NOT NULL DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `department`
+--
+
+INSERT INTO `department` (`DepartmentID`, `DepartmentName`, `UserID`, `Enabled`) VALUES
+(1, 'test', 1, 1),
+(2, 'tests', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -54,7 +75,8 @@ CREATE TABLE `evaluationbiuro` (
 INSERT INTO `evaluationbiuro` (`EvaluationID`, `UserName`, `UserID`, `Date`, `Question1`, `Question2`, `Question3`, `Question4`, `Question5`, `Question6`, `EvaluatorNameID`, `Question10`, `Question11`, `Question7`, `Question8`, `Question9`, `EvaluationAnswerID`) VALUES
 (8, '1', 1, '2023-10-30 10:50:25.128737', '1', '1', '1', '1', '1', '1', 8, '1', '1', '1', '1', '1', 2),
 (9, 'test2', 5, '2023-11-03 08:21:01.431253', 'test2', 'test2', 'test2', 'test2', 'test2test2', 'test2', 8, 'test2', 'test2', 'test2', 'test2', 'test2', 0),
-(10, 'asdasda', 1, '2023-11-30 13:18:55.400147', 'asdasda', 'asdasda', 'asdasda', 'asdasda', 'asdasda', 'asdasda', 8, 'asdasda', 'asdasda\r\n', 'asdasda', 'asdasda', 'asdasda', 1);
+(10, 'asdasda', 1, '2023-11-30 13:18:55.400147', 'asdasda', 'asdasda', 'asdasda', 'asdasda', 'asdasda', 'asdasda', 8, 'asdasda', 'asdasda\r\n', 'asdasda', 'asdasda', 'asdasda', 4),
+(11, 'Imie', 1, '2024-01-08 09:58:35.024598', 'rezultaty', 'dzialania', 'uczciwosc', 'odpowie', 'zaanga', 'bliskie', 8, 'okres spo', 'uwagi', 'inno', 'utrudnia', 'nad czym', 3);
 
 -- --------------------------------------------------------
 
@@ -83,7 +105,9 @@ CREATE TABLE `evaluationbiuroanswers` (
 
 INSERT INTO `evaluationbiuroanswers` (`EvaluationID`, `Question1`, `Question2`, `Question3`, `Question4`, `Question5`, `Question6`, `Question7`, `Question8`, `Question9`, `Question10`, `Question11`) VALUES
 (1, 'test', 'test', 'test', 'test', 'test', 'test', 'test', 'test', 'test', 'test', 'test'),
-(2, 'test', 'test', 'test', 'test', 'test', 'test', 'test', 'test', 'test', 'test', 'test');
+(2, 'test', 'test', 'test', 'test', 'test', 'test', 'test', 'test', 'test', 'test', 'test'),
+(3, 'imie2', 'dzialania2', 'uczciw', 'odpowie', 'zaang', 'bliskie', 'innowa', 'utrudnia', 'praco', 'dazenie', 'uwagi'),
+(4, 'asdasdas', 'dddas', 'dsasad', 'asdasd', 'asdasd', 'asdas', 'dasdas', 'dasd', 'asdas', 'dasd', 'sad');
 
 -- --------------------------------------------------------
 
@@ -129,7 +153,12 @@ CREATE TABLE `evaluationprodukcjaanswers` (
 INSERT INTO `evaluationprodukcjaanswers` (`EvaluationID`, `Question1`, `Question2`, `Question3`, `Question4`, `Question5`) VALUES
 (1, 'test', 'test', 'test', 'test', ''),
 (2, 'test', 'test', 'test', 'test', ''),
-(4, 'test', 'test', 'test', 'test', '');
+(4, 'test', 'test', 'test', 'test', ''),
+(5, 'asdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasd', 'asdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasd', 'asdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasd', 'asdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasd', 'asdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasd'),
+(6, 'qsdq', 'asdasd', 'asdad', 'asdasd', 'asdasdas'),
+(7, 'test', 'test', 'test', 'test', 'test'),
+(8, 'test', 'test', 'test', 'test', 'test'),
+(9, 'asdasd', 'asdas', 'dasdasd', 'asdasd', 'asdasd');
 
 -- --------------------------------------------------------
 
@@ -156,11 +185,11 @@ CREATE TABLE `evaluationsprodukcja` (
 --
 
 INSERT INTO `evaluationsprodukcja` (`EvaluationID`, `UserName`, `UserID`, `EvaluatorNameID`, `Date`, `Question1`, `Question2`, `Question3`, `Question4`, `EvaluationAnswerID`, `Question5`) VALUES
-(1, '2', 1, 8, '2023-10-30 10:50:38.159158', '2', '2', '2', '2', 1, ''),
-(2, 'test2test2', 5, 8, '2023-11-03 08:21:12.639503', 'test2test2', 'test2test2', 'test2test2', 'test2test2', 0, ''),
+(1, '2', 1, 8, '2023-10-30 10:50:38.159158', '2', '2', '2', '2', 8, ''),
+(2, 'test2test2', 5, 8, '2023-11-03 08:21:12.639503', 'test2test2', 'test2test2', 'test2test2', 'test2test2', 9, ''),
 (3, 'sadasd', 5, 8, '2023-12-11 10:12:49.506658', 'sadasd', 'sadasd', 'sadasd', 'sadasd', 4, ''),
-(4, 'test', 1, 8, '2024-01-05 12:32:03.771647', 'test', 'test', 'test', 'test', 0, ''),
-(5, 'test2da', 1, 8, '2024-01-05 12:32:11.819484', 'test', 'test', 'test', 'test', 0, 'test2');
+(4, 'test', 1, 8, '2024-01-05 12:32:03.771647', 'test', 'test', 'test', 'test', 6, ''),
+(5, 'test2da', 1, 8, '2024-01-05 12:32:11.819484', 'test', 'test', 'test', 'test', 5, 'test2');
 
 -- --------------------------------------------------------
 
@@ -241,11 +270,20 @@ INSERT INTO `__efmigrationshistory` (`MigrationId`, `ProductVersion`) VALUES
 ('20240105112358_produkcjaPlusquestion', '7.0.11'),
 ('20240105113002_produkcjaPlusquestion1', '7.0.11'),
 ('20240105120127_addSaltToUser', '7.0.11'),
-('20240105121117_reverseSalt', '7.0.11');
+('20240105121117_reverseSalt', '7.0.11'),
+('20240110082434_department', '7.0.11'),
+('20240110082503_departments', '7.0.11'),
+('20240110125314_DepartmentEnabledUpdate', '7.0.11');
 
 --
 -- Indeksy dla zrzutów tabel
 --
+
+--
+-- Indeksy dla tabeli `department`
+--
+ALTER TABLE `department`
+  ADD PRIMARY KEY (`DepartmentID`);
 
 --
 -- Indeksy dla tabeli `evaluationbiuro`
@@ -300,16 +338,22 @@ ALTER TABLE `__efmigrationshistory`
 --
 
 --
+-- AUTO_INCREMENT for table `department`
+--
+ALTER TABLE `department`
+  MODIFY `DepartmentID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- AUTO_INCREMENT for table `evaluationbiuro`
 --
 ALTER TABLE `evaluationbiuro`
-  MODIFY `EvaluationID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `EvaluationID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `evaluationbiuroanswers`
 --
 ALTER TABLE `evaluationbiuroanswers`
-  MODIFY `EvaluationID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `EvaluationID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `evaluationnames`
@@ -321,7 +365,7 @@ ALTER TABLE `evaluationnames`
 -- AUTO_INCREMENT for table `evaluationprodukcjaanswers`
 --
 ALTER TABLE `evaluationprodukcjaanswers`
-  MODIFY `EvaluationID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `EvaluationID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `evaluationsprodukcja`
