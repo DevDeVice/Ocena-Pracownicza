@@ -76,6 +76,7 @@ namespace Ocena_Pracownicza
                 AccountsComboBoxResetPassword.ItemsSource = accounts;
                 AccountsComboBoxAdd.ItemsSource = accounts;
                 AccountsComboBoxToChangeManager.ItemsSource = accounts;
+                DepartmentComboBoxAdd.ItemsSource = accounts;
             }
         }
         private void LoadEvaluationName()
@@ -1108,7 +1109,7 @@ namespace Ocena_Pracownicza
         {
             if (OdpowiedzB.Content.ToString() == "Sprawdz odpowiedz")
             {
-                using (var context = new AppDbContext()) // Załóżmy, że AppDbContext to twoja klasa kontekstu EF
+                using (var context = new AppDbContext())
                 {
                     var evaluationAnswer = context.EvaluationBiuroAnswers
                                                   .FirstOrDefault(ea => ea.EvaluationID == historyAnswerBID);
@@ -1209,8 +1210,55 @@ namespace Ocena_Pracownicza
 
         private void DepartmentAddButton_Click(object sender, RoutedEventArgs e)
         {
+            string departmentName = DepartmentTextBoxAdd.Text;
 
+            // Sprawdź, czy pole nazwy działu jest puste
+            if (string.IsNullOrWhiteSpace(departmentName))
+            {
+                MessageBox.Show("Nazwa działu nie może być pusta.");
+                return;
+            }
+            // Pobranie nazwy użytkownika z ComboBox
+            string selectedUserName = DepartmentComboBoxAdd.SelectedItem?.ToString();
+            // Znalezienie wybranego użytkownika z ComboBox
+            if (string.IsNullOrEmpty(selectedUserName))
+            {
+                MessageBox.Show("Nie wybrano użytkownika.");
+                return;
+            }
+
+            using (var context = new AppDbContext())
+            {
+                // Sprawdź, czy nazwa działu jest unikalna
+                bool doesDepartmentExist = context.Department.Any(d => d.DepartmentName == departmentName);
+                if (doesDepartmentExist)
+                {
+                    MessageBox.Show("Dział o tej nazwie już istnieje.");
+                    return;
+                }
+                var user = context.Users.FirstOrDefault(u => u.FullName == selectedUserName);
+                if (user == null)
+                {
+                    MessageBox.Show("Nie znaleziono użytkownika o takim imieniu i nazwisku.");
+                    return;
+                }
+                // Tworzenie nowego obiektu Department
+                var newDepartment = new Department
+                {
+                    DepartmentName = departmentName,
+                    UserID = user.UserID
+                };
+
+                // Zapisanie nowego działu do bazy danych
+                context.Department.Add(newDepartment);
+                context.SaveChanges();
+            }
+
+            // Dodatkowe akcje po pomyślnym dodaniu działu, np. odświeżenie UI (opcjonalnie)
+            MessageBox.Show("Dział został pomyślnie dodany.");
         }
+
+
 
         private void DepartmentDeleteButton_Click(object sender, RoutedEventArgs e)
         {
