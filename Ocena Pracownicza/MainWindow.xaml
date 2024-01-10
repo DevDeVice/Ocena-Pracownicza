@@ -57,11 +57,11 @@
         <Grid.Background>
             <ImageBrush ImageSource="img/ocenaPracowniczav2.jpg" Stretch="UniformToFill"/>
         </Grid.Background>
-        <StackPanel x:Name="MenuPanel" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center" Visibility="Visible" Margin="0,0,0,200">
+        <StackPanel x:Name="MenuPanel" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center" Visibility="Collapsed" Margin="0,0,0,200">
             <Button x:Name="FormBiuro" Content="Administracja/Biuro" Width="300" Height="40" Click="FormBiuroButton_Click" Margin="10" />
             <Button x:Name="FormProdukcja" Content="Produkcja/Magazyn" Width="300" Height="40" Margin="10" Click="FormProdukcjaButton_Click" />
         </StackPanel>
-        <Button x:Name="Login" Content="Zaloguj" Width="300" Height="40" Click="LoginButton_Click" Margin="10,100,10,10" Visibility="Visible"/>
+        <Button x:Name="Login" Content="Zaloguj" Width="300" Height="40" Click="LoginButton_Click" Margin="10,100,10,10" Visibility="Collapsed"/>
         <Button Content="X" Click="CloseButton_Click" Width="30" Height="30" VerticalAlignment="Top" Margin="0,0,2,0" HorizontalAlignment="Right" Panel.ZIndex="1"/>
         <Button Content="Back" Click="Back_Click" VerticalAlignment="Top" HorizontalAlignment="Left" Width="300" Height="40" Margin="50,50,0,0" Visibility="Collapsed" x:Name="BackButton" Panel.ZIndex="2"/>
         <Button Content="Back" Click="Back2_Click" VerticalAlignment="Top" HorizontalAlignment="Left" Width="300" Height="40" Margin="50,50,0,0" Visibility="Collapsed" x:Name="BackButton2" Panel.ZIndex="2"/>
@@ -322,10 +322,10 @@
             <Button x:Name="OdpowiedzP" Content="Odpowiedz" VerticalAlignment="Top" HorizontalAlignment="Right" Width="300" Height="40" Margin="0,120,-410,0" Click="OdpowiedzP_Click"></Button>
             <!-- Układ z szczegółami oceny -->
         </Grid>
-        <Grid x:Name="AdminPanel" Visibility="Collapsed">
+        <Grid x:Name="AdminPanel" Visibility="Visible">
             <Button Content="Wyloguj" VerticalAlignment="Top" HorizontalAlignment="Left" Width="300" Height="40" Margin="50,50,0,0" Click="LogoutButton_Click" />
             <StackPanel>
-                <TextBlock Margin="0,80,0,0" HorizontalAlignment="Center" VerticalAlignment="Top" Width="293" Text="Korzystasz z panelu Administratora!" TextAlignment="Center"/>
+                <TextBlock Margin="0,20,0,0" HorizontalAlignment="Center" VerticalAlignment="Top" Width="293" Text="Korzystasz z panelu Administratora!" TextAlignment="Center"/>
                 <Grid Margin="0,50,0,0" Width="500">
                     <TextBlock Text="Wybierz używaną ankiete:" HorizontalAlignment="Left"/>
                     <ComboBox x:Name="EvaluationNamesComboBox"  Width="300" HorizontalAlignment="Right" SelectionChanged="EvaluationNamesComboBox_SelectionChanged"/>
@@ -362,7 +362,98 @@
 
                     </StackPanel>
                 </Grid>
-                <Grid Margin="0,30,0,0" Width="1000" HorizontalAlignment="Center" >
+                <Grid Width="1000" HorizontalAlignment="Center">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+
+                    </Grid.ColumnDefinitions>
+                    <Grid Margin="0,30,0,0" Width="500" HorizontalAlignment="Center" Grid.Column="0">
+                        <StackPanel>
+                            <Grid>
+                                <Grid Width="300px">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+                                    <TextBlock Text="Dodaj dział:" Grid.Row="0" HorizontalAlignment="Center"/>
+                                    <TextBox Text="Test" Grid.Row="1" HorizontalAlignment="Center" Margin="0,5,0,5" Width="300px"/>
+                                    <ComboBox x:Name="DepartmentComboBoxAdd" Grid.Row="2"/>
+                                </Grid>
+                                <Grid Height="120" VerticalAlignment="Top">
+                                    <Button x:Name="DepartmentAddButton" Content="Dodaj" Width="200" Margin="0,75,0,0" Height="30" HorizontalAlignment="Center" Click="DepartmentAddButton_Click"></Button>
+                                </Grid>
+                            </Grid>
+                        </StackPanel>
+                    </Grid>
+                    <Grid Margin="0,30,0,0" Width="500" HorizontalAlignment="Center" Grid.Column="1" >
+                        <StackPanel>
+                            <Grid>
+                                <Grid Width="300px">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+                                    <TextBlock Text="Usuń dział:" Grid.Row="0" HorizontalAlignment="Center"/>
+                                    <ComboBox x:Name="DepartmentDeleteComboBox1" Grid.Row="1" Margin="0,5,0,5"/>
+                                    <ComboBox x:Name="DepartmentDeleteComboBox2" Grid.Row="2"/>
+                                </Grid>
+                                <Grid Height="120" VerticalAlignment="Top">
+                                    <Button x:Name="DepartmentDeleteButton" Content="Usuń" Width="200" Margin="0,75,0,0" Height="30" HorizontalAlignment="Center" Click="DepartmentDeleteButton_Click"></Button>
+                                </Grid>
+                            </Grid>
+                        </StackPanel>
+                    </Grid>
+                </Grid>
+                <Grid Width="1000" HorizontalAlignment="Center">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid Margin="0,10,0,0" Width="500" HorizontalAlignment="Center" Grid.Column="0">
+                        <StackPanel>
+                            <Grid>
+                                <Grid Width="300px">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+                                    <TextBlock Text="Przywróć dział:" Grid.Row="0" HorizontalAlignment="Center"/>
+                                    <ComboBox x:Name="DepartmentComboBoxRestore" Grid.Row="1"/>
+                                </Grid>
+                                <Grid Height="80" VerticalAlignment="Bottom">
+                                    <Button x:Name="DepartmentRestoreButton" Content="Przywróć" Width="200" Margin="0,50,0,0" Height="30" HorizontalAlignment="Center" Click="DepartmentRestoreButton_Click"></Button>
+                                </Grid>
+                            </Grid>
+                        </StackPanel>
+                    </Grid>
+                    <Grid Margin="0,30,0,0" Width="500" HorizontalAlignment="Center" Grid.Column="1" >
+                        <StackPanel>
+                            <Grid>
+                                <Grid Width="300px">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+                                    <TextBlock Text="Zmien kierownika działu" Grid.Row="0" HorizontalAlignment="Center"/>
+                                    <ComboBox x:Name="DepartmentChangeComboBox1" Grid.Row="1"/>
+                                    <ComboBox x:Name="DepartmentChangeComboBox2" Grid.Row="2" Margin="0,5,0,5"/>
+                                    <ComboBox x:Name="DepartmentChangeComboBox3" Grid.Row="4"/>
+                                    <TextBlock Text="Nowy kierownik:" Grid.Row="3" HorizontalAlignment="Center"/>
+                                </Grid>
+                                <Grid Height="145" VerticalAlignment="Top" Margin="0,14,0,0">
+                                    <Button x:Name="DepartmentChangeButton" Content="Zmień" Width="200" Margin="0,110,0,0" Height="30" HorizontalAlignment="Center" Click="DepartmentChangeButton_Click"></Button>
+                                </Grid>
+                            </Grid>
+                        </StackPanel>
+                    </Grid>
+                </Grid>
+                <Grid Width="1000" HorizontalAlignment="Center" >
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="Auto"/>
@@ -398,13 +489,12 @@
                                 </Grid>
                                 <Grid Height="80" VerticalAlignment="Bottom">
                                     <Button x:Name="AccountsRestoryButton" Content="Przywróć" Width="200" Margin="0,50,0,0" Height="30" HorizontalAlignment="Center" Click="AccountsRestoryButton_Click"></Button>
-
                                 </Grid>
                             </Grid>
                         </StackPanel>
                     </Grid>
                 </Grid>
-                <Grid Margin="0,30,0,0" Width="1000" HorizontalAlignment="Center">
+                <Grid Width="1000" HorizontalAlignment="Center">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="Auto"/>

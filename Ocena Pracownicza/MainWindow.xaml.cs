@@ -1206,5 +1206,25 @@ namespace Ocena_Pracownicza
             BackButton3.Visibility = Visibility.Collapsed;
             EvaluationDetailsGridB.Visibility = Visibility.Visible;
         }
+
+        private void DepartmentAddButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void DepartmentDeleteButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void DepartmentChangeButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void DepartmentRestoreButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
