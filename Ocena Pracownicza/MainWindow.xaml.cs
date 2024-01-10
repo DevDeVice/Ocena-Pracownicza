@@ -47,6 +47,7 @@ namespace Ocena_Pracownicza
             LoadEvaluationName();
             LoadComboBoxData(); 
             LoadDelatedUser();
+            LoadDataForRestore();
         }
         private void ConnectionCheck()
         {
@@ -78,6 +79,7 @@ namespace Ocena_Pracownicza
                 AccountsComboBoxToChangeManager.ItemsSource = accounts;
                 DepartmentComboBoxAdd.ItemsSource = accounts;
                 DepartmentDeleteComboBox1.ItemsSource = accounts;
+                DepartmentComboBoxRestore2.ItemsSource = accounts;
             }
         }
         private void LoadEvaluationName()
@@ -1274,7 +1276,7 @@ namespace Ocena_Pracownicza
                     if (user != null)
                     {
                         // Pobierz tylko te działy, które są włączone (Enabled = 1)
-                        var departments = context.Departments
+                        var departments = context.Department
                                                  .Where(d => d.UserID == user.UserID && d.Enabled == 1)
                                                  .ToList();
                         DepartmentDeleteComboBox2.ItemsSource = departments;
@@ -1283,6 +1285,16 @@ namespace Ocena_Pracownicza
                 }
             }
         }
+        private void LoadDataForRestore()
+        {
+            using (var context = new AppDbContext())
+            {
+                var departmentsToRestore = context.Department.Where(d => d.Enabled == 0).ToList();
+                DepartmentComboBoxRestore1.ItemsSource = departmentsToRestore;
+                DepartmentComboBoxRestore1.DisplayMemberPath = "DepartmentName";
+            }
+        }
+
 
         private void DepartmentDeleteButton_Click(object sender, RoutedEventArgs e)
         {
@@ -1291,12 +1303,13 @@ namespace Ocena_Pracownicza
                 using (var context = new AppDbContext())
                 {
                     // Teraz używamy właściwości DepartmentName zamiast ToString()
-                    var department = context.Departments.FirstOrDefault(d => d.DepartmentName == selectedDepartment.DepartmentName);
+                    var department = context.Department.FirstOrDefault(d => d.DepartmentName == selectedDepartment.DepartmentName);
                     if (department != null)
                     {
                         department.Enabled = 0; // Ustawienie Enabled na 0
                         context.SaveChanges();
                         MessageBox.Show("Dział został pomyślnie usunięty.");
+                        LoadDataForRestore();
                     }
                     else
                     {
@@ -1309,17 +1322,50 @@ namespace Ocena_Pracownicza
                 MessageBox.Show("Nie wybrano działu do usunięcia.");
             }
         }
+        private void DepartmentRestoreButton_Click(object sender, RoutedEventArgs e)
+        {
+            var selectedDepartment = DepartmentComboBoxRestore1.SelectedItem as Department;
+            var selectedUser = DepartmentComboBoxRestore2.SelectedItem?.ToString();
+            
+            if (selectedDepartment == null)
+            {
+                MessageBox.Show("Nie wybrano działu do przywrócenia.");
+                return;
+            }
 
+            
+
+            using (var context = new AppDbContext())
+            {
+                var user = context.Users.FirstOrDefault(u => u.FullName == selectedUser);
+                if (selectedUser == null)
+                {
+                    MessageBox.Show("Nie wybrano użytkownika.");
+                    return;
+                }
+                // Znajdź dział w bazie danych
+                var departmentToRestore = context.Department.FirstOrDefault(d => d.DepartmentID == selectedDepartment.DepartmentID);
+                if (departmentToRestore != null)
+                {
+                    // Zaktualizuj dane działu
+                    departmentToRestore.Enabled = 1;
+                    departmentToRestore.UserID = user.UserID;
+                    context.SaveChanges();
+                    MessageBox.Show("Dział został przywrócony.");
+                }
+                else
+                {
+                    MessageBox.Show("Nie znaleziono wybranego działu w bazie danych.");
+                }
+            }
+        }
 
         private void DepartmentChangeButton_Click(object sender, RoutedEventArgs e)
         {
 
         }
 
-        private void DepartmentRestoreButton_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
+        
 
     }
 }
