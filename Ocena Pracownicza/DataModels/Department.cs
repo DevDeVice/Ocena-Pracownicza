@@ -15,5 +15,6 @@ namespace Ocena_Pracownicza.DataModels
         public int DepartmentID { get; set; }
         public string DepartmentName { get; set; }
         public int UserID { get; set; }
+        public int Enabled { get; set; }
     }
 }
