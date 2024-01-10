@@ -397,7 +397,7 @@
                                         <RowDefinition Height="Auto"/>
                                     </Grid.RowDefinitions>
                                     <TextBlock Text="Usuń dział:" Grid.Row="0" HorizontalAlignment="Center"/>
-                                    <ComboBox x:Name="DepartmentDeleteComboBox1" Grid.Row="1" Margin="0,5,0,5"/>
+                                    <ComboBox x:Name="DepartmentDeleteComboBox1" Grid.Row="1" Margin="0,5,0,5" SelectionChanged="DepartmentDeleteComboBox1_SelectionChanged"/>
                                     <ComboBox x:Name="DepartmentDeleteComboBox2" Grid.Row="2"/>
                                 </Grid>
                                 <Grid Height="120" VerticalAlignment="Top">

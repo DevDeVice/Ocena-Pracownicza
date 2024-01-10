@@ -28,7 +28,7 @@ namespace Ocena_Pracownicza
             {
                 return EvaluationB.UserName;
             }
-        } 
+        }
         public struct EvaluationRecordP
         {
             public EvaluationProdukcja EvaluationP { get; set; }
@@ -36,7 +36,7 @@ namespace Ocena_Pracownicza
             {
                 return EvaluationP.UserName;
             }
-        } 
+        }
         public MainWindow()
         {
             LoggedUser= new User();
@@ -77,6 +77,7 @@ namespace Ocena_Pracownicza
                 AccountsComboBoxAdd.ItemsSource = accounts;
                 AccountsComboBoxToChangeManager.ItemsSource = accounts;
                 DepartmentComboBoxAdd.ItemsSource = accounts;
+                DepartmentDeleteComboBox1.ItemsSource = accounts;
             }
         }
         private void LoadEvaluationName()
@@ -1246,7 +1247,8 @@ namespace Ocena_Pracownicza
                 var newDepartment = new Department
                 {
                     DepartmentName = departmentName,
-                    UserID = user.UserID
+                    UserID = user.UserID,
+                    Enabled = 1
                 };
 
                 // Zapisanie nowego działu do bazy danych
@@ -1258,12 +1260,56 @@ namespace Ocena_Pracownicza
             MessageBox.Show("Dział został pomyślnie dodany.");
         }
 
+        private void DepartmentDeleteComboBox1_SelectionChanged(object sender, EventArgs e)
+        {
+            // Pobierz nazwę użytkownika z ComboBox
+            string selectedUserName = DepartmentDeleteComboBox1.SelectedItem?.ToString();
 
+            if (!string.IsNullOrEmpty(selectedUserName))
+            {
+                using (var context = new AppDbContext())
+                {
+                    // Znajdź użytkownika o podanej nazwie
+                    var user = context.Users.FirstOrDefault(u => u.FullName == selectedUserName);
+                    if (user != null)
+                    {
+                        // Pobierz tylko te działy, które są włączone (Enabled = 1)
+                        var departments = context.Departments
+                                                 .Where(d => d.UserID == user.UserID && d.Enabled == 1)
+                                                 .ToList();
+                        DepartmentDeleteComboBox2.ItemsSource = departments;
+                        DepartmentDeleteComboBox2.DisplayMemberPath = "DepartmentName"; // lub inna właściwość, którą chcesz wyświetlić
+                    }
+                }
+            }
+        }
 
         private void DepartmentDeleteButton_Click(object sender, RoutedEventArgs e)
         {
-
+            if (DepartmentDeleteComboBox2.SelectedItem is Department selectedDepartment)
+            {
+                using (var context = new AppDbContext())
+                {
+                    // Teraz używamy właściwości DepartmentName zamiast ToString()
+                    var department = context.Departments.FirstOrDefault(d => d.DepartmentName == selectedDepartment.DepartmentName);
+                    if (department != null)
+                    {
+                        department.Enabled = 0; // Ustawienie Enabled na 0
+                        context.SaveChanges();
+                        MessageBox.Show("Dział został pomyślnie usunięty.");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Nie znaleziono wybranego działu.");
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show("Nie wybrano działu do usunięcia.");
+            }
         }
+
 
         private void DepartmentChangeButton_Click(object sender, RoutedEventArgs e)
         {
@@ -1274,5 +1320,6 @@ namespace Ocena_Pracownicza
         {
 
         }
+
     }
 }
