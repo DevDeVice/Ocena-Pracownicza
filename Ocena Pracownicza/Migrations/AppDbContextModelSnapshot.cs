@@ -49,6 +49,9 @@ namespace Ocena_Pracownicza.Migrations
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime(6)");
 
+                    b.Property<int>("DepartmentID")
+                        .HasColumnType("int");
+
                     b.Property<int>("EvaluationAnswerID")
                         .HasColumnType("int");
 
@@ -189,6 +192,9 @@ namespace Ocena_Pracownicza.Migrations
 
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime(6)");
+
+                    b.Property<int>("DepartmentID")
+                        .HasColumnType("int");
 
                     b.Property<int>("EvaluationAnswerID")
                         .HasColumnType("int");

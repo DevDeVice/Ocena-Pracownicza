@@ -71,8 +71,8 @@ namespace Ocena_Pracownicza
                                       .Where(user => user.FullName != "Administrator" && user.Enabled != false)
                                       .Select(user => user.FullName)
                                       .ToList();
-                AccountsComboBoxP.ItemsSource = accounts;
-                AccountsComboBoxB.ItemsSource = accounts;
+                AccountsComboBoxP1.ItemsSource = accounts;
+                AccountsComboBoxB1.ItemsSource = accounts;
                 AccountsComboBoxDelete.ItemsSource = accounts;
                 AccountsComboBoxResetPassword.ItemsSource = accounts;
                 AccountsComboBoxAdd.ItemsSource = accounts;
@@ -80,6 +80,8 @@ namespace Ocena_Pracownicza
                 DepartmentComboBoxAdd.ItemsSource = accounts;
                 DepartmentDeleteComboBox1.ItemsSource = accounts;
                 DepartmentComboBoxRestore2.ItemsSource = accounts;
+                DepartmentChangeComboBox1.ItemsSource = accounts;
+                DepartmentChangeComboBox3.ItemsSource = accounts;
             }
         }
         private void LoadEvaluationName()
@@ -120,8 +122,8 @@ namespace Ocena_Pracownicza
         {
             NameTextBoxB.Text = string.Empty;
             NameTextBoxP.Text = string.Empty;
-            AccountsComboBoxB.SelectedItem = null;
-            AccountsComboBoxP.SelectedItem = null;
+            AccountsComboBoxB1.SelectedItem = null;
+            AccountsComboBoxP1.SelectedItem = null;
             for (int i = 1; i <= 11; i++)
             {
                 var textBoxName = $"Question{i}TextBoxB";
@@ -206,7 +208,8 @@ namespace Ocena_Pracownicza
             else
             {
                 if (string.IsNullOrEmpty(NameTextBoxB.Text) ||
-                AccountsComboBoxB.SelectedItem == null ||
+                AccountsComboBoxB1.SelectedItem == null ||
+                AccountsComboBoxB2.SelectedItem == null ||
                 string.IsNullOrEmpty(Question1TextBoxB.Text) ||
                 string.IsNullOrEmpty(Question2TextBoxB.Text) ||
                 string.IsNullOrEmpty(Question3TextBoxB.Text) ||
@@ -224,7 +227,7 @@ namespace Ocena_Pracownicza
                     return;
                 }
                 int? selectedUserID = null;
-                string selectedUserName = AccountsComboBoxB.SelectedItem.ToString();
+                string selectedUserName = AccountsComboBoxB1.SelectedItem.ToString();
                 using (var context = new AppDbContext())
                 {
                     selectedUserID = context.Users
@@ -257,6 +260,7 @@ namespace Ocena_Pracownicza
                     MessageBox.Show("Nie znaleziono nazwy oceny w bazie danych!");
                     return;
                 }
+                var selectedDepartment = AccountsComboBoxB2.SelectedItem as Department;
                 var evaluation = new EvaluationBiuro
                 {
                     UserName = NameTextBoxB.Text,
@@ -275,6 +279,7 @@ namespace Ocena_Pracownicza
                     Question10 = Question10TextBoxB.Text,
                     Question11 = Question11TextBoxB.Text,
                     EvaluationAnswerID = 0,
+                    DepartmentID = selectedDepartment.DepartmentID
                 };
                 using (var context = new AppDbContext())
                 {
@@ -333,7 +338,8 @@ namespace Ocena_Pracownicza
             {
                 // 1. Walidacja wprowadzonych danych:
                 if (string.IsNullOrEmpty(NameTextBoxP.Text) ||
-                AccountsComboBoxP.SelectedItem == null ||
+                AccountsComboBoxP1.SelectedItem == null ||
+                AccountsComboBoxP2.SelectedItem == null ||
                 string.IsNullOrEmpty(Question1TextBoxP.Text) ||
                 string.IsNullOrEmpty(Question2TextBoxP.Text) ||
                 string.IsNullOrEmpty(Question3TextBoxP.Text) ||
@@ -345,7 +351,7 @@ namespace Ocena_Pracownicza
                 }
 
                 int? selectedUserID = null;
-                string selectedUserName = AccountsComboBoxP.SelectedItem.ToString();
+                string selectedUserName = AccountsComboBoxP1.SelectedItem.ToString();
                 using (var context = new AppDbContext())
                 {
                     selectedUserID = context.Users
@@ -379,6 +385,9 @@ namespace Ocena_Pracownicza
                     MessageBox.Show("Nie znaleziono nazwy oceny w bazie danych!");
                     return;
                 }
+                var nameDepart = AccountsComboBoxP2;
+
+                var selectedDepartment = AccountsComboBoxP2.SelectedItem as Department;
 
                 var evaluation = new EvaluationProdukcja
                 {
@@ -392,6 +401,7 @@ namespace Ocena_Pracownicza
                     Question4 = Question4TextBoxP.Text,
                     Question5 = Question5TextBoxP.Text,
                     EvaluationAnswerID = 0,
+                    DepartmentID = selectedDepartment.DepartmentID
                 };
 
                 // 3. Zapisanie instancji w bazie danych:
@@ -1261,41 +1271,6 @@ namespace Ocena_Pracownicza
             // Dodatkowe akcje po pomyślnym dodaniu działu, np. odświeżenie UI (opcjonalnie)
             MessageBox.Show("Dział został pomyślnie dodany.");
         }
-
-        private void DepartmentDeleteComboBox1_SelectionChanged(object sender, EventArgs e)
-        {
-            // Pobierz nazwę użytkownika z ComboBox
-            string selectedUserName = DepartmentDeleteComboBox1.SelectedItem?.ToString();
-
-            if (!string.IsNullOrEmpty(selectedUserName))
-            {
-                using (var context = new AppDbContext())
-                {
-                    // Znajdź użytkownika o podanej nazwie
-                    var user = context.Users.FirstOrDefault(u => u.FullName == selectedUserName);
-                    if (user != null)
-                    {
-                        // Pobierz tylko te działy, które są włączone (Enabled = 1)
-                        var departments = context.Department
-                                                 .Where(d => d.UserID == user.UserID && d.Enabled == 1)
-                                                 .ToList();
-                        DepartmentDeleteComboBox2.ItemsSource = departments;
-                        DepartmentDeleteComboBox2.DisplayMemberPath = "DepartmentName"; // lub inna właściwość, którą chcesz wyświetlić
-                    }
-                }
-            }
-        }
-        private void LoadDataForRestore()
-        {
-            using (var context = new AppDbContext())
-            {
-                var departmentsToRestore = context.Department.Where(d => d.Enabled == 0).ToList();
-                DepartmentComboBoxRestore1.ItemsSource = departmentsToRestore;
-                DepartmentComboBoxRestore1.DisplayMemberPath = "DepartmentName";
-            }
-        }
-
-
         private void DepartmentDeleteButton_Click(object sender, RoutedEventArgs e)
         {
             if (DepartmentDeleteComboBox2.SelectedItem is Department selectedDepartment)
@@ -1362,10 +1337,137 @@ namespace Ocena_Pracownicza
 
         private void DepartmentChangeButton_Click(object sender, RoutedEventArgs e)
         {
+            var selectedDepartment = DepartmentChangeComboBox2.SelectedItem as Department;
+            var selectedUser = DepartmentChangeComboBox3.SelectedItem?.ToString();
+            if (selectedDepartment == null)
+            {
+                MessageBox.Show("Nie wybrano działu do przywrócenia.");
+                return;
+            }
+            using (var context = new AppDbContext())
+            {
+                var user = context.Users.FirstOrDefault(u => u.FullName == selectedUser);
+                if (selectedUser == null)
+                {
+                    MessageBox.Show("Nie wybrano użytkownika.");
+                    return;
+                }
+                // Znajdź dział w bazie danych
+                var departmentToRestore = context.Department.FirstOrDefault(d => d.DepartmentID == selectedDepartment.DepartmentID);
+                if (departmentToRestore != null)
+                {
+                    // Zaktualizuj dane działu
+                    departmentToRestore.UserID = user.UserID;
+                    context.SaveChanges();
+                    MessageBox.Show("Dział został zmieniony.");
+                }
+                else
+                {
+                    MessageBox.Show("Nie znaleziono wybranego działu w bazie danych.");
+                }
+            }
+        }
+        private void DepartmentDeleteComboBox1_SelectionChanged(object sender, EventArgs e)
+        {
+            // Pobierz nazwę użytkownika z ComboBox
+            string selectedUserName = DepartmentDeleteComboBox1.SelectedItem?.ToString();
 
+            if (!string.IsNullOrEmpty(selectedUserName))
+            {
+                using (var context = new AppDbContext())
+                {
+                    // Znajdź użytkownika o podanej nazwie
+                    var user = context.Users.FirstOrDefault(u => u.FullName == selectedUserName);
+                    if (user != null)
+                    {
+                        // Pobierz tylko te działy, które są włączone (Enabled = 1)
+                        var departments = context.Department
+                                                 .Where(d => d.UserID == user.UserID && d.Enabled == 1)
+                                                 .ToList();
+                        DepartmentDeleteComboBox2.ItemsSource = departments;
+                        DepartmentDeleteComboBox2.DisplayMemberPath = "DepartmentName"; // lub inna właściwość, którą chcesz wyświetlić
+                    }
+                }
+            }
+        }
+        private void DepartmentChangeComboBox1_SelectionChanged(object sender, EventArgs e)
+        {
+            // Pobierz nazwę użytkownika z ComboBox
+            string selectedUserName = DepartmentChangeComboBox1.SelectedItem?.ToString();
+
+            if (!string.IsNullOrEmpty(selectedUserName))
+            {
+                using (var context = new AppDbContext())
+                {
+                    // Znajdź użytkownika o podanej nazwie
+                    var user = context.Users.FirstOrDefault(u => u.FullName == selectedUserName);
+                    if (user != null)
+                    {
+                        // Pobierz tylko te działy, które są włączone (Enabled = 1)
+                        var departments = context.Department
+                                                 .Where(d => d.UserID == user.UserID && d.Enabled == 1)
+                                                 .ToList();
+                        DepartmentChangeComboBox2.ItemsSource = departments;
+                        DepartmentChangeComboBox2.DisplayMemberPath = "DepartmentName";
+                    }
+                }
+            }
+        }
+        private void LoadDataForRestore()
+        {
+            using (var context = new AppDbContext())
+            {
+                var departmentsToRestore = context.Department.Where(d => d.Enabled == 0).ToList();
+                DepartmentComboBoxRestore1.ItemsSource = departmentsToRestore;
+                DepartmentComboBoxRestore1.DisplayMemberPath = "DepartmentName";
+            }
         }
 
-        
+        private void AccountsComboBoxB1_SelectionChanged(object sender, EventArgs e)
+        {
+            // Pobierz nazwę użytkownika z ComboBox
+            string selectedUserName = AccountsComboBoxB1.SelectedItem?.ToString();
 
+            if (!string.IsNullOrEmpty(selectedUserName))
+            {
+                using (var context = new AppDbContext())
+                {
+                    // Znajdź użytkownika o podanej nazwie
+                    var user = context.Users.FirstOrDefault(u => u.FullName == selectedUserName);
+                    if (user != null)
+                    {
+                        // Pobierz tylko te działy, które są włączone (Enabled = 1)
+                        var departments = context.Department
+                                                 .Where(d => d.UserID == user.UserID && d.Enabled == 1)
+                                                 .ToList();
+                        AccountsComboBoxB2.ItemsSource = departments;
+                        AccountsComboBoxB2.DisplayMemberPath = "DepartmentName"; // lub inna właściwość, którą chcesz wyświetlić
+                    }
+                }
+            }
+        }
+        private void AccountsComboBoxP1_SelectionChanged(object sender, EventArgs e)
+        {
+            // Pobierz nazwę użytkownika z ComboBox
+            string selectedUserName = AccountsComboBoxP1.SelectedItem?.ToString();
+
+            if (!string.IsNullOrEmpty(selectedUserName))
+            {
+                using (var context = new AppDbContext())
+                {
+                    // Znajdź użytkownika o podanej nazwie
+                    var user = context.Users.FirstOrDefault(u => u.FullName == selectedUserName);
+                    if (user != null)
+                    {
+                        // Pobierz tylko te działy, które są włączone (Enabled = 1)
+                        var departments = context.Department
+                                                 .Where(d => d.UserID == user.UserID && d.Enabled == 1)
+                                                 .ToList();
+                        AccountsComboBoxP2.ItemsSource = departments;
+                        AccountsComboBoxP2.DisplayMemberPath = "DepartmentName"; // lub inna właściwość, którą chcesz wyświetlić
+                    }
+                }
+            }
+        }
     }
 }
