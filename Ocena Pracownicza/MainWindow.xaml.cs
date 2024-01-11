@@ -934,11 +934,11 @@ namespace Ocena_Pracownicza
         }
         private void PrintButtonB_Click(object sender, RoutedEventArgs e)
         {
-            Test999.Content = Question0AnswerP;
-            Test998.Text = AnswerB1.Text;
             PrintDialog printDialog = new PrintDialog();
             if (printDialog.ShowDialog() == true)
             {
+                Test999.Content =  AnswerB1.Text;
+                Test998.Text = Question0AnswerB.Text;
                 Teeest.Visibility = Visibility.Visible;        
                 printDialog.PrintVisual(Teeest, "Wydruk z aplikacji WPF");
                 Teeest.Visibility = Visibility.Collapsed;
