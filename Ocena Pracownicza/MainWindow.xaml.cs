@@ -6,6 +6,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using BCrypt.Net;
+using System.Windows.Documents;
 
 namespace Ocena_Pracownicza
 {
@@ -166,8 +167,7 @@ namespace Ocena_Pracownicza
                 string.IsNullOrEmpty(Question7TextBoxB.Text) ||
                 string.IsNullOrEmpty(Question8TextBoxB.Text) ||
                 string.IsNullOrEmpty(Question9TextBoxB.Text) ||
-                string.IsNullOrEmpty(Question10TextBoxB.Text) ||
-                string.IsNullOrEmpty(Question11TextBoxB.Text)
+                string.IsNullOrEmpty(Question10TextBoxB.Text)
                 )
                 {
                     MessageBox.Show("Wszystkie pola muszą być wypełnione!");
@@ -219,8 +219,7 @@ namespace Ocena_Pracownicza
                 string.IsNullOrEmpty(Question7TextBoxB.Text) ||
                 string.IsNullOrEmpty(Question8TextBoxB.Text) ||
                 string.IsNullOrEmpty(Question9TextBoxB.Text) ||
-                string.IsNullOrEmpty(Question10TextBoxB.Text) ||
-                string.IsNullOrEmpty(Question11TextBoxB.Text)
+                string.IsNullOrEmpty(Question10TextBoxB.Text)
                 )
                 {
                     MessageBox.Show("Wszystkie pola muszą być wypełnione!");
@@ -933,13 +932,16 @@ namespace Ocena_Pracownicza
         {
             SearchAndFilterEvaluations();
         }
-
         private void PrintButtonB_Click(object sender, RoutedEventArgs e)
         {
+            Test999.Content = Question0AnswerP;
+            Test998.Text = AnswerB1.Text;
             PrintDialog printDialog = new PrintDialog();
             if (printDialog.ShowDialog() == true)
             {
-                printDialog.PrintVisual(TestDrukB, "Wydruk z aplikacji WPF");
+                Teeest.Visibility = Visibility.Visible;        
+                printDialog.PrintVisual(Teeest, "Wydruk z aplikacji WPF");
+                Teeest.Visibility = Visibility.Collapsed;
             }
         }
         private void PrintButtonP_Click(object sender, RoutedEventArgs e)
@@ -947,7 +949,7 @@ namespace Ocena_Pracownicza
             PrintDialog printDialog = new PrintDialog();
             if (printDialog.ShowDialog() == true)
             {
-                printDialog.PrintVisual(TestDrukP, "Wydruk z aplikacji WPF");
+                printDialog.PrintVisual(Teeest, "Wydruk z aplikacji WPF");
             }
         }
 
