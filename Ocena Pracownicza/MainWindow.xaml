@@ -87,11 +87,15 @@
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
                         </Grid.RowDefinitions>
-                        <TextBlock Text="Wybierz bezpośredniego przełożonego:" Grid.Row="0" HorizontalAlignment="Left"/>
-                        <ComboBox x:Name="AccountsComboBoxB1" Width="500" Grid.Row="1" SelectionChanged="AccountsComboBoxB1_SelectionChanged"/>
-                        <TextBlock Text="Wybierz dział:" HorizontalAlignment="Left" Grid.Row="2" Margin="0,10,0,0"/>
-                        <ComboBox x:Name="AccountsComboBoxB2" Width="500" Grid.Row="3"/>
+                        <TextBlock Text="Stanowisko:" Grid.Row="0" HorizontalAlignment="Left"/>
+                        <TextBox x:Name="StanowiskoTextBoxB" Width="500" Grid.Row="1"/>                        
+                        <TextBlock Text="Wybierz bezpośredniego przełożonego:" Grid.Row="2" HorizontalAlignment="Left"/>
+                        <ComboBox x:Name="AccountsComboBoxB1" Width="500" Grid.Row="3" SelectionChanged="AccountsComboBoxB1_SelectionChanged"/>
+                        <TextBlock Text="Wybierz dział:" HorizontalAlignment="Left" Grid.Row="4" Margin="0,10,0,0"/>
+                        <ComboBox x:Name="AccountsComboBoxB2" Width="500" Grid.Row="5"/>
                     </Grid>
 
 
@@ -169,11 +173,15 @@
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
                         </Grid.RowDefinitions>
-                        <TextBlock Text="Wybierz bezpośredniego przełożonego:" Grid.Row="0" HorizontalAlignment="Left"/>
-                        <ComboBox x:Name="AccountsComboBoxP1" Width="500" Grid.Row="1" SelectionChanged="AccountsComboBoxP1_SelectionChanged"/>
-                        <TextBlock Text="Wybierz kierownika:" Grid.Row="2" HorizontalAlignment="Left" Margin="0,10,0,0"/>
-                        <ComboBox x:Name="AccountsComboBoxP2" Width="500" Grid.Row="3"/>
+                        <TextBlock Text="Stanowisko:" Grid.Row="0" HorizontalAlignment="Left"/>
+                        <TextBox x:Name="StanowiskoTextBoxP" Width="500" Grid.Row="1"/>
+                        <TextBlock Text="Wybierz bezpośredniego przełożonego:" Grid.Row="2" HorizontalAlignment="Left"/>
+                        <ComboBox x:Name="AccountsComboBoxP1" Width="500" Grid.Row="3" SelectionChanged="AccountsComboBoxP1_SelectionChanged"/>
+                        <TextBlock Text="Wybierz kierownika:" Grid.Row="4" HorizontalAlignment="Left" Margin="0,10,0,0"/>
+                        <ComboBox x:Name="AccountsComboBoxP2" Width="500" Grid.Row="5"/>
                     </Grid>
 
 
@@ -262,23 +270,23 @@
                     <TextBlock x:Name="AnswerB4" Text="Jak oceniasz swoje działania i zachowania w kontekście wartości firmy?" Style="{StaticResource QuestionStyle}"/>
                 </Border>
                 <Border Background="#FFFCCE17" CornerRadius="10" Padding="5">
-                    <TextBlock Text="Uczciwość:" Style="{StaticResource QuestionStyle}"/>
+                    <TextBlock x:Name="AnswerB01" Text="Uczciwość:" Style="{StaticResource QuestionStyle}"/>
                 </Border>
                 <TextBlock x:Name="Question3AnswerB" Text="Odpowiedź na pytanie 3:" Style="{StaticResource AnswerStyle}"/>
                 <Border Background="#FFFCCE17" CornerRadius="10" Padding="5">
-                    <TextBlock Text="Odpowiedzialność:" Style="{StaticResource QuestionStyle}"/>
+                    <TextBlock x:Name="AnswerB02" Text="Odpowiedzialność:" Style="{StaticResource QuestionStyle}"/>
                 </Border>
                 <TextBlock x:Name="Question4AnswerB" Text="Odpowiedź na pytanie 4:" Style="{StaticResource AnswerStyle}"/>
                 <Border Background="#FFFCCE17" CornerRadius="10" Padding="5">
-                    <TextBlock Text="Zaangażowanie:" Style="{StaticResource QuestionStyle}"/>
+                    <TextBlock x:Name="AnswerB03" Text="Zaangażowanie:" Style="{StaticResource QuestionStyle}"/>
                 </Border>
                 <TextBlock x:Name="Question5AnswerB" Text="Odpowiedź na pytanie 5:" Style="{StaticResource AnswerStyle}"/>
                 <Border Background="#FFFCCE17" CornerRadius="10" Padding="5">
-                    <TextBlock Text="Bliskie relacje:" Style="{StaticResource QuestionStyle}"/>
+                    <TextBlock x:Name="AnswerB04" Text="Bliskie relacje:" Style="{StaticResource QuestionStyle}"/>
                 </Border>
                 <TextBlock x:Name="Question6AnswerB" Text="Odpowiedź na pytanie 6:" Style="{StaticResource AnswerStyle}"/>
                 <Border Background="#FFFCCE17" CornerRadius="10" Padding="5">
-                    <TextBlock Text="Innowacyjność:" Style="{StaticResource QuestionStyle}"/>
+                    <TextBlock x:Name="AnswerB05" Text="Innowacyjność:" Style="{StaticResource QuestionStyle}"/>
                 </Border>
                 <TextBlock x:Name="Question7AnswerB" Text="Odpowiedź na pytanie 7:" Style="{StaticResource AnswerStyle}"/>
                 <Border Background="#FFFCCE17" CornerRadius="10" Padding="5">
@@ -574,8 +582,20 @@
                         <Setter Property="TextWrapping" Value="Wrap"/>
                         <Setter Property="VerticalScrollBarVisibility" Value="Auto"/>
                     </Style>
+                    <Style TargetType="Label">
+                        <Setter Property="TextBlock.TextWrapping" Value="Wrap"/>
+                    </Style>
+                    <Style TargetType="TextBlock">
+                        <Setter Property="FontSize" Value="12"/>
+                    </Style>
                 </Grid.Resources>
                 <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
@@ -595,42 +615,64 @@
                     <ColumnDefinition Width="1*"/>
                     <ColumnDefinition Width="3*"/>
                 </Grid.ColumnDefinitions>
-
+                <Label x:Name="PrintB00" Grid.Row="0" Grid.Column="0" Content="A" HorizontalAlignment="Center" FontSize="20"/>
+                <Label x:Name="PrintB01" Grid.Row="0" Grid.Column="1" Content="Uzupełnić tu tytuł bo zapomniałem co ma byc." HorizontalAlignment="Center" FontSize="20"/>
                 <!-- Date of review -->
-                <Label Grid.Row="0" Grid.Column="0" Content="Data przeprowadzenia oceny:" VerticalAlignment="Center"/>
-                <TextBox Grid.Row="0" Grid.Column="1" Margin="5"/>
+                <Label x:Name="PrintB10" Grid.Row="1" Grid.Column="0" Content="Data przeprowadzenia oceny:" VerticalAlignment="Center"/>
+                <TextBox x:Name="PrintB11" Grid.Row="1" Grid.Column="1" Margin="5"/>
 
                 <!-- Name and surname -->
-                <Label x:Name="Test999" Grid.Row="1" Grid.Column="0" Content="Imię i nazwisko:" VerticalAlignment="Center"/>
-                <TextBox x:Name="Test998" Grid.Row="1" Grid.Column="1" Margin="5"/>
+                <Label x:Name="PrintB20" Grid.Row="2" Grid.Column="0" Content="Imie i nazwisko" VerticalAlignment="Center"/>
+                <TextBox x:Name="PrintB21" Grid.Row="2" Grid.Column="1" Margin="5"/>
 
                 <!-- ... additional labels and textboxes for each field ... -->
-                <Label Grid.Row="2" Grid.Column="0" VerticalAlignment="Center"/>
-                <TextBox Grid.Row="2" Grid.Column="1" Margin="5"/>
-                <Label Grid.Row="3" Grid.Column="0" Content="Imię i nazwisko:" VerticalAlignment="Center"/>
-                <TextBox Grid.Row="3" Grid.Column="1" Margin="5"/>
-                <Label Grid.Row="4" Grid.Column="0" Content="Imię i nazwisko:" VerticalAlignment="Center"/>
-                <TextBox Grid.Row="4" Grid.Column="1" Margin="5"/>
-                <Label Grid.Row="5" Grid.Column="0" Content="Imię i nazwisko:" VerticalAlignment="Center"/>
-                <TextBox Grid.Row="5" Grid.Column="1" Margin="5"/>
-                <Label Grid.Row="6" Grid.Column="0" Content="Imię i nazwisko:" VerticalAlignment="Center"/>
-                <TextBox Grid.Row="6" Grid.Column="1" Margin="5"/>
-                <Label Grid.Row="7" Grid.Column="0" Content="Imię i nazwisko:" VerticalAlignment="Center"/>
-                <TextBox Grid.Row="7" Grid.Column="1" Margin="5"/>
-                <Label Grid.Row="8" Grid.Column="0" Content="Imię i nazwisko:" VerticalAlignment="Center"/>
-                <TextBox Grid.Row="8" Grid.Column="1" Margin="5"/>
-                <Label Grid.Row="9" Grid.Column="0" Content="Imię i nazwisko:" VerticalAlignment="Center"/>
-                <TextBox Grid.Row="9" Grid.Column="1" Margin="5"/>
+                <Label x:Name="PrintB30" Grid.Row="3" Grid.Column="0" Content="Stanowisko:" VerticalAlignment="Center"/>
+                <TextBox x:Name="PrintB31" Grid.Row="3" Grid.Column="1" Margin="5"/>
+                <Label x:Name="PrintB40" Grid.Row="4" Grid.Column="0" Content="Imię i nazwisko:" VerticalAlignment="Center"/>
+                <TextBox x:Name="PrintB41" Grid.Row="4" Grid.Column="1" Margin="5"/>
+                <Label Grid.Row="5" Grid.Column="0" VerticalAlignment="Center">
+                    <TextBlock x:Name="PrintB50" Text="Imię i nazwisko:" TextWrapping="Wrap"/>
+                </Label>
+                <TextBox x:Name="PrintB51" Grid.Row="5" Grid.Column="1" Margin="5"/>
+                <Label Grid.Row="6" Grid.Column="0" VerticalAlignment="Center">
+                    <TextBlock x:Name="PrintB60" Text="Imię i nazwisko:" TextWrapping="Wrap"/>
+                </Label>
+                <TextBox x:Name="PrintB61" Grid.Row="6" Grid.Column="1" Margin="5"/>
+                <Label Grid.Row="7" Grid.Column="0" VerticalAlignment="Center">
+                    <TextBlock x:Name="PrintB70" Text="Imię i nazwisko:" TextWrapping="Wrap"/>
+                </Label>
+                <Label x:Name="PrintB80" Grid.Row="8" Grid.Column="0" Content="Imię i nazwisko:" VerticalAlignment="Center"/>
+                <TextBox x:Name="PrintB81" Grid.Row="8" Grid.Column="1" Margin="5"/>
+                <Label x:Name="PrintB90" Grid.Row="9" Grid.Column="0" Content="Imię i nazwisko:" VerticalAlignment="Center"/>
+                <TextBox x:Name="PrintB91" Grid.Row="9" Grid.Column="1" Margin="5"/>
+                <Label x:Name="PrintB100" Grid.Row="10" Grid.Column="0" Content="Imię i nazwisko:" VerticalAlignment="Center"/>
+                <TextBox x:Name="PrintB101" Grid.Row="10" Grid.Column="1" Margin="5"/>
+                <Label x:Name="PrintB110" Grid.Row="11" Grid.Column="0" Content="Imię i nazwisko:" VerticalAlignment="Center"/>
+                <TextBox x:Name="PrintB111" Grid.Row="11" Grid.Column="1" Margin="5"/>
+                <Label x:Name="PrintB120" Grid.Row="12" Grid.Column="0" Content="Imię i nazwisko:" VerticalAlignment="Center"/>
+                <TextBox x:Name="PrintB121" Grid.Row="12" Grid.Column="1" Margin="5"/>
+                <Label  Grid.Row="13" Grid.Column="0" VerticalAlignment="Center">
+                    <TextBlock x:Name="PrintB130" Text="Imię i nazwisko:" TextWrapping="Wrap"/>
+                </Label>
+                <TextBox x:Name="PrintB131" Grid.Row="13" Grid.Column="1" Margin="5"/>
+                <Label Grid.Row="14" Grid.Column="0" VerticalAlignment="Center">
+                    <TextBlock x:Name="PrintB140" Text="Imię i nazwisko:" TextWrapping="Wrap"/>
+                </Label>
+                <TextBox x:Name="PrintB141" Grid.Row="14" Grid.Column="1" Margin="5"/>
+                <Label Grid.Row="15" Grid.Column="0" VerticalAlignment="Center">
+                    <TextBlock x:Name="PrintB150" Text="Imię i nazwisko:" TextWrapping="Wrap"/>
+                </Label>
+                <TextBox x:Name="PrintB151" Grid.Row="15" Grid.Column="1" Margin="5"/>
                 <!-- Comments section -->
-                <Label Grid.Row="10" Grid.Column="0" Grid.ColumnSpan="2" Content="Uwagi:" VerticalAlignment="Center"/>
-                <TextBox Grid.Row="11" Grid.Column="0" Grid.ColumnSpan="2" Margin="5" TextWrapping="Wrap" AcceptsReturn="True" Height="100"/>
+                <Label x:Name="PrintB160" Grid.Row="16" Grid.Column="0" Content="Uwagi:" VerticalAlignment="Center"/>
+                <TextBox x:Name="PrintB161" Grid.Row="16" Grid.Column="1" Margin="5" TextWrapping="Wrap"/>
 
                 <!-- Employee and supervisor signatures -->
-                <StackPanel Grid.Row="12" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Left" Margin="15">
+                <StackPanel Grid.Row="17" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Left" Margin="15">
                     <TextBlock Text="Podpis pracownika" Height="25" Margin="0,30,-200,0" HorizontalAlignment="Center"/>
                     <Border BorderBrush="Black" BorderThickness="1" Width="200" Height="1" VerticalAlignment="Center"/>
                 </StackPanel>
-                <StackPanel Grid.Row="12" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="15">
+                <StackPanel Grid.Row="17" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="15">
                     <TextBlock Text="Podpis przełożonego" Height="25" Margin="0,30,-200,0" HorizontalAlignment="Center"/>
                     <Border BorderBrush="Black" BorderThickness="1" Width="200" Height="1" VerticalAlignment="Center"/>
                 </StackPanel>

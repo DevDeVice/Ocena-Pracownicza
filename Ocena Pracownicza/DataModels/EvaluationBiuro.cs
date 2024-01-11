@@ -30,5 +30,6 @@ namespace Ocena_Pracownicza.DataModels
         public string Question11 { get; set; }
         public int EvaluationAnswerID { get; set; }
         public int DepartmentID { get; set; }
+        public string Stanowisko {  get; set; }
     }
 }

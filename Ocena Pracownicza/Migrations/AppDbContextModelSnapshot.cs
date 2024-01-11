@@ -102,6 +102,10 @@ namespace Ocena_Pracownicza.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
+                    b.Property<string>("Stanowisko")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
                     b.Property<int>("UserID")
                         .HasColumnType("int");
 
@@ -219,6 +223,10 @@ namespace Ocena_Pracownicza.Migrations
                         .HasColumnType("longtext");
 
                     b.Property<string>("Question5")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Stanowisko")
                         .IsRequired()
                         .HasColumnType("longtext");
 

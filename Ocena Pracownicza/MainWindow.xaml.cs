@@ -7,6 +7,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using BCrypt.Net;
 using System.Windows.Documents;
+using Ocena_Pracownicza.Migrations;
 
 namespace Ocena_Pracownicza
 {
@@ -173,7 +174,7 @@ namespace Ocena_Pracownicza
                     MessageBox.Show("Wszystkie pola muszą być wypełnione!");
                     return;
                 }
-                
+
                 var evaluation = new EvaluationBiuroAnswer
                 {
                     Question1 = Question1TextBoxB.Text,
@@ -219,7 +220,8 @@ namespace Ocena_Pracownicza
                 string.IsNullOrEmpty(Question7TextBoxB.Text) ||
                 string.IsNullOrEmpty(Question8TextBoxB.Text) ||
                 string.IsNullOrEmpty(Question9TextBoxB.Text) ||
-                string.IsNullOrEmpty(Question10TextBoxB.Text)
+                string.IsNullOrEmpty(Question10TextBoxB.Text) ||
+                string.IsNullOrEmpty(StanowiskoTextBoxP.Text)
                 )
                 {
                     MessageBox.Show("Wszystkie pola muszą być wypełnione!");
@@ -278,7 +280,8 @@ namespace Ocena_Pracownicza
                     Question10 = Question10TextBoxB.Text,
                     Question11 = Question11TextBoxB.Text,
                     EvaluationAnswerID = 0,
-                    DepartmentID = selectedDepartment.DepartmentID
+                    DepartmentID = selectedDepartment.DepartmentID,
+                    Stanowisko = StanowiskoTextBoxB.Text
                 };
                 using (var context = new AppDbContext())
                 {
@@ -342,7 +345,8 @@ namespace Ocena_Pracownicza
                 string.IsNullOrEmpty(Question1TextBoxP.Text) ||
                 string.IsNullOrEmpty(Question2TextBoxP.Text) ||
                 string.IsNullOrEmpty(Question3TextBoxP.Text) ||
-                string.IsNullOrEmpty(Question4TextBoxP.Text)
+                string.IsNullOrEmpty(Question4TextBoxP.Text) ||
+                string.IsNullOrEmpty(StanowiskoTextBoxP.Text)
                 )
                 {
                     MessageBox.Show("Wszystkie pola muszą być wypełnione!");
@@ -400,7 +404,8 @@ namespace Ocena_Pracownicza
                     Question4 = Question4TextBoxP.Text,
                     Question5 = Question5TextBoxP.Text,
                     EvaluationAnswerID = 0,
-                    DepartmentID = selectedDepartment.DepartmentID
+                    DepartmentID = selectedDepartment.DepartmentID,
+                    Stanowisko = StanowiskoTextBoxP.Text
                 };
 
                 // 3. Zapisanie instancji w bazie danych:
@@ -743,7 +748,7 @@ namespace Ocena_Pracownicza
                     // Jeśli nie istnieje rekord w GlobalSettings, to stwórz nowy:
                     if (globalSetting == null)
                     {
-                        globalSetting = new GlobalSettings();
+                        globalSetting = new DataModels.GlobalSettings(); //global
                         context.GlobalSettings.Add(globalSetting);
                     }
 
@@ -937,12 +942,52 @@ namespace Ocena_Pracownicza
             PrintDialog printDialog = new PrintDialog();
             if (printDialog.ShowDialog() == true)
             {
-                Test999.Content =  AnswerB1.Text;
-                Test998.Text = Question0AnswerB.Text;
+                ChangePrintB();
                 Teeest.Visibility = Visibility.Visible;        
                 printDialog.PrintVisual(Teeest, "Wydruk z aplikacji WPF");
                 Teeest.Visibility = Visibility.Collapsed;
             }
+        }
+        private void ChangePrintB()
+        {
+            using (var context = new AppDbContext())
+            {
+                var department = context.Department.FirstOrDefault(d => d.DepartmentID == historyEvaluationB.DepartmentID);
+                if (department != null)
+                {
+                    PrintB41.Text = department.DepartmentName;
+                }
+            }
+            PrintB11.Text = historyEvaluationB.Date.ToString("yyyy-MM-dd");
+            PrintB20.Content = AnswerB1.Text;
+            PrintB21.Text = Question0AnswerB.Text;//imie nazwisko 
+            PrintB30.Content = "Dział:";
+            PrintB31.Text = historyEvaluationB.Stanowisko;;//stanowisko 
+            PrintB40.Content = "Stanowisko:";
+            //PrintB41.Text = //Wykonywane wczesniej
+            PrintB50.Text = AnswerB2.Text; 
+            PrintB51.Text = Question1AnswerB.Text;//Jakie są rezultaty Twojej pracy (konkretne wyniki)?
+            PrintB60.Text = AnswerB3.Text;
+            PrintB61.Text = Question2AnswerB.Text;//Jakie Twoje działania określił(a)byś jako pozytywne?"
+            PrintB70.Text = AnswerB4.Text;//Jak oceniasz swoje działania i zachowania w kontekście wartości firmy tu bez odpowiedzi
+            PrintB80.Content = AnswerB01.Text;
+            PrintB81.Text = Question3AnswerB.Text;//Uczciwość:
+            PrintB90.Content = AnswerB02.Text;
+            PrintB91.Text = Question4AnswerB.Text;//Odpowiedzialność
+            PrintB100.Content = AnswerB03.Text;
+            PrintB101.Text = Question5AnswerB.Text;//Zaangażowanie
+            PrintB110.Content = AnswerB04.Text;
+            PrintB111.Text = Question6AnswerB.Text;//Bliskie relacje
+            PrintB120.Content = AnswerB05.Text;
+            PrintB121.Text = Question7AnswerB.Text;//Innowacyjność
+            PrintB130.Text = AnswerB5.Text;
+            PrintB131.Text = Question8AnswerB.Text;//Jakie Twoje działania określił(a)byś jako utrudniające uzyskanie dobrych rezultatów?
+            PrintB140.Text = AnswerB6.Text;
+            PrintB141.Text = Question9AnswerB.Text;//Nad czym chcesz pracować (jakie elementy zachowania/umiejetności chcesz rozwijać/jakie sobie stawiasz cele)?
+            PrintB150.Text = AnswerB7.Text;
+            PrintB151.Text = Question10AnswerB.Text;//Określ sposób i czas monitorowania dążenia do tych celów (kiedy i po czym poznasz, że zostały one zrealizowane):
+            PrintB160.Content = "Uwagi:";
+            PrintB161.Text = Question11AnswerB.Text;//uwagi
         }
         private void PrintButtonP_Click(object sender, RoutedEventArgs e)
         {
