@@ -22,6 +22,7 @@ namespace Ocena_Pracownicza.DataModels
         {
             optionsBuilder.UseMySql("server=localhost;database=ocena_pracownicza;user=root;password=",
                                      new MySqlServerVersion(new Version(10, 4, 28))); //new MySqlServerVersion(new Version(8, 2, 4)));
+            //optionsBuilder.UseSqlServer("");
         }
     }
 }

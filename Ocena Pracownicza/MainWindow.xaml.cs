@@ -769,8 +769,7 @@ namespace Ocena_Pracownicza
                     LoginPanel.Visibility = Visibility.Collapsed;
                     BackButton.Visibility = Visibility.Collapsed;
                     AdminPanel.Visibility = Visibility.Visible;
-                }
-                else
+                } else if (username.ToLower() == "mobrzud" || username.ToLower() == "tlyson" || username.ToLower() == "rkrawczyk" || username.ToLower() == "blyson")
                 {
                     using (var context = new AppDbContext())
                     {
@@ -793,13 +792,36 @@ namespace Ocena_Pracownicza
                     BackButton.Visibility = Visibility.Collapsed;
                     UserPanel.Visibility = Visibility.Visible;
 
-                    List<User> subordinates;
+                    List<EvaluationRecordB> allEvaluationsB = new List<EvaluationRecordB>();
+                    List<EvaluationRecordP> allEvaluationsP = new List<EvaluationRecordP>();
+
+                    FetchEvaluationsAndSubordinatesAdmin(LoggedUser.UserID, allEvaluationsB, allEvaluationsP);
+
+                    UserEvaluationsBListViewAll.ItemsSource = allEvaluationsB;
+                    UserEvaluationsPListViewAll.ItemsSource = allEvaluationsP;
+                }else
+                {
                     using (var context = new AppDbContext())
                     {
-                        subordinates = context.Users
-                                              .Where(u => u.ManagerId == LoggedUser.UserID)
-                                              .ToList();
+                        var evaluationsB = context.EvaluationBiuro
+                          .Where(e => e.UserID == LoggedUser.UserID)
+                          .Select(e => new EvaluationRecordB { EvaluationB = e })
+                          .ToList();
+                        UserEvaluationsBListView.ItemsSource = evaluationsB;
+
+                        var evaluationsP = context.EvaluationsProdukcja
+                                                  .Where(e => e.UserID == LoggedUser.UserID)
+                                                  .Select(e => new EvaluationRecordP { EvaluationP = e })
+                                                  .ToList();
+
+                        UserEvaluationsPListView.ItemsSource = evaluationsP;
                     }
+                    //MessageBox.Show("Prawidłowe Hasło!");
+                    Powitanie.Text = $"Witaj, {LoggedUser.FullName}!";
+                    LoginPanel.Visibility = Visibility.Collapsed;
+                    BackButton.Visibility = Visibility.Collapsed;
+                    UserPanel.Visibility = Visibility.Visible;
+
                     List<EvaluationRecordB> allEvaluationsB = new List<EvaluationRecordB>();
                     List<EvaluationRecordP> allEvaluationsP = new List<EvaluationRecordP>();
 
@@ -840,6 +862,30 @@ namespace Ocena_Pracownicza
 
                     // Rekurencyjne wywołanie dla każdego podwładnego
                     FetchEvaluationsAndSubordinates(subordinate.UserID, allEvaluationsB, allEvaluationsP);
+                }
+            }
+        }
+        private void FetchEvaluationsAndSubordinatesAdmin(int userId, List<EvaluationRecordB> allEvaluationsB, List<EvaluationRecordP> allEvaluationsP)
+        {
+            using (var context = new AppDbContext())
+            {
+                // Pobierz podwładnych użytkownika
+                var subordinates = context.Users.ToList();
+
+                // Pobierz oceny tylko dla podwładnych
+                foreach (var subordinate in subordinates)
+                {
+                    var evaluationsB = context.EvaluationBiuro
+                                              .Where(e => e.UserID == subordinate.UserID)
+                                              .Select(e => new EvaluationRecordB { EvaluationB = e })
+                                              .ToList();
+                    allEvaluationsB.AddRange(evaluationsB);
+
+                    var evaluationsP = context.EvaluationsProdukcja
+                                              .Where(e => e.UserID == subordinate.UserID)
+                                              .Select(e => new EvaluationRecordP { EvaluationP = e })
+                                              .ToList();
+                    allEvaluationsP.AddRange(evaluationsP);
                 }
             }
         }
