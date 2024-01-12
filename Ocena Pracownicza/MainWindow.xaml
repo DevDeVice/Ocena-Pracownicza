@@ -576,7 +576,7 @@
             </StackPanel>
         </Grid>
         <ScrollViewer Padding="50px" Width="1080" Visibility="Collapsed" >
-            <Grid Margin="10" x:Name="Teeest" >
+            <Grid Margin="10" x:Name="DrukOdpB" >
                 <Grid.Resources>
                     <Style TargetType="TextBox">
                         <Setter Property="TextWrapping" Value="Wrap"/>
@@ -666,6 +666,109 @@
                 <!-- Comments section -->
                 <Label x:Name="PrintB160" Grid.Row="16" Grid.Column="0" Content="Uwagi:" VerticalAlignment="Center"/>
                 <TextBox x:Name="PrintB161" Grid.Row="16" Grid.Column="1" Margin="5" TextWrapping="Wrap"/>
+
+                <!-- Employee and supervisor signatures -->
+                <StackPanel Grid.Row="17" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Left" Margin="15">
+                    <TextBlock Text="Podpis pracownika" Height="25" Margin="0,30,-200,0" HorizontalAlignment="Center"/>
+                    <Border BorderBrush="Black" BorderThickness="1" Width="200" Height="1" VerticalAlignment="Center"/>
+                </StackPanel>
+                <StackPanel Grid.Row="17" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="15">
+                    <TextBlock Text="Podpis przełożonego" Height="25" Margin="0,30,-200,0" HorizontalAlignment="Center"/>
+                    <Border BorderBrush="Black" BorderThickness="1" Width="200" Height="1" VerticalAlignment="Center"/>
+                </StackPanel>
+            </Grid>
+        </ScrollViewer>
+        <ScrollViewer Padding="50px" Width="1080" Visibility="Collapsed" >
+            <Grid Margin="10" x:Name="DrukOdpP" >
+                <Grid.Resources>
+                    <Style TargetType="TextBox">
+                        <Setter Property="TextWrapping" Value="Wrap"/>
+                        <Setter Property="VerticalScrollBarVisibility" Value="Auto"/>
+                    </Style>
+                    <Style TargetType="Label">
+                        <Setter Property="TextBlock.TextWrapping" Value="Wrap"/>
+                    </Style>
+                    <Style TargetType="TextBlock">
+                        <Setter Property="FontSize" Value="12"/>
+                    </Style>
+                </Grid.Resources>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <!-- ... additional RowDefinitions for each section ... -->
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="3*"/>
+                </Grid.ColumnDefinitions>
+                <Label x:Name="PrintP00" Grid.Row="0" Grid.Column="0" Content="A" HorizontalAlignment="Center" FontSize="20"/>
+                <Label x:Name="PrintP01" Grid.Row="0" Grid.Column="1" Content="Uzupełnić tu tytuł bo zapomniałem co ma byc." HorizontalAlignment="Center" FontSize="20"/>
+                <!-- Date of review -->
+                <Label x:Name="PrintP10" Grid.Row="1" Grid.Column="0" Content="Data przeprowadzenia oceny:" VerticalAlignment="Center"/>
+                <TextBox x:Name="PrintP11" Grid.Row="1" Grid.Column="1" Margin="5"/>
+
+                <!-- Name and surname -->
+                <Label x:Name="PrintP20" Grid.Row="2" Grid.Column="0" Content="Imie i nazwisko" VerticalAlignment="Center"/>
+                <TextBox x:Name="PrintP21" Grid.Row="2" Grid.Column="1" Margin="5"/>
+
+                <!-- ... additional labels and textboxes for each field ... -->
+                <Label x:Name="PrintP30" Grid.Row="3" Grid.Column="0" Content="Stanowisko:" VerticalAlignment="Center"/>
+                <TextBox x:Name="PrintP31" Grid.Row="3" Grid.Column="1" Margin="5"/>
+                <Label x:Name="PrintP40" Grid.Row="4" Grid.Column="0" Content="Imię i nazwisko:" VerticalAlignment="Center"/>
+                <TextBox x:Name="PrintP41" Grid.Row="4" Grid.Column="1" Margin="5"/>
+                <!--<Label Grid.Row="5" Grid.Column="0" VerticalAlignment="Center">
+                    <TextBlock x:Name="PrintP50" Text="Imię i nazwisko:" TextWrapping="Wrap"/>
+                </Label>
+                <TextBox x:Name="PrintP51" Grid.Row="5" Grid.Column="1" Margin="5"/>-->
+                <Label Grid.Row="6" Grid.Column="0" VerticalAlignment="Center">
+                    <TextBlock x:Name="PrintP60" Text="Imię i nazwisko:" TextWrapping="Wrap"/>
+                </Label>
+                <TextBox x:Name="PrintP61" Grid.Row="6" Grid.Column="1" Margin="5"/>
+                <!--<Label Grid.Row="7" Grid.Column="0" VerticalAlignment="Center">
+                    <TextBlock x:Name="PrintP70" Text="Imię i nazwisko:" TextWrapping="Wrap"/>
+                </Label>
+                <Label x:Name="PrintP80" Grid.Row="8" Grid.Column="0" Content="Imię i nazwisko:" VerticalAlignment="Center"/>
+                <TextBox x:Name="PrintP81" Grid.Row="8" Grid.Column="1" Margin="5"/>
+                <Label x:Name="PrintP90" Grid.Row="9" Grid.Column="0" Content="Imię i nazwisko:" VerticalAlignment="Center"/>
+                <TextBox x:Name="PrintP91" Grid.Row="9" Grid.Column="1" Margin="5"/>
+                <Label x:Name="PrintP100" Grid.Row="10" Grid.Column="0" Content="Imię i nazwisko:" VerticalAlignment="Center"/>
+                <TextBox x:Name="PrintP101" Grid.Row="10" Grid.Column="1" Margin="5"/>
+                <Label x:Name="PrintP110" Grid.Row="11" Grid.Column="0" Content="Imię i nazwisko:" VerticalAlignment="Center"/>
+                <TextBox x:Name="PrintP111" Grid.Row="11" Grid.Column="1" Margin="5"/>
+                <Label x:Name="PrintP120" Grid.Row="12" Grid.Column="0" Content="Imię i nazwisko:" VerticalAlignment="Center"/>
+                <TextBox x:Name="PrintP121" Grid.Row="12" Grid.Column="1" Margin="5"/>-->
+                <Label  Grid.Row="13" Grid.Column="0" VerticalAlignment="Center">
+                    <TextBlock x:Name="PrintP130" Text="Imię i nazwisko:" TextWrapping="Wrap"/>
+                </Label>
+                <TextBox x:Name="PrintP131" Grid.Row="13" Grid.Column="1" Margin="5"/>
+                <Label Grid.Row="14" Grid.Column="0" VerticalAlignment="Center">
+                    <TextBlock x:Name="PrintP140" Text="Imię i nazwisko:" TextWrapping="Wrap"/>
+                </Label>
+                <TextBox x:Name="PrintP141" Grid.Row="14" Grid.Column="1" Margin="5"/>
+                <Label Grid.Row="15" Grid.Column="0" VerticalAlignment="Center">
+                    <TextBlock x:Name="PrintP150" Text="Imię i nazwisko:" TextWrapping="Wrap"/>
+                </Label>
+                <TextBox x:Name="PrintP151" Grid.Row="15" Grid.Column="1" Margin="5"/>
+                <!-- Comments section -->
+                <Label x:Name="PrintP160" Grid.Row="16" Grid.Column="0" Content="Uwagi:" VerticalAlignment="Center"/>
+                <TextBox x:Name="PrintP161" Grid.Row="16" Grid.Column="1" Margin="5" TextWrapping="Wrap"/>
 
                 <!-- Employee and supervisor signatures -->
                 <StackPanel Grid.Row="17" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Left" Margin="15">

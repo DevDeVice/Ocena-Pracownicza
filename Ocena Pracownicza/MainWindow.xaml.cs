@@ -943,9 +943,9 @@ namespace Ocena_Pracownicza
             if (printDialog.ShowDialog() == true)
             {
                 ChangePrintB();
-                Teeest.Visibility = Visibility.Visible;        
-                printDialog.PrintVisual(Teeest, "Wydruk z aplikacji WPF");
-                Teeest.Visibility = Visibility.Collapsed;
+                DrukOdpB.Visibility = Visibility.Visible;        
+                printDialog.PrintVisual(DrukOdpB, "Wydruk z aplikacji WPF");
+                DrukOdpB.Visibility = Visibility.Collapsed;
             }
         }
         private void ChangePrintB()
@@ -961,9 +961,9 @@ namespace Ocena_Pracownicza
             PrintB11.Text = historyEvaluationB.Date.ToString("yyyy-MM-dd");
             PrintB20.Content = AnswerB1.Text;
             PrintB21.Text = Question0AnswerB.Text;//imie nazwisko 
-            PrintB30.Content = "Dział:";
-            PrintB31.Text = historyEvaluationB.Stanowisko;;//stanowisko 
-            PrintB40.Content = "Stanowisko:";
+            PrintB30.Content = "Stanowisko:";
+            PrintB31.Text = historyEvaluationB.Stanowisko; 
+            PrintB40.Content = "Dział:";
             //PrintB41.Text = //Wykonywane wczesniej
             PrintB50.Text = AnswerB2.Text; 
             PrintB51.Text = Question1AnswerB.Text;//Jakie są rezultaty Twojej pracy (konkretne wyniki)?
@@ -994,8 +994,53 @@ namespace Ocena_Pracownicza
             PrintDialog printDialog = new PrintDialog();
             if (printDialog.ShowDialog() == true)
             {
-                printDialog.PrintVisual(Teeest, "Wydruk z aplikacji WPF");
+                ChangePrintP();
+                DrukOdpB.Visibility = Visibility.Visible;
+                printDialog.PrintVisual(DrukOdpP, "Wydruk z aplikacji WPF");
+                DrukOdpB.Visibility = Visibility.Collapsed;
             }
+        }
+        private void ChangePrintP()
+        {
+            using (var context = new AppDbContext())
+            {
+                var department = context.Department.FirstOrDefault(d => d.DepartmentID == historyEvaluationP.DepartmentID);
+                if (department != null)
+                {
+                    PrintP41.Text = department.DepartmentName;
+                }
+            }
+            
+            PrintP11.Text = historyEvaluationP.Date.ToString("yyyy-MM-dd");
+            PrintP20.Content = AnswerP1.Text;
+            PrintP21.Text = Question0AnswerP.Text;//imie nazwisko 
+            PrintP30.Content = "Stanowisko:";
+            PrintP31.Text = historyEvaluationP.Stanowisko; ;//stanowisko 
+            PrintP40.Content = "Dział:";
+            //PrintB41.Text = //Wykonywane wczesniej
+            /*PrintP50.Text = AnswerP2.Text;
+            PrintP51.Text = Question1AnswerP.Text;//Jakie są rezultaty Twojej pracy (konkretne wyniki)?*/
+            PrintP60.Text = AnswerP2.Text;
+            PrintP61.Text = Question1AnswerP.Text;//Jakie Twoje działania określił(a)byś jako pozytywne?"
+            /*PrintP70.Text = AnswerP4.Text;//Jak oceniasz swoje działania i zachowania w kontekście wartości firmy tu bez odpowiedzi
+            PrintP80.Content = AnswerP01.Text;
+            PrintP81.Text = Question3AnswerP.Text;//Uczciwość:
+            PrintP90.Content = AnswerP02.Text;
+            PrintP91.Text = Question4AnswerP.Text;//Odpowiedzialność
+            PrintP100.Content = AnswerP03.Text;
+            PrintP101.Text = Question5AnswerP.Text;//Zaangażowanie
+            PrintP110.Content = AnswerP04.Text;
+            PrintP111.Text = Question6AnswerP.Text;//Bliskie relacje
+            PrintP120.Content = AnswerP05.Text;
+            PrintP121.Text = Question7AnswerP.Text;//Innowacyjność*/
+            PrintP130.Text = AnswerP3.Text;
+            PrintP131.Text = Question2AnswerP.Text;//Jakie Twoje działania określił(a)byś jako utrudniające uzyskanie dobrych rezultatów?
+            PrintP140.Text = AnswerP4.Text;
+            PrintP141.Text = Question3AnswerP.Text;//Nad czym chcesz pracować (jakie elementy zachowania/umiejetności chcesz rozwijać/jakie sobie stawiasz cele)?
+            PrintP150.Text = AnswerP5.Text;
+            PrintP151.Text = Question4AnswerP.Text;//Określ sposób i czas monitorowania dążenia do tych celów (kiedy i po czym poznasz, że zostały one zrealizowane):
+            PrintP160.Content = "Uwagi:";
+            PrintP161.Text = Question5AnswerP.Text;//uwagi*/
         }
 
         private void CloseButton_Click(object sender, RoutedEventArgs e)
