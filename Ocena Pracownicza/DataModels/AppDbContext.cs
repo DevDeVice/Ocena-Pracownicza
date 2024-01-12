@@ -20,9 +20,9 @@ namespace Ocena_Pracownicza.DataModels
          
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseMySql("server=localhost;database=ocena_pracownicza;user=root;password=",
-                                     new MySqlServerVersion(new Version(10, 4, 28))); //new MySqlServerVersion(new Version(8, 2, 4)));
-            //optionsBuilder.UseSqlServer("");
+            /*optionsBuilder.UseMySql("server=localhost;database=ocena_pracownicza;user=root;password=",
+                                     new MySqlServerVersion(new Version(10, 4, 28))); //new MySqlServerVersion(new Version(8, 2, 4)));*/
+            optionsBuilder.UseSqlServer("Server=LYSWSAD\\LANTEK;Database=ocena_pracownicza;User Id=sa;Password=;TrustServerCertificate=True;");
         }
     }
 }

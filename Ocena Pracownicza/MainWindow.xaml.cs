@@ -221,7 +221,7 @@ namespace Ocena_Pracownicza
                 string.IsNullOrEmpty(Question8TextBoxB.Text) ||
                 string.IsNullOrEmpty(Question9TextBoxB.Text) ||
                 string.IsNullOrEmpty(Question10TextBoxB.Text) ||
-                string.IsNullOrEmpty(StanowiskoTextBoxP.Text)
+                string.IsNullOrEmpty(StanowiskoTextBoxB.Text)
                 )
                 {
                     MessageBox.Show("Wszystkie pola muszą być wypełnione!");
@@ -760,6 +760,7 @@ namespace Ocena_Pracownicza
         private void OnLoginAttempt(object sender, RoutedEventArgs e)
         {
             string username = UsernameBox.Text;
+
             string password = PasswordBox.Password; // Używaj Password dla PasswordBox
 
             if (ValidateLogin(username, password))
@@ -861,6 +862,7 @@ namespace Ocena_Pracownicza
                     allEvaluationsP.AddRange(evaluationsP);
 
                     // Rekurencyjne wywołanie dla każdego podwładnego
+
                     FetchEvaluationsAndSubordinates(subordinate.UserID, allEvaluationsB, allEvaluationsP);
                 }
             }
@@ -893,6 +895,7 @@ namespace Ocena_Pracownicza
 
         private void SearchAndFilterEvaluations()
         {
+            string username = UsernameBox.Text;
             if (LoggedUser == null)
             {
                 MessageBox.Show("Brak zalogowanego użytkownika!");
@@ -924,7 +927,15 @@ namespace Ocena_Pracownicza
                 List<EvaluationRecordB> allEvaluationsB = new List<EvaluationRecordB>();
                 List<EvaluationRecordP> allEvaluationsP = new List<EvaluationRecordP>();
 
-                FilterEvaluationsForUserAndSubordinates(LoggedUser.UserID, searchText, selectedEvaluatorNameID, allEvaluationsB, allEvaluationsP);
+                if (username.ToLower() == "mobrzud" || username.ToLower() == "tlyson" || username.ToLower() == "rkrawczyk" || username.ToLower() == "blyson")
+                {
+                    FilterEvaluationsForUserAndSubordinatesAdmin(LoggedUser.UserID, searchText, selectedEvaluatorNameID, allEvaluationsB, allEvaluationsP);
+                }
+                else
+                {
+                    FilterEvaluationsForUserAndSubordinates(LoggedUser.UserID, searchText, selectedEvaluatorNameID, allEvaluationsB, allEvaluationsP);
+                }
+                    
 
                 // Update the list views
                 UserEvaluationsBListViewAll.ItemsSource = allEvaluationsB;
@@ -953,7 +964,7 @@ namespace Ocena_Pracownicza
                 var filteredEvaluationsB = evaluationsQueryB.Select(ev => new EvaluationRecordB { EvaluationB = ev }).ToList();
                 var filteredEvaluationsP = evaluationsQueryP.Select(ev => new EvaluationRecordP { EvaluationP = ev }).ToList();
 
-                if(userId == LoggedUser.UserID)
+                if (userId == LoggedUser.UserID)
                 {
                     UserEvaluationsBListView.ItemsSource = filteredEvaluationsB;
                     UserEvaluationsPListView.ItemsSource = filteredEvaluationsP;
@@ -966,6 +977,44 @@ namespace Ocena_Pracownicza
 
                 // Rekurencyjne wywołanie dla każdego podwładnego
                 var subordinates = context.Users.Where(u => u.ManagerId == userId).ToList();
+                foreach (var subordinate in subordinates)
+                {
+                    FilterEvaluationsForUserAndSubordinates(subordinate.UserID, searchText, evaluatorNameId, allEvaluationsB, allEvaluationsP);
+                }
+            }
+        }
+        private void FilterEvaluationsForUserAndSubordinatesAdmin(int userId, string searchText, int? evaluatorNameId, List<EvaluationRecordB> allEvaluationsB, List<EvaluationRecordP> allEvaluationsP)
+        {
+            using (var context = new AppDbContext())
+            {
+                var evaluationsQueryB = context.EvaluationBiuro
+                                               .Where(ev => ev.UserID == userId && ev.UserName.ToLower().Contains(searchText));
+
+                var evaluationsQueryP = context.EvaluationsProdukcja
+                                               .Where(ev => ev.UserID == userId && ev.UserName.ToLower().Contains(searchText));
+
+                if (evaluatorNameId.HasValue)
+                {
+                    evaluationsQueryB = evaluationsQueryB.Where(ev => ev.EvaluatorNameID == evaluatorNameId.Value);
+                    evaluationsQueryP = evaluationsQueryP.Where(ev => ev.EvaluatorNameID == evaluatorNameId.Value);
+                }
+
+                var filteredEvaluationsB = evaluationsQueryB.Select(ev => new EvaluationRecordB { EvaluationB = ev }).ToList();
+                var filteredEvaluationsP = evaluationsQueryP.Select(ev => new EvaluationRecordP { EvaluationP = ev }).ToList();
+
+                if (userId == LoggedUser.UserID)
+                {
+                    UserEvaluationsBListView.ItemsSource = filteredEvaluationsB;
+                    UserEvaluationsPListView.ItemsSource = filteredEvaluationsP;
+                }
+                else
+                {
+                    allEvaluationsB.AddRange(filteredEvaluationsB);
+                    allEvaluationsP.AddRange(filteredEvaluationsP);
+                }
+
+                // Rekurencyjne wywołanie dla każdego podwładnego
+                var subordinates = context.Users.ToList();
                 foreach (var subordinate in subordinates)
                 {
                     FilterEvaluationsForUserAndSubordinates(subordinate.UserID, searchText, evaluatorNameId, allEvaluationsB, allEvaluationsP);
@@ -1003,7 +1052,13 @@ namespace Ocena_Pracownicza
                 {
                     PrintB41.Text = department.DepartmentName;
                 }
+                var user = context.Users.FirstOrDefault(d => d.UserID == historyEvaluationB.UserID);
+                if (user != null)
+                {
+                    PrintB43.Text = user.FullName;
+                }
             }
+            PrintB00.Content = DetailBTextBlock.Text;
             PrintB11.Text = historyEvaluationB.Date.ToString("yyyy-MM-dd");
             PrintB20.Content = AnswerB1.Text;
             PrintB21.Text = Question0AnswerB.Text;//imie nazwisko 
@@ -1011,6 +1066,8 @@ namespace Ocena_Pracownicza
             PrintB31.Text = historyEvaluationB.Stanowisko; 
             PrintB40.Content = "Dział:";
             //PrintB41.Text = //Wykonywane wczesniej
+            PrintB42.Content = "Rozmowe przeprowadził:";
+            //PrintB43.Content = //Wykonywane wczesniej - rozmowe przeprowadzil
             PrintB50.Text = AnswerB2.Text; 
             PrintB51.Text = Question1AnswerB.Text;//Jakie są rezultaty Twojej pracy (konkretne wyniki)?
             PrintB60.Text = AnswerB3.Text;
@@ -1055,8 +1112,13 @@ namespace Ocena_Pracownicza
                 {
                     PrintP41.Text = department.DepartmentName;
                 }
+                var user = context.Users.FirstOrDefault(d => d.UserID == historyEvaluationP.UserID);
+                if (user != null)
+                {
+                    PrintP43.Text = user.FullName;
+                }
             }
-            
+            PrintP00.Content = DetailPTextBlock.Text;
             PrintP11.Text = historyEvaluationP.Date.ToString("yyyy-MM-dd");
             PrintP20.Content = AnswerP1.Text;
             PrintP21.Text = Question0AnswerP.Text;//imie nazwisko 
@@ -1064,6 +1126,7 @@ namespace Ocena_Pracownicza
             PrintP31.Text = historyEvaluationP.Stanowisko; ;//stanowisko 
             PrintP40.Content = "Dział:";
             //PrintB41.Text = //Wykonywane wczesniej
+            PrintP42.Content = "Rozmowe przeprowadził:";
             /*PrintP50.Text = AnswerP2.Text;
             PrintP51.Text = Question1AnswerP.Text;//Jakie są rezultaty Twojej pracy (konkretne wyniki)?*/
             PrintP60.Text = AnswerP2.Text;
@@ -1092,6 +1155,10 @@ namespace Ocena_Pracownicza
         private void CloseButton_Click(object sender, RoutedEventArgs e)
         {
             Application.Current.Shutdown();
+        }
+        private void MinimalizeButton_Click(object sender, RoutedEventArgs e)
+        {
+            this.WindowState = WindowState.Minimized;
         }
 
         private void AccountsDeleteButton_Click(object sender, RoutedEventArgs e)
@@ -1215,7 +1282,7 @@ namespace Ocena_Pracownicza
 
         private void OdpowiedzP_Click(object sender, RoutedEventArgs e)
         {
-            if (OdpowiedzP.Content.ToString() == "Sprawdz odpowiedz")
+            if (historyAnswerPID > 0 && DetailPTextBlock.Text == "A")// if (OdpowiedzP.Content.ToString() == "Sprawdz odpowiedz")
             {
                 using (var context = new AppDbContext())
                 {
@@ -1229,7 +1296,7 @@ namespace Ocena_Pracownicza
                         Question3AnswerP.Text = evaluationAnswer.Question3;
                         Question4AnswerP.Text = evaluationAnswer.Question4;
                         Question5AnswerP.Text = evaluationAnswer.Question5;
-                        OdpowiedzP.Content = "Sprawdz pytanie";
+                        DetailPTextBlock.Text = "B";
                     }
                     else
                     {
@@ -1238,14 +1305,14 @@ namespace Ocena_Pracownicza
                 }
                 ChangeAnswerP();
             }
-            else if (OdpowiedzP.Content.ToString() == "Sprawdz pytanie")
+            else if (historyAnswerPID > 0 && DetailPTextBlock.Text == "B")//else if (OdpowiedzP.Content.ToString() == "Sprawdz pytanie")
             {
                 Question1AnswerP.Text = historyEvaluationP.Question1;
                 Question2AnswerP.Text = historyEvaluationP.Question2;
                 Question3AnswerP.Text = historyEvaluationP.Question3;
                 Question4AnswerP.Text = historyEvaluationP.Question4;
                 Question5AnswerP.Text = historyEvaluationP.Question5;
-                OdpowiedzP.Content = "Sprawdz odpowiedz";
+                DetailPTextBlock.Text = "A";
                 ChangeAnswerP1();
             }
             else
@@ -1258,7 +1325,7 @@ namespace Ocena_Pracownicza
 
         private void OdpowiedzB_Click(object sender, RoutedEventArgs e)
         {
-            if (OdpowiedzB.Content.ToString() == "Sprawdz odpowiedz")
+            if (historyAnswerPID > 0 && DetailBTextBlock.Text == "A")
             {
                 using (var context = new AppDbContext())
                 {
@@ -1278,7 +1345,7 @@ namespace Ocena_Pracownicza
                         Question9AnswerB.Text = evaluationAnswer.Question9;
                         Question10AnswerB.Text = evaluationAnswer.Question10;
                         Question11AnswerB.Text = evaluationAnswer.Question11;
-                        OdpowiedzB.Content = "Sprawdz pytanie";
+                        DetailBTextBlock.Text = "B";
                     }
                     else
                     {
@@ -1287,7 +1354,7 @@ namespace Ocena_Pracownicza
                 }
                 ChangeAnswerB();
             }
-            else if(OdpowiedzB.Content.ToString() == "Sprawdz pytanie")
+            else if (historyAnswerPID > 0 && DetailBTextBlock.Text == "B")
             {
                 Question1AnswerB.Text = historyEvaluationB.Question1;
                 Question2AnswerB.Text = historyEvaluationB.Question2;
@@ -1300,7 +1367,7 @@ namespace Ocena_Pracownicza
                 Question9AnswerB.Text = historyEvaluationB.Question9;
                 Question10AnswerB.Text = historyEvaluationB.Question10;
                 Question11AnswerB.Text = historyEvaluationB.Question11;
-                OdpowiedzB.Content = "Sprawdz odpowiedz";
+                DetailBTextBlock.Text = "A";
                 ChangeAnswerB1();
             }
             else
@@ -1607,5 +1674,7 @@ namespace Ocena_Pracownicza
                 }
             }
         }
+
+        
     }
 }
