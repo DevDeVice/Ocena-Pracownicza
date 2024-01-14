@@ -1342,7 +1342,7 @@ namespace Ocena_Pracownicza
                         Question6AnswerB.Text = evaluationAnswer.Question6;
                         Question7AnswerB.Text = evaluationAnswer.Question7;
                         Question8AnswerB.Text = evaluationAnswer.Question8;
-                        Question9AnswerB.Text = evaluationAnswer.Question9;
+                        Question9AnswerB.Text = evaluationAnswer.Question9; 
                         Question10AnswerB.Text = evaluationAnswer.Question10;
                         Question11AnswerB.Text = evaluationAnswer.Question11;
                         DetailBTextBlock.Text = "B";
