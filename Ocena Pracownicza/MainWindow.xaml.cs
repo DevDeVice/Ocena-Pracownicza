@@ -71,6 +71,7 @@ namespace Ocena_Pracownicza
             {
                 var accounts = context.Users
                                       .Where(user => user.FullName != "Administrator" && user.Enabled != false)
+                                      .OrderBy(user => user.FullName)
                                       .Select(user => user.FullName)
                                       .ToList();
                 AccountsComboBoxP1.ItemsSource = accounts;
@@ -90,7 +91,10 @@ namespace Ocena_Pracownicza
         {
             using (var context = new AppDbContext())
             {
-                var evaluationNames = context.EvaluationNames.Select(e => e.EvaluatorName).ToList();
+                var evaluationNames = context.EvaluationNames
+                    .OrderBy(e => e.EvaluatorName)
+                    .Select(e => e.EvaluatorName)
+                    .ToList();
                 EvaluationNamesComboBox.ItemsSource = evaluationNames;
                 EvaluationNameComboBox.ItemsSource = evaluationNames;
             }
@@ -1276,7 +1280,24 @@ namespace Ocena_Pracownicza
 
         private void AccountsChangeManager_Click(object sender, RoutedEventArgs e)
         {
+            var selectedUserToChange = AccountsComboBoxToChangeManager.SelectedItem as string;
+            var selectedNewManagerName = AccountsComboBoxNewManager.SelectedItem as string;
 
+            if (!string.IsNullOrEmpty(selectedUserToChange) && !string.IsNullOrEmpty(selectedNewManagerName))
+            {
+                using (var context = new AppDbContext())
+                {
+                    var toChange = context.Users.FirstOrDefault(user => user.FullName == selectedUserToChange);
+                    var newManager = context.Users.FirstOrDefault(user => user.FullName == selectedNewManagerName);
+                    if (newManager != null)
+                    {
+                        toChange.ManagerId = newManager.UserID;
+                        context.SaveChanges(); // Zapisz zmiany w bazie danych
+
+                        MessageBox.Show("Menedżer został pomyślnie zmieniony.");
+                    }
+                }
+            }
         }
 
         private void AccountsComboBoxToChangeManager_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -1287,6 +1308,7 @@ namespace Ocena_Pracownicza
                 string selectedFullName = AccountsComboBoxToChangeManager.SelectedItem?.ToString();
                 var accounts = context.Users
                                       .Where(user => user.FullName != "Administrator" && user.Enabled != false && user.FullName != selectedFullName)
+                                      .OrderBy(user => user.FullName)
                                       .Select(user => user.FullName)
                                       .ToList();
                 AccountsComboBoxNewManager.ItemsSource = accounts;
@@ -1634,6 +1656,7 @@ namespace Ocena_Pracownicza
                         // Pobierz tylko te działy, które są włączone (Enabled = 1)
                         var departments = context.Department
                                                  .Where(d => d.UserID == user.UserID && d.Enabled == 1)
+                                                 .OrderBy(d => d.DepartmentName)
                                                  .ToList();
                         DepartmentChangeComboBox2.ItemsSource = departments;
                         DepartmentChangeComboBox2.DisplayMemberPath = "DepartmentName";

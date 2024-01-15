@@ -181,7 +181,7 @@
                         <TextBox x:Name="StanowiskoTextBoxP" Width="500" Grid.Row="1"/>
                         <TextBlock Text="Wybierz bezpośredniego przełożonego:" Grid.Row="2" HorizontalAlignment="Left"/>
                         <ComboBox x:Name="AccountsComboBoxP1" Width="500" Grid.Row="3" SelectionChanged="AccountsComboBoxP1_SelectionChanged"/>
-                        <TextBlock Text="Wybierz kierownika:" Grid.Row="4" HorizontalAlignment="Left" Margin="0,10,0,0"/>
+                        <TextBlock Text="Wybierz dział:" Grid.Row="4" HorizontalAlignment="Left" Margin="0,10,0,0"/>
                         <ComboBox x:Name="AccountsComboBoxP2" Width="500" Grid.Row="5"/>
                     </Grid>
 
