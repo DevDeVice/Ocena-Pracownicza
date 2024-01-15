@@ -95,3 +95,4 @@ C:\Users\sebastiand\Desktop\GitHub\Ocena-Pracownicza\Ocena Pracownicza\obj\Relea
 C:\Users\sebastiand\Desktop\GitHub\Ocena-Pracownicza\Ocena Pracownicza\obj\Release\net6.0-windows\Ocena Pracownicza.pdb
 C:\Users\sebastiand\Desktop\GitHub\Ocena-Pracownicza\Ocena Pracownicza\obj\Release\net6.0-windows\Ocena Pracownicza.genruntimeconfig.cache
 C:\Users\sebastiand\Desktop\GitHub\Ocena-Pracownicza\Ocena Pracownicza\obj\Release\net6.0-windows\ref\Ocena Pracownicza.dll
+C:\Users\sebastiand\Desktop\GitHub\Ocena-Pracownicza\Ocena Pracownicza\obj\Release\net6.0-windows\Ocena Pracownicza_Content.g.cs
