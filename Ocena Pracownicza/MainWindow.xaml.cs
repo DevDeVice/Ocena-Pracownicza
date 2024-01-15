@@ -1325,7 +1325,7 @@ namespace Ocena_Pracownicza
 
         private void OdpowiedzB_Click(object sender, RoutedEventArgs e)
         {
-            if (historyAnswerPID > 0 && DetailBTextBlock.Text == "A")
+            if (historyAnswerBID > 0 && DetailBTextBlock.Text == "A")
             {
                 using (var context = new AppDbContext())
                 {
@@ -1354,7 +1354,7 @@ namespace Ocena_Pracownicza
                 }
                 ChangeAnswerB();
             }
-            else if (historyAnswerPID > 0 && DetailBTextBlock.Text == "B")
+            else if (historyAnswerBID > 0 && DetailBTextBlock.Text == "B")
             {
                 Question1AnswerB.Text = historyEvaluationB.Question1;
                 Question2AnswerB.Text = historyEvaluationB.Question2;
