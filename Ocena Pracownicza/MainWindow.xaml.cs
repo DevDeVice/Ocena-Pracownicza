@@ -686,6 +686,8 @@ namespace Ocena_Pracownicza
             }
             LoadEvaluationName();
             MessageBox.Show($"Utworzono: {AddEvaluationNameTextBox.Text}");
+            AddEvaluationNameTextBox.Text = String.Empty;
+
         }
         private void AddNewUser_Click(object sender, RoutedEventArgs e)
         {
@@ -731,6 +733,10 @@ namespace Ocena_Pracownicza
 
             LoadAccounts();
             MessageBox.Show($"Utworzono: {AddImieNazwisko.Text}");
+            AddImieNazwisko.Text = String.Empty; 
+            AddLogin.Text = String.Empty; 
+            AddHaslo.Text= String.Empty;
+            AccountsComboBoxAdd.SelectedItem = null;
         }
 
 
@@ -940,6 +946,9 @@ namespace Ocena_Pracownicza
                 // Update the list views
                 UserEvaluationsBListViewAll.ItemsSource = allEvaluationsB;
                 UserEvaluationsPListViewAll.ItemsSource = allEvaluationsP;
+                
+                UserEvaluationsBListView.ItemsSource = allEvaluationsB.Where(ev => ev.EvaluationB.UserID == LoggedUser.UserID).ToList(); ;
+                UserEvaluationsPListView.ItemsSource = allEvaluationsP.Where(ev => ev.EvaluationP.UserID == LoggedUser.UserID).ToList(); ;
             }
         }
 
@@ -987,40 +996,43 @@ namespace Ocena_Pracownicza
         {
             using (var context = new AppDbContext())
             {
-                var evaluationsQueryB = context.EvaluationBiuro
-                                               .Where(ev => ev.UserID == userId && ev.UserName.ToLower().Contains(searchText));
+                // Pobierz wszystkich użytkowników (nie tylko podwładnych)
+                var users = context.Users.ToList();
 
-                var evaluationsQueryP = context.EvaluationsProdukcja
-                                               .Where(ev => ev.UserID == userId && ev.UserName.ToLower().Contains(searchText));
-
-                if (evaluatorNameId.HasValue)
+                foreach (var user in users)
                 {
-                    evaluationsQueryB = evaluationsQueryB.Where(ev => ev.EvaluatorNameID == evaluatorNameId.Value);
-                    evaluationsQueryP = evaluationsQueryP.Where(ev => ev.EvaluatorNameID == evaluatorNameId.Value);
-                }
+                    // Twórz zapytanie z filtrowaniem dla Biuro
+                    var evaluationsQueryB = context.EvaluationBiuro
+                                                   .Where(ev => ev.UserID == user.UserID);
 
-                var filteredEvaluationsB = evaluationsQueryB.Select(ev => new EvaluationRecordB { EvaluationB = ev }).ToList();
-                var filteredEvaluationsP = evaluationsQueryP.Select(ev => new EvaluationRecordP { EvaluationP = ev }).ToList();
+                    // Twórz zapytanie z filtrowaniem dla Produkcja
+                    var evaluationsQueryP = context.EvaluationsProdukcja
+                                                   .Where(ev => ev.UserID == user.UserID);
 
-                if (userId == LoggedUser.UserID)
-                {
-                    UserEvaluationsBListView.ItemsSource = filteredEvaluationsB;
-                    UserEvaluationsPListView.ItemsSource = filteredEvaluationsP;
-                }
-                else
-                {
+                    // Dodaj filtrowanie po nazwie oceny, jeśli jest wybrana
+                    if (evaluatorNameId.HasValue)
+                    {
+                        evaluationsQueryB = evaluationsQueryB.Where(ev => ev.EvaluatorNameID == evaluatorNameId.Value);
+                        evaluationsQueryP = evaluationsQueryP.Where(ev => ev.EvaluatorNameID == evaluatorNameId.Value);
+                    }
+
+                    // Dodaj filtrowanie po tekście wyszukiwania
+                    if (!string.IsNullOrWhiteSpace(searchText))
+                    {
+                        evaluationsQueryB = evaluationsQueryB.Where(ev => ev.UserName.ToLower().Contains(searchText));
+                        evaluationsQueryP = evaluationsQueryP.Where(ev => ev.UserName.ToLower().Contains(searchText));
+                    }
+
+                    // Dodaj wyniki do list
+                    var filteredEvaluationsB = evaluationsQueryB.Select(ev => new EvaluationRecordB { EvaluationB = ev }).ToList();
+                    var filteredEvaluationsP = evaluationsQueryP.Select(ev => new EvaluationRecordP { EvaluationP = ev }).ToList();
+
                     allEvaluationsB.AddRange(filteredEvaluationsB);
                     allEvaluationsP.AddRange(filteredEvaluationsP);
                 }
-
-                // Rekurencyjne wywołanie dla każdego podwładnego
-                var subordinates = context.Users.ToList();
-                foreach (var subordinate in subordinates)
-                {
-                    FilterEvaluationsForUserAndSubordinates(subordinate.UserID, searchText, evaluatorNameId, allEvaluationsB, allEvaluationsP);
-                }
             }
         }
+
 
 
         private void Search_TextChanged(object sender, TextChangedEventArgs e)
@@ -1475,6 +1487,8 @@ namespace Ocena_Pracownicza
 
             // Dodatkowe akcje po pomyślnym dodaniu działu, np. odświeżenie UI (opcjonalnie)
             MessageBox.Show("Dział został pomyślnie dodany.");
+            DepartmentTextBoxAdd.Text = String.Empty;
+            DepartmentComboBoxAdd.SelectedItem = null;
         }
         private void DepartmentDeleteButton_Click(object sender, RoutedEventArgs e)
         {
@@ -1496,6 +1510,8 @@ namespace Ocena_Pracownicza
                         MessageBox.Show("Nie znaleziono wybranego działu.");
                     }
                 }
+                DepartmentDeleteComboBox1.SelectedItem = null;
+                DepartmentDeleteComboBox2.SelectedItem = null;
             }
             else
             {
