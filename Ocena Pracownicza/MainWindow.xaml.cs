@@ -1200,6 +1200,7 @@ namespace Ocena_Pracownicza
 
                 // 4. Zapisz zmiany w bazie danych
                 context.SaveChanges();
+                AccountsComboBoxDelete.SelectedItem = null;
             }
             MessageBox.Show($"Użytkownik {selectedUserName} został dezaktywowany!");
             LoadAccounts();
@@ -1231,6 +1232,7 @@ namespace Ocena_Pracownicza
 
                 // 4. Zapisz zmiany w bazie danych
                 context.SaveChanges();
+                AccountsComboBoxRestore.SelectedItem = null;
             }
             MessageBox.Show($"Użytkownik {selectedUserName} został aktywowany!");
             LoadAccounts();
@@ -1548,6 +1550,8 @@ namespace Ocena_Pracownicza
                     departmentToRestore.UserID = user.UserID;
                     context.SaveChanges();
                     MessageBox.Show("Dział został przywrócony.");
+                    DepartmentComboBoxRestore1.SelectedItem = null;
+                    DepartmentComboBoxRestore1.SelectedItem = null;
                 }
                 else
                 {
@@ -1581,6 +1585,9 @@ namespace Ocena_Pracownicza
                     departmentToRestore.UserID = user.UserID;
                     context.SaveChanges();
                     MessageBox.Show("Dział został zmieniony.");
+                    DepartmentChangeComboBox1.SelectedItem = null;
+                    DepartmentChangeComboBox2.SelectedItem = null;
+                    DepartmentChangeComboBox3.SelectedItem = null;
                 }
                 else
                 {
