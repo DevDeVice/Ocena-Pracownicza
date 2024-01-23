@@ -71,6 +71,7 @@ namespace Ocena_Pracownicza
             {
                 var accounts = context.Users
                                       .Where(user => user.FullName != "Administrator" && user.Enabled != false)
+                                      .OrderBy(user => user.FullName)
                                       .Select(user => user.FullName)
                                       .ToList();
                 AccountsComboBoxP1.ItemsSource = accounts;
@@ -90,7 +91,10 @@ namespace Ocena_Pracownicza
         {
             using (var context = new AppDbContext())
             {
-                var evaluationNames = context.EvaluationNames.Select(e => e.EvaluatorName).ToList();
+                var evaluationNames = context.EvaluationNames
+                    .OrderBy(e => e.EvaluatorName)
+                    .Select(e => e.EvaluatorName)
+                    .ToList();
                 EvaluationNamesComboBox.ItemsSource = evaluationNames;
                 EvaluationNameComboBox.ItemsSource = evaluationNames;
             }
@@ -709,6 +713,8 @@ namespace Ocena_Pracownicza
             }
             LoadEvaluationName();
             MessageBox.Show($"Utworzono: {AddEvaluationNameTextBox.Text}");
+            AddEvaluationNameTextBox.Text = String.Empty;
+
         }
         private void AddNewUser_Click(object sender, RoutedEventArgs e)
         {
@@ -754,6 +760,10 @@ namespace Ocena_Pracownicza
 
             LoadAccounts();
             MessageBox.Show($"Utworzono: {AddImieNazwisko.Text}");
+            AddImieNazwisko.Text = String.Empty; 
+            AddLogin.Text = String.Empty; 
+            AddHaslo.Text= String.Empty;
+            AccountsComboBoxAdd.SelectedItem = null;
         }
 
 
@@ -963,6 +973,9 @@ namespace Ocena_Pracownicza
                 // Update the list views
                 UserEvaluationsBListViewAll.ItemsSource = allEvaluationsB;
                 UserEvaluationsPListViewAll.ItemsSource = allEvaluationsP;
+                
+                UserEvaluationsBListView.ItemsSource = allEvaluationsB.Where(ev => ev.EvaluationB.UserID == LoggedUser.UserID).ToList(); ;
+                UserEvaluationsPListView.ItemsSource = allEvaluationsP.Where(ev => ev.EvaluationP.UserID == LoggedUser.UserID).ToList(); ;
             }
         }
 
@@ -1010,40 +1023,43 @@ namespace Ocena_Pracownicza
         {
             using (var context = new AppDbContext())
             {
-                var evaluationsQueryB = context.EvaluationBiuro
-                                               .Where(ev => ev.UserID == userId && ev.UserName.ToLower().Contains(searchText));
+                // Pobierz wszystkich użytkowników (nie tylko podwładnych)
+                var users = context.Users.ToList();
 
-                var evaluationsQueryP = context.EvaluationsProdukcja
-                                               .Where(ev => ev.UserID == userId && ev.UserName.ToLower().Contains(searchText));
-
-                if (evaluatorNameId.HasValue)
+                foreach (var user in users)
                 {
-                    evaluationsQueryB = evaluationsQueryB.Where(ev => ev.EvaluatorNameID == evaluatorNameId.Value);
-                    evaluationsQueryP = evaluationsQueryP.Where(ev => ev.EvaluatorNameID == evaluatorNameId.Value);
-                }
+                    // Twórz zapytanie z filtrowaniem dla Biuro
+                    var evaluationsQueryB = context.EvaluationBiuro
+                                                   .Where(ev => ev.UserID == user.UserID);
 
-                var filteredEvaluationsB = evaluationsQueryB.Select(ev => new EvaluationRecordB { EvaluationB = ev }).ToList();
-                var filteredEvaluationsP = evaluationsQueryP.Select(ev => new EvaluationRecordP { EvaluationP = ev }).ToList();
+                    // Twórz zapytanie z filtrowaniem dla Produkcja
+                    var evaluationsQueryP = context.EvaluationsProdukcja
+                                                   .Where(ev => ev.UserID == user.UserID);
 
-                if (userId == LoggedUser.UserID)
-                {
-                    UserEvaluationsBListView.ItemsSource = filteredEvaluationsB;
-                    UserEvaluationsPListView.ItemsSource = filteredEvaluationsP;
-                }
-                else
-                {
+                    // Dodaj filtrowanie po nazwie oceny, jeśli jest wybrana
+                    if (evaluatorNameId.HasValue)
+                    {
+                        evaluationsQueryB = evaluationsQueryB.Where(ev => ev.EvaluatorNameID == evaluatorNameId.Value);
+                        evaluationsQueryP = evaluationsQueryP.Where(ev => ev.EvaluatorNameID == evaluatorNameId.Value);
+                    }
+
+                    // Dodaj filtrowanie po tekście wyszukiwania
+                    if (!string.IsNullOrWhiteSpace(searchText))
+                    {
+                        evaluationsQueryB = evaluationsQueryB.Where(ev => ev.UserName.ToLower().Contains(searchText));
+                        evaluationsQueryP = evaluationsQueryP.Where(ev => ev.UserName.ToLower().Contains(searchText));
+                    }
+
+                    // Dodaj wyniki do list
+                    var filteredEvaluationsB = evaluationsQueryB.Select(ev => new EvaluationRecordB { EvaluationB = ev }).ToList();
+                    var filteredEvaluationsP = evaluationsQueryP.Select(ev => new EvaluationRecordP { EvaluationP = ev }).ToList();
+
                     allEvaluationsB.AddRange(filteredEvaluationsB);
                     allEvaluationsP.AddRange(filteredEvaluationsP);
                 }
-
-                // Rekurencyjne wywołanie dla każdego podwładnego
-                var subordinates = context.Users.ToList();
-                foreach (var subordinate in subordinates)
-                {
-                    FilterEvaluationsForUserAndSubordinates(subordinate.UserID, searchText, evaluatorNameId, allEvaluationsB, allEvaluationsP);
-                }
             }
         }
+
 
 
         private void Search_TextChanged(object sender, TextChangedEventArgs e)
@@ -1338,6 +1354,7 @@ namespace Ocena_Pracownicza
 
                 // 4. Zapisz zmiany w bazie danych
                 context.SaveChanges();
+                AccountsComboBoxDelete.SelectedItem = null;
             }
             MessageBox.Show($"Użytkownik {selectedUserName} został dezaktywowany!");
             LoadAccounts();
@@ -1369,6 +1386,7 @@ namespace Ocena_Pracownicza
 
                 // 4. Zapisz zmiany w bazie danych
                 context.SaveChanges();
+                AccountsComboBoxRestore.SelectedItem = null;
             }
             MessageBox.Show($"Użytkownik {selectedUserName} został aktywowany!");
             LoadAccounts();
@@ -1412,7 +1430,24 @@ namespace Ocena_Pracownicza
 
         private void AccountsChangeManager_Click(object sender, RoutedEventArgs e)
         {
+            var selectedUserToChange = AccountsComboBoxToChangeManager.SelectedItem as string;
+            var selectedNewManagerName = AccountsComboBoxNewManager.SelectedItem as string;
 
+            if (!string.IsNullOrEmpty(selectedUserToChange) && !string.IsNullOrEmpty(selectedNewManagerName))
+            {
+                using (var context = new AppDbContext())
+                {
+                    var toChange = context.Users.FirstOrDefault(user => user.FullName == selectedUserToChange);
+                    var newManager = context.Users.FirstOrDefault(user => user.FullName == selectedNewManagerName);
+                    if (newManager != null)
+                    {
+                        toChange.ManagerId = newManager.UserID;
+                        context.SaveChanges(); // Zapisz zmiany w bazie danych
+
+                        MessageBox.Show("Menedżer został pomyślnie zmieniony.");
+                    }
+                }
+            }
         }
 
         private void AccountsComboBoxToChangeManager_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -1423,6 +1458,7 @@ namespace Ocena_Pracownicza
                 string selectedFullName = AccountsComboBoxToChangeManager.SelectedItem?.ToString();
                 var accounts = context.Users
                                       .Where(user => user.FullName != "Administrator" && user.Enabled != false && user.FullName != selectedFullName)
+                                      .OrderBy(user => user.FullName)
                                       .Select(user => user.FullName)
                                       .ToList();
                 AccountsComboBoxNewManager.ItemsSource = accounts;
@@ -1475,7 +1511,7 @@ namespace Ocena_Pracownicza
 
         private void OdpowiedzB_Click(object sender, RoutedEventArgs e)
         {
-            if (historyAnswerPID > 0 && DetailBTextBlock.Text == "A")
+            if (historyAnswerBID > 0 && DetailBTextBlock.Text == "A")
             {
                 using (var context = new AppDbContext())
                 {
@@ -1504,7 +1540,7 @@ namespace Ocena_Pracownicza
                 }
                 ChangeAnswerB();
             }
-            else if (historyAnswerPID > 0 && DetailBTextBlock.Text == "B")
+            else if (historyAnswerBID > 0 && DetailBTextBlock.Text == "B")
             {
                 Question1AnswerB.Text = historyEvaluationB.Question1;
                 Question2AnswerB.Text = historyEvaluationB.Question2;
@@ -1625,6 +1661,8 @@ namespace Ocena_Pracownicza
 
             // Dodatkowe akcje po pomyślnym dodaniu działu, np. odświeżenie UI (opcjonalnie)
             MessageBox.Show("Dział został pomyślnie dodany.");
+            DepartmentTextBoxAdd.Text = String.Empty;
+            DepartmentComboBoxAdd.SelectedItem = null;
         }
         private void DepartmentDeleteButton_Click(object sender, RoutedEventArgs e)
         {
@@ -1646,6 +1684,8 @@ namespace Ocena_Pracownicza
                         MessageBox.Show("Nie znaleziono wybranego działu.");
                     }
                 }
+                DepartmentDeleteComboBox1.SelectedItem = null;
+                DepartmentDeleteComboBox2.SelectedItem = null;
             }
             else
             {
@@ -1682,6 +1722,8 @@ namespace Ocena_Pracownicza
                     departmentToRestore.UserID = user.UserID;
                     context.SaveChanges();
                     MessageBox.Show("Dział został przywrócony.");
+                    DepartmentComboBoxRestore1.SelectedItem = null;
+                    DepartmentComboBoxRestore1.SelectedItem = null;
                 }
                 else
                 {
@@ -1715,6 +1757,9 @@ namespace Ocena_Pracownicza
                     departmentToRestore.UserID = user.UserID;
                     context.SaveChanges();
                     MessageBox.Show("Dział został zmieniony.");
+                    DepartmentChangeComboBox1.SelectedItem = null;
+                    DepartmentChangeComboBox2.SelectedItem = null;
+                    DepartmentChangeComboBox3.SelectedItem = null;
                 }
                 else
                 {
@@ -1761,6 +1806,7 @@ namespace Ocena_Pracownicza
                         // Pobierz tylko te działy, które są włączone (Enabled = 1)
                         var departments = context.Department
                                                  .Where(d => d.UserID == user.UserID && d.Enabled == 1)
+                                                 .OrderBy(d => d.DepartmentName)
                                                  .ToList();
                         DepartmentChangeComboBox2.ItemsSource = departments;
                         DepartmentChangeComboBox2.DisplayMemberPath = "DepartmentName";
