@@ -292,6 +292,18 @@ namespace Ocena_Pracownicza
                     context.EvaluationBiuro.Add(evaluation);
                     context.SaveChanges();
                 }
+
+                var customMessageBox = new Window1();
+                bool? wynik = customMessageBox.ShowDialog();
+                if (wynik == true)
+                {
+                    // Użytkownik kliknął OK
+                }
+                else
+                {
+                    // Użytkownik kliknął DRUKUJ
+                    PrintButtonB1_Click();
+                }
                 MessageBox.Show("Ankieta została pomyślnie zapisana!");
             }            
         }
@@ -417,6 +429,18 @@ namespace Ocena_Pracownicza
                 {
                     context.EvaluationsProdukcja.Add(evaluation);
                     context.SaveChanges();
+                }
+
+                var customMessageBox = new Window1();
+                bool? wynik = customMessageBox.ShowDialog();
+                if (wynik == true)
+                {
+                    // Użytkownik kliknął OK
+                }
+                else
+                {
+                    // Użytkownik kliknął DRUKUJ
+                    PrintButtonP1_Click();
                 }
                 MessageBox.Show("Ankieta została pomyślnie zapisana!");
             }
@@ -1059,6 +1083,17 @@ namespace Ocena_Pracownicza
                 DrukOdpB.Visibility = Visibility.Collapsed;
             }
         }
+        private void PrintButtonB1_Click()
+        {
+            PrintDialog printDialog = new PrintDialog();
+            if (printDialog.ShowDialog() == true)
+            {
+                ChangePrintB1();
+                DrukOdpB.Visibility = Visibility.Visible;
+                printDialog.PrintVisual(DrukOdpB, "Wydruk z aplikacji WPF");
+                DrukOdpB.Visibility = Visibility.Collapsed;
+            }
+        }
         private void ChangePrintB()
         {
             using (var context = new AppDbContext())
@@ -1108,12 +1143,75 @@ namespace Ocena_Pracownicza
             PrintB160.Content = "Uwagi:";
             PrintB161.Text = Question11AnswerB.Text;//uwagi
         }
+        private void ChangePrintB1()
+        {
+            using (var context = new AppDbContext())
+            {
+                var selectedDepartment = AccountsComboBoxB2.SelectedItem as Department;
+                var department = context.Department.FirstOrDefault(d => d.DepartmentID == selectedDepartment.DepartmentID);
+                if (department != null)
+                {
+                    PrintB41.Text = department.DepartmentName;
+                }
+            }
+            /*
+                var user = context.Users.FirstOrDefault(d => d.UserID == historyEvaluationB.UserID);
+                if (user != null)
+                {
+                    PrintB43.Text = user.FullName;
+                }
+            }*/
+            PrintB00.Content = "A";
+            PrintB11.Text = DateTime.Now.ToString();
+            PrintB20.Content = "Imie Nazwisko:";
+            PrintB21.Text = NameTextBoxB.Text;//imie nazwisko 
+            PrintB30.Content = "Stanowisko:";
+            PrintB31.Text = StanowiskoTextBoxB.Text;
+            PrintB40.Content = "Dział:";
+            //PrintB41.Text = "";//Wykonywane wczesniej
+            PrintB42.Content = "Rozmowe przeprowadził:";
+            PrintB43.Text = "";
+            PrintB50.Text = "Jakie są rezultaty Twojej pracy (konkretne wyniki)?";
+            PrintB51.Text = Question1TextBoxB.Text;//Jakie są rezultaty Twojej pracy (konkretne wyniki)?
+            PrintB60.Text = "Jakie Twoje działania określił(a)byś jako pozytywne?";
+            PrintB61.Text = Question2TextBoxB.Text;//Jakie Twoje działania określił(a)byś jako pozytywne?"
+            PrintB70.Text = "Jak oceniasz swoje działania i zachowania w kontekście wartości firmy?";//Jak oceniasz swoje działania i zachowania w kontekście wartości firmy tu bez odpowiedzi
+            PrintB80.Content = "Uczciwość:";
+            PrintB81.Text = Question3TextBoxB.Text;//Uczciwość:
+            PrintB90.Content = "Odpowiedzialność:";
+            PrintB91.Text = Question4TextBoxB.Text;//Odpowiedzialność
+            PrintB100.Content = "Zaangażowanie:";
+            PrintB101.Text = Question5TextBoxB.Text;//Zaangażowanie
+            PrintB110.Content = "Bliskie relacje:";
+            PrintB111.Text = Question6TextBoxB.Text;//Bliskie relacje
+            PrintB120.Content = "Innowacyjność:";
+            PrintB121.Text = Question7TextBoxB.Text;//Innowacyjność
+            PrintB130.Text = "Jakie Twoje działania określił(a)byś jako utrudniające uzyskanie dobrych rezultatów?";
+            PrintB131.Text = Question8TextBoxB.Text;//Jakie Twoje działania określił(a)byś jako utrudniające uzyskanie dobrych rezultatów?
+            PrintB140.Text = "Nad czym chcesz pracować (jakie elementy zachowania/umiejetności chcesz rozwijać/jakie sobie stawiasz cele)?";
+            PrintB141.Text = Question9TextBoxB.Text;//Nad czym chcesz pracować (jakie elementy zachowania/umiejetności chcesz rozwijać/jakie sobie stawiasz cele)?
+            PrintB150.Text = "Określ sposób i czas monitorowania dążenia do tych celów (kiedy i po czym poznasz, że zostały one zrealizowane):";
+            PrintB151.Text = Question10TextBoxB.Text;//Określ sposób i czas monitorowania dążenia do tych celów (kiedy i po czym poznasz, że zostały one zrealizowane):
+            PrintB160.Content = "Uwagi:";
+            PrintB161.Text = Question11TextBoxB.Text;//uwagi
+        }
         private void PrintButtonP_Click(object sender, RoutedEventArgs e)
         {
             PrintDialog printDialog = new PrintDialog();
             if (printDialog.ShowDialog() == true)
             {
                 ChangePrintP();
+                DrukOdpB.Visibility = Visibility.Visible;
+                printDialog.PrintVisual(DrukOdpP, "Wydruk z aplikacji WPF");
+                DrukOdpB.Visibility = Visibility.Collapsed;
+            }
+        }
+        private void PrintButtonP1_Click()
+        {
+            PrintDialog printDialog = new PrintDialog();
+            if (printDialog.ShowDialog() == true)
+            {
+                ChangePrintP1();
                 DrukOdpB.Visibility = Visibility.Visible;
                 printDialog.PrintVisual(DrukOdpP, "Wydruk z aplikacji WPF");
                 DrukOdpB.Visibility = Visibility.Collapsed;
@@ -1167,7 +1265,46 @@ namespace Ocena_Pracownicza
             PrintP160.Content = "Uwagi:";
             PrintP161.Text = Question5AnswerP.Text;//uwagi*/
         }
+        private void ChangePrintP1()
+        {
+            using (var context = new AppDbContext())
+            {
+                var selectedDepartment = AccountsComboBoxP2.SelectedItem as Department;
+                var department = context.Department.FirstOrDefault(d => d.DepartmentID == selectedDepartment.DepartmentID);
+                if (department != null)
+                {
+                    PrintP41.Text = department.DepartmentName;
+                }
+            }
+            /*var user = context.Users.FirstOrDefault(d => d.UserID == historyEvaluationP.UserID);
+            if (user != null)
+            {
+                PrintP43.Text = user.FullName;
+            }*/
+            PrintP00.Content = "A";
+            PrintP11.Text = DateTime.Now.ToString();
 
+            PrintP20.Content = "Imie Nazwisko:";
+            PrintP21.Text = NameTextBoxP.Text;//imie nazwisko 
+            PrintP30.Content = "Stanowisko:";
+            PrintP31.Text = StanowiskoTextBoxP.Text; ;//stanowisko 
+            PrintP40.Content = "Dział:";
+            //PrintB41.Text = //Wykonywane wczesniej
+            PrintP42.Content = "Rozmowe przeprowadził:";
+            PrintP43.Text = "";
+            /*PrintP50.Text = AnswerP2.Text;
+            PrintP51.Text = Question1AnswerP.Text;//Jakie są rezultaty Twojej pracy (konkretne wyniki)?*/
+            PrintP60.Text = "Jakie twoje działania określił(a)byś jako pozytywne (przynoszące rezultaty w twojej pracy)?";
+            PrintP61.Text = Question1TextBoxP.Text;//Jakie Twoje działania określił(a)byś jako pozytywne?"
+            PrintP130.Text = "Jakie twoje działania określił(a)byś jako utrudniające uzyskanie dobrych rezultatów?";
+            PrintP131.Text = Question2TextBoxP.Text;//Jakie Twoje działania określił(a)byś jako utrudniające uzyskanie dobrych rezultatów?
+            PrintP140.Text = "Nad czym chcesz pracować (jakie elementy zachowania/umiejętności chcesz rozwijać/jakie sobie stawiasz cele)?";
+            PrintP141.Text = Question3TextBoxP.Text;//Nad czym chcesz pracować (jakie elementy zachowania/umiejetności chcesz rozwijać/jakie sobie stawiasz cele)?
+            PrintP150.Text = "Określ sposób i czas monitorowania dążenia do tych celów (kiedy i po czym poznasz, że zostały one zrealizowane)";
+            PrintP151.Text = Question4TextBoxP.Text;//Określ sposób i czas monitorowania dążenia do tych celów (kiedy i po czym poznasz, że zostały one zrealizowane):
+            PrintP160.Content = "Uwagi:";
+            PrintP161.Text = Question5TextBoxP.Text;//uwagi*/
+        }
         private void CloseButton_Click(object sender, RoutedEventArgs e)
         {
             Application.Current.Shutdown();
