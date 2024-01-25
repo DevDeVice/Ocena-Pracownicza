@@ -67,6 +67,8 @@
         <Button Content="Wróć" Click="Back_Click" VerticalAlignment="Top" HorizontalAlignment="Left" Width="300" Height="40" Margin="50,50,0,0" Visibility="Collapsed" x:Name="BackButton" Panel.ZIndex="2"/>
         <Button Content="Wróć" Click="Back2_Click" VerticalAlignment="Top" HorizontalAlignment="Left" Width="300" Height="40" Margin="50,50,0,0" Visibility="Collapsed" x:Name="BackButton2" Panel.ZIndex="2"/>
         <Button Content="Wróć" Click="Back3_Click" VerticalAlignment="Top" HorizontalAlignment="Left" Width="300" Height="40" Margin="50,50,0,0" Visibility="Collapsed" x:Name="BackButton3" Panel.ZIndex="2"/>
+        <Button Content="Wydrukuj Pustą Karte" Click="PrintButtonPClean_Click" VerticalAlignment="Top" HorizontalAlignment="Right" Width="300" Height="40" Margin="0,50,50,0" Visibility="Collapsed" x:Name="PrintButtonPClean" Panel.ZIndex="2"/>
+        <Button Content="Wydrukuj Pustą Karte" Click="PrintButtonBClean_Click" VerticalAlignment="Top" HorizontalAlignment="Right" Width="300" Height="40" Margin="0,50,50,0" Visibility="Collapsed" x:Name="PrintButtonBClean" Panel.ZIndex="2"/>
 
         <Grid x:Name="FormPanelBiuro" Visibility="Collapsed">
             <ScrollViewer VerticalScrollBarVisibility="Auto" >

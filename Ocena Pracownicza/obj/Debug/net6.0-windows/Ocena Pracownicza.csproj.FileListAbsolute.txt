@@ -167,3 +167,6 @@ C:\Users\sebastiand\Desktop\GitHub\Ocena-Pracownicza\Ocena Pracownicza\bin\Debug
 C:\Users\sebastiand\Desktop\GitHub\Ocena-Pracownicza\Ocena Pracownicza\bin\Debug\net6.0-windows\runtimes\unix\lib\net6.0\Microsoft.Data.SqlClient.dll
 C:\Users\sebastiand\Desktop\GitHub\Ocena-Pracownicza\Ocena Pracownicza\bin\Debug\net6.0-windows\runtimes\win\lib\net6.0\Microsoft.Data.SqlClient.dll
 C:\Users\sebastiand\Desktop\GitHub\Ocena-Pracownicza\Ocena Pracownicza\bin\Debug\net6.0-windows\runtimes\win\lib\net6.0\System.Runtime.Caching.dll
+C:\Users\sebastiand\Desktop\GitHub\Ocena-Pracownicza\Ocena Pracownicza\obj\Debug\net6.0-windows\Window1.baml
+C:\Users\sebastiand\Desktop\GitHub\Ocena-Pracownicza\Ocena Pracownicza\obj\Debug\net6.0-windows\Window1.g.cs
+C:\Users\sebastiand\Desktop\GitHub\Ocena-Pracownicza\Ocena Pracownicza\obj\Debug\net6.0-windows\Ocena Pracownicza_Content.g.cs

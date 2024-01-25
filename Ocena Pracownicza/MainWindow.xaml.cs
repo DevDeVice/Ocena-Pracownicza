@@ -454,6 +454,7 @@ namespace Ocena_Pracownicza
             BackButton.Visibility = Visibility.Visible;
             MenuPanel.Visibility = Visibility.Collapsed;
             Login.Visibility = Visibility.Collapsed;
+            PrintButtonBClean.Visibility = Visibility.Visible;
         }
         private void FormProdukcjaButton_Click(object sender, RoutedEventArgs e)
         {
@@ -464,6 +465,7 @@ namespace Ocena_Pracownicza
             BackButton.Visibility = Visibility.Visible;
             MenuPanel.Visibility = Visibility.Collapsed; 
             Login.Visibility = Visibility.Collapsed;
+            PrintButtonPClean.Visibility = Visibility.Visible;
         }
 
         private void LoginButton_Click(object sender, RoutedEventArgs e)
@@ -487,6 +489,8 @@ namespace Ocena_Pracownicza
             FormPanelBiuro.Visibility = Visibility.Collapsed;
             FormPanelProdukcja.Visibility= Visibility.Collapsed;
             BackButton.Visibility = Visibility.Collapsed;
+            PrintButtonBClean.Visibility = Visibility.Collapsed;
+            PrintButtonPClean.Visibility = Visibility.Collapsed;
             ClearTextBoxesInGrid();
         }
         private void LogoutButton_Click(object sender, RoutedEventArgs e)
@@ -1094,6 +1098,17 @@ namespace Ocena_Pracownicza
                 DrukOdpB.Visibility = Visibility.Collapsed;
             }
         }
+        private void PrintButtonBClean_Click(object sender, RoutedEventArgs e)
+        {
+            PrintDialog printDialog = new PrintDialog();
+            if (printDialog.ShowDialog() == true)
+            {
+                ChangePrintB2();
+                DrukOdpB.Visibility = Visibility.Visible;
+                printDialog.PrintVisual(DrukOdpB, "Wydruk z aplikacji WPF");
+                DrukOdpB.Visibility = Visibility.Collapsed;
+            }
+        }
         private void ChangePrintB()
         {
             using (var context = new AppDbContext())
@@ -1195,15 +1210,51 @@ namespace Ocena_Pracownicza
             PrintB160.Content = "Uwagi:";
             PrintB161.Text = Question11TextBoxB.Text;//uwagi
         }
+        private void ChangePrintB2()
+        {
+            PrintB00.Content = "A";
+            PrintB11.Text = "";
+            PrintB20.Content = "Imie Nazwisko:";
+            PrintB21.Text = "";
+            PrintB30.Content = "Stanowisko:";
+            PrintB31.Text = "";
+            PrintB40.Content = "Dział:";
+            PrintB41.Text = "";
+            PrintB42.Content = "Rozmowe przeprowadził:";
+            PrintB43.Text = "";
+            PrintB50.Text = "Jakie są rezultaty Twojej pracy (konkretne wyniki)?";
+            PrintB51.Text = "";
+            PrintB60.Text = "Jakie Twoje działania określił(a)byś jako pozytywne?";
+            PrintB61.Text = "";
+            PrintB70.Text = "Jak oceniasz swoje działania i zachowania w kontekście wartości firmy?";//Jak oceniasz swoje działania i zachowania w kontekście wartości firmy tu bez odpowiedzi
+            PrintB80.Content = "Uczciwość:";
+            PrintB81.Text = "";
+            PrintB90.Content = "Odpowiedzialność:";
+            PrintB91.Text = "";
+            PrintB100.Content = "Zaangażowanie:";
+            PrintB101.Text = "";
+            PrintB110.Content = "Bliskie relacje:";
+            PrintB111.Text = "";
+            PrintB120.Content = "Innowacyjność:";
+            PrintB121.Text = "";
+            PrintB130.Text = "Jakie Twoje działania określił(a)byś jako utrudniające uzyskanie dobrych rezultatów?";
+            PrintB131.Text = "";
+            PrintB140.Text = "Nad czym chcesz pracować (jakie elementy zachowania/umiejetności chcesz rozwijać/jakie sobie stawiasz cele)?";
+            PrintB141.Text = "";
+            PrintB150.Text = "Określ sposób i czas monitorowania dążenia do tych celów (kiedy i po czym poznasz, że zostały one zrealizowane):";
+            PrintB151.Text = "";
+            PrintB160.Content = "Uwagi:";
+            PrintB161.Text = "";
+        }
         private void PrintButtonP_Click(object sender, RoutedEventArgs e)
         {
             PrintDialog printDialog = new PrintDialog();
             if (printDialog.ShowDialog() == true)
             {
                 ChangePrintP();
-                DrukOdpB.Visibility = Visibility.Visible;
+                DrukOdpP.Visibility = Visibility.Visible;
                 printDialog.PrintVisual(DrukOdpP, "Wydruk z aplikacji WPF");
-                DrukOdpB.Visibility = Visibility.Collapsed;
+                DrukOdpP.Visibility = Visibility.Collapsed;
             }
         }
         private void PrintButtonP1_Click()
@@ -1212,9 +1263,20 @@ namespace Ocena_Pracownicza
             if (printDialog.ShowDialog() == true)
             {
                 ChangePrintP1();
-                DrukOdpB.Visibility = Visibility.Visible;
+                DrukOdpP.Visibility = Visibility.Visible;
                 printDialog.PrintVisual(DrukOdpP, "Wydruk z aplikacji WPF");
-                DrukOdpB.Visibility = Visibility.Collapsed;
+                DrukOdpP.Visibility = Visibility.Collapsed;
+            }
+        }
+        private void PrintButtonPClean_Click(object sender, RoutedEventArgs e)
+        {
+            PrintDialog printDialog = new PrintDialog();
+            if (printDialog.ShowDialog() == true)
+            {
+                ChangePrintP2();
+                DrukOdpP.Visibility = Visibility.Visible;
+                printDialog.PrintVisual(DrukOdpP, "Wydruk z aplikacji WPF");
+                DrukOdpP.Visibility = Visibility.Collapsed;
             }
         }
         private void ChangePrintP()
@@ -1304,6 +1366,29 @@ namespace Ocena_Pracownicza
             PrintP151.Text = Question4TextBoxP.Text;//Określ sposób i czas monitorowania dążenia do tych celów (kiedy i po czym poznasz, że zostały one zrealizowane):
             PrintP160.Content = "Uwagi:";
             PrintP161.Text = Question5TextBoxP.Text;//uwagi*/
+        }
+        private void ChangePrintP2()
+        {
+            PrintP00.Content = "A";
+            PrintP11.Text = "";
+            PrintP20.Content = "Imie Nazwisko:";
+            PrintP21.Text = "";
+            PrintP30.Content = "Stanowisko:";
+            PrintP31.Text = "";
+            PrintP40.Content = "Dział:";
+            PrintP41.Text = "";
+            PrintP42.Content = "Rozmowe przeprowadził:";
+            PrintP43.Text = "";
+            PrintP60.Text = "Jakie twoje działania określił(a)byś jako pozytywne (przynoszące rezultaty w twojej pracy)?";
+            PrintP61.Text = "";
+            PrintP130.Text = "Jakie twoje działania określił(a)byś jako utrudniające uzyskanie dobrych rezultatów?";
+            PrintP131.Text = "";
+            PrintP140.Text = "Nad czym chcesz pracować (jakie elementy zachowania/umiejętności chcesz rozwijać/jakie sobie stawiasz cele)?";
+            PrintP141.Text = "";
+            PrintP150.Text = "Określ sposób i czas monitorowania dążenia do tych celów (kiedy i po czym poznasz, że zostały one zrealizowane)";
+            PrintP151.Text = "";
+            PrintP160.Content = "Uwagi:";
+            PrintP161.Text = "";
         }
         private void CloseButton_Click(object sender, RoutedEventArgs e)
         {
@@ -1493,6 +1578,7 @@ namespace Ocena_Pracownicza
                 FormPanelProdukcja.Visibility = Visibility.Visible;
                 BackButton2.Visibility = Visibility.Visible;
                 EvaluationDetailsGridP.Visibility = Visibility.Collapsed;
+                PrintButtonPClean.Visibility = Visibility.Visible;
             } 
         }
 
@@ -1548,6 +1634,7 @@ namespace Ocena_Pracownicza
                 FormPanelBiuro.Visibility = Visibility.Visible;
                 BackButton3.Visibility = Visibility.Visible;
                 EvaluationDetailsGridB.Visibility = Visibility.Collapsed;
+                PrintButtonBClean.Visibility = Visibility.Visible;
             }
         }
         private void ChangeAnswerP()
@@ -1591,12 +1678,14 @@ namespace Ocena_Pracownicza
             FormPanelProdukcja.Visibility = Visibility.Collapsed;
             BackButton2.Visibility = Visibility.Collapsed;
             EvaluationDetailsGridP.Visibility = Visibility.Visible;
+            PrintButtonPClean.Visibility = Visibility.Collapsed;
         }
         private void Back3_Click(object sender, RoutedEventArgs e)
         {
             FormPanelBiuro.Visibility = Visibility.Collapsed;
             BackButton3.Visibility = Visibility.Collapsed;
             EvaluationDetailsGridB.Visibility = Visibility.Visible;
+            PrintButtonBClean.Visibility = Visibility.Collapsed;
         }
 
         private void DepartmentAddButton_Click(object sender, RoutedEventArgs e)
