@@ -1078,7 +1078,7 @@ namespace Ocena_Pracownicza
         }
         private void PrintButtonB_Click(object sender, RoutedEventArgs e)
         {
-            PrintDialog printDialog = new PrintDialog();
+            PrintDialog printDialog = new PrintDialog(); 
             if (printDialog.ShowDialog() == true)
             {
                 ChangePrintB();
