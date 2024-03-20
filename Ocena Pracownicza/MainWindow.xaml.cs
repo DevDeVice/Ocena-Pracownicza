@@ -23,6 +23,7 @@ namespace Ocena_Pracownicza
         public int? historyAnswerBID { get; set; }
         public EvaluationProdukcja historyEvaluationP {get;set;}
         public int? historyAnswerPID { get; set; }
+        public string? LastAddedName { get; set; }
         public struct EvaluationRecordB
         {
             public EvaluationBiuro EvaluationB { get; set; }
@@ -289,8 +290,12 @@ namespace Ocena_Pracownicza
                 };
                 using (var context = new AppDbContext())
                 {
-                    context.EvaluationBiuro.Add(evaluation);
-                    context.SaveChanges();
+                    if(NameTextBoxB.Text != LastAddedName)
+                    {
+                        context.EvaluationBiuro.Add(evaluation);
+                        context.SaveChanges();
+                        LastAddedName = NameTextBoxB.Text;
+                    }                
                 }
 
                 var customMessageBox = new Window1();
@@ -427,8 +432,12 @@ namespace Ocena_Pracownicza
                 // 3. Zapisanie instancji w bazie danych:
                 using (var context = new AppDbContext())
                 {
-                    context.EvaluationsProdukcja.Add(evaluation);
-                    context.SaveChanges();
+                    if (NameTextBoxP.Text != LastAddedName)
+                    {
+                        context.EvaluationsProdukcja.Add(evaluation);
+                        context.SaveChanges();
+                        LastAddedName = NameTextBoxP.Text;
+                    }
                 }
 
                 var customMessageBox = new Window1();
