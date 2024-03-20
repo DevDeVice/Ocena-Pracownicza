@@ -211,7 +211,7 @@
                             <TextBlock Text="Uwagi:" Grid.Row="0" HorizontalAlignment="Left"/>
                             <TextBox x:Name="Question5TextBoxP" Width="500" AcceptsReturn="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" Margin="0,20,0,0" TabIndex="3"/>
                         </Grid>
-                        <Button x:Name="FormProdukcjaZapisz" Content="Zapisz" Width="300" HorizontalAlignment="Center" Margin="-1,20,0,20" Click="SaveFormButtonP_Click" Panel.ZIndex="2" VerticalAlignment="Center" IsDefault="True"/>
+                        <Button x:Name="FormProdukcjaZapisz" Content="Zapisz" Width="300" Height="40" HorizontalAlignment="Center" Margin="-1,20,0,20" Click="SaveFormButtonP_Click" Panel.ZIndex="2" VerticalAlignment="Center" IsDefault="True"/>
                     </StackPanel>
                 </StackPanel>
             </ScrollViewer>
