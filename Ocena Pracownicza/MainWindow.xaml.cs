@@ -1091,42 +1091,150 @@ namespace Ocena_Pracownicza
         private void PrintButtonB_Click(object sender, RoutedEventArgs e)
         {
             PrintDialog printDialog = new PrintDialog();
+            bool secondPage = false;
             // Konfiguracja drukarki do drukowania na A4 w orientacji pionowej
             printDialog.PrintTicket.PageMediaSize = new PageMediaSize(PageMediaSizeName.ISOA4);
             printDialog.PrintTicket.PageOrientation = PageOrientation.Portrait;
-
+            double width = printDialog.PrintableAreaWidth;
+            double height = printDialog.PrintableAreaHeight;
             if (printDialog.ShowDialog() == true)
             {
-                ChangePrintB(); // Przygotowanie zawartości do drukowania
+                ChangePrintB();
                 DrukOdpB.Visibility = Visibility.Visible;
 
-                // Obliczanie skali, aby pasowała do A4
-                double scaleX = printDialog.PrintableAreaWidth / 1080; // Szerokość obszaru drukowalnego / docelowa szerokość w pikselach
-                double scaleY = printDialog.PrintableAreaHeight / 1920; // Wysokość obszaru drukowalnego / docelowa wysokość w pikselach
-                double scale = Math.Min(scaleX, scaleY); // Użyj mniejszej skali, aby zachować proporcje
-
-                DrukOdpB.LayoutTransform = new ScaleTransform(scale, scale);
-                Size sz = new Size(1080 * scale, 1920 * scale); // Nowy rozmiar po skalowaniu
-                DrukOdpB.Measure(sz);
-                DrukOdpB.Arrange(new Rect(new Point(0, 0), sz));
-
-                // Drukowanie
-                printDialog.PrintVisual(DrukOdpB, "Wydruk z aplikacji WPF");
-
-                DrukOdpB.LayoutTransform = null; // Resetowanie transformacji po drukowaniu
-                DrukOdpB.Visibility = Visibility.Collapsed;
+                DrukOdpB.Measure(new Size(943, double.PositiveInfinity));
+                DrukOdpB.Arrange(new Rect(0, 0, DrukOdpB.DesiredSize.Width, DrukOdpB.DesiredSize.Height));
+                double offSet = 50f;
+                if (DrukOdpB.ActualHeight > 1100) offSet = 150f;
+                // Obliczenie liczby stron na podstawie faktycznej wysokości
+                int totalPages = (int)Math.Ceiling(DrukOdpB.ActualHeight / (printDialog.PrintableAreaHeight-offSet));//42.5f do 1080
+                while(totalPages > 1) 
+                {
+                    secondPage = true;
+                    MoveLastChildToAnotherGridB();
+                    DrukOdpB.Measure(new Size(943, double.PositiveInfinity));
+                    DrukOdpB.Arrange(new Rect(0, 0, DrukOdpB.DesiredSize.Width, DrukOdpB.DesiredSize.Height));
+                    totalPages = (int)Math.Ceiling(DrukOdpB.ActualHeight / (printDialog.PrintableAreaHeight-offSet));
+                }
+                if(secondPage) { MoveLastChildToAnotherGridB(); }
+                MoveLastChildToAnotherGridB1();
+                DrukOdpB98.Visibility = Visibility.Visible;
+                printDialog.PrintVisual(DrukOdpB98, "Wydruk z aplikacji WPF");
+                MoveChildrenFromDrukOdpB98ToDrukOdpB();
+                if (secondPage)
+                {
+                    DrukOdpB99.Visibility = Visibility.Visible;
+                    printDialog.PrintVisual(DrukOdpB99, "Wydruk z aplikacji WPF");
+                    MoveChildrenFromDrukOdpB99ToDrukOdpB();
+                }
             }
         }
+        private void MoveLastChildToAnotherGridB()
+        {
+            // Sprawdzamy, czy istnieją jakiekolwiek elementy w DrukOdpB.
+            if (DrukOdpB.Children.Count > 0)
+            {
+                for(int i = 0; i < 2; i++) {
+                // Pobieramy ostatni element.
+                UIElement lastChild = DrukOdpB.Children[DrukOdpB.Children.Count - 1];
 
+                // Usuwamy ostatni element z DrukOdpB.
+                DrukOdpB.Children.RemoveAt(DrukOdpB.Children.Count - 1);
+
+                // Dodajemy ostatni element do DrukOdpB99.
+                DrukOdpB99.Children.Add(lastChild);
+                }
+            }
+        }
+        private void MoveLastChildToAnotherGridB1()
+        {
+            // Sprawdzamy, czy istnieją jakiekolwiek elementy w DrukOdpB.
+            while (DrukOdpB.Children.Count > 0)
+            {
+                    // Pobieramy ostatni element.
+                    UIElement lastChild = DrukOdpB.Children[DrukOdpB.Children.Count - 1];
+
+                    // Usuwamy ostatni element z DrukOdpB.
+                    DrukOdpB.Children.RemoveAt(DrukOdpB.Children.Count - 1);
+
+                    // Dodajemy ostatni element do DrukOdpB99.
+                    DrukOdpB98.Children.Add(lastChild);
+            }
+        }
+        private void MoveChildrenFromDrukOdpB98ToDrukOdpB()
+        {
+            // Lista do przechowywania elementów do przeniesienia
+            List<UIElement> childrenToMove = new List<UIElement>();
+
+            // Przejście przez wszystkie dzieci DrukOdpB99 i dodanie ich do listy
+            foreach (UIElement child in DrukOdpB98.Children)
+            {
+                childrenToMove.Add(child);
+            }
+
+            // Usunięcie dzieci z DrukOdpB99 i dodanie ich do DrukOdpB
+            foreach (UIElement child in childrenToMove)
+            {
+                DrukOdpB98.Children.Remove(child); // Najpierw usuń dziecko z DrukOdpB99
+                DrukOdpB.Children.Add(child); // Następnie dodaj dziecko do DrukOdpB
+            }
+        }
+        private void MoveChildrenFromDrukOdpB99ToDrukOdpB()
+        {
+            // Lista do przechowywania elementów do przeniesienia
+            List<UIElement> childrenToMove = new List<UIElement>();
+
+            // Przejście przez wszystkie dzieci DrukOdpB99 i dodanie ich do listy
+            foreach (UIElement child in DrukOdpB99.Children)
+            {
+                childrenToMove.Add(child);
+            }
+
+            // Usunięcie dzieci z DrukOdpB99 i dodanie ich do DrukOdpB
+            foreach (UIElement child in childrenToMove)
+            {
+                DrukOdpB99.Children.Remove(child); // Najpierw usuń dziecko z DrukOdpB99
+                DrukOdpB.Children.Add(child); // Następnie dodaj dziecko do DrukOdpB
+            }
+        }
         private void PrintButtonB1_Click()
         {
             PrintDialog printDialog = new PrintDialog();
+            bool secondPage = false;
+            // Konfiguracja drukarki do drukowania na A4 w orientacji pionowej
+            printDialog.PrintTicket.PageMediaSize = new PageMediaSize(PageMediaSizeName.ISOA4);
+            printDialog.PrintTicket.PageOrientation = PageOrientation.Portrait;
             if (printDialog.ShowDialog() == true)
             {
                 ChangePrintB1();
                 DrukOdpB.Visibility = Visibility.Visible;
-                printDialog.PrintVisual(DrukOdpB, "Wydruk z aplikacji WPF");
-                DrukOdpB.Visibility = Visibility.Collapsed;
+
+                DrukOdpB.Measure(new Size(943, double.PositiveInfinity));
+                DrukOdpB.Arrange(new Rect(0, 0, DrukOdpB.DesiredSize.Width, DrukOdpB.DesiredSize.Height));
+
+                double offSet = 50f;
+                if (DrukOdpB.ActualHeight > 1100) offSet = 150f;
+                // Obliczenie liczby stron na podstawie faktycznej wysokości
+                int totalPages = (int)Math.Ceiling(DrukOdpB.ActualHeight / (printDialog.PrintableAreaHeight-offSet));
+                while (totalPages > 1)
+                {
+                    secondPage = true;
+                    MoveLastChildToAnotherGridB();
+                    DrukOdpB.Measure(new Size(943, double.PositiveInfinity));
+                    DrukOdpB.Arrange(new Rect(0, 0, DrukOdpB.DesiredSize.Width, DrukOdpB.DesiredSize.Height));
+                    totalPages = (int)Math.Ceiling(DrukOdpB.ActualHeight / (printDialog.PrintableAreaHeight-offSet));
+                }
+                if (secondPage) { MoveLastChildToAnotherGridB(); }
+                MoveLastChildToAnotherGridB1();
+                DrukOdpB98.Visibility = Visibility.Visible;
+                printDialog.PrintVisual(DrukOdpB98, "Wydruk z aplikacji WPF");
+                MoveChildrenFromDrukOdpB98ToDrukOdpB();
+                if (secondPage)
+                {
+                    DrukOdpB99.Visibility = Visibility.Visible;
+                    printDialog.PrintVisual(DrukOdpB99, "Wydruk z aplikacji WPF");
+                    MoveChildrenFromDrukOdpB99ToDrukOdpB();
+                }
             }
         }
         private void PrintButtonBClean_Click(object sender, RoutedEventArgs e)
@@ -1134,6 +1242,8 @@ namespace Ocena_Pracownicza
             PrintDialog printDialog = new PrintDialog();
             if (printDialog.ShowDialog() == true)
             {
+                printDialog.PrintTicket.PageMediaSize = new PageMediaSize(PageMediaSizeName.ISOA4);
+                printDialog.PrintTicket.PageOrientation = PageOrientation.Portrait;
                 ChangePrintB2();
                 DrukOdpB.Visibility = Visibility.Visible;
                 printDialog.PrintVisual(DrukOdpB, "Wydruk z aplikacji WPF");
