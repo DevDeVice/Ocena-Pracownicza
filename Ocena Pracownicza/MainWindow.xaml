@@ -587,8 +587,8 @@
                 </StackPanel>
             </ScrollViewer>
         </Grid>
-        <ScrollViewer Padding="50px" Width="1080" Visibility="collapsed" >
-            <Grid Margin="10" x:Name="DrukOdpB" >
+        <ScrollViewer Padding="50px" Width="1080" Visibility="Collapsed" >
+            <Grid Margin="10" x:Name="DrukOdpB">
                 <Grid.Resources>
                     <Style TargetType="TextBox">
                         <Setter Property="TextWrapping" Value="Wrap"/>

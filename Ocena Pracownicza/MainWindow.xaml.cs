@@ -8,6 +8,9 @@ using System.Windows.Input;
 using BCrypt.Net;
 using System.Windows.Documents;
 using Ocena_Pracownicza.Migrations;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Printing;
 
 namespace Ocena_Pracownicza
 {
@@ -1087,15 +1090,34 @@ namespace Ocena_Pracownicza
         }
         private void PrintButtonB_Click(object sender, RoutedEventArgs e)
         {
-            PrintDialog printDialog = new PrintDialog(); 
+            PrintDialog printDialog = new PrintDialog();
+            // Konfiguracja drukarki do drukowania na A4 w orientacji pionowej
+            printDialog.PrintTicket.PageMediaSize = new PageMediaSize(PageMediaSizeName.ISOA4);
+            printDialog.PrintTicket.PageOrientation = PageOrientation.Portrait;
+
             if (printDialog.ShowDialog() == true)
             {
-                ChangePrintB();
-                DrukOdpB.Visibility = Visibility.Visible;        
+                ChangePrintB(); // Przygotowanie zawartości do drukowania
+                DrukOdpB.Visibility = Visibility.Visible;
+
+                // Obliczanie skali, aby pasowała do A4
+                double scaleX = printDialog.PrintableAreaWidth / 1080; // Szerokość obszaru drukowalnego / docelowa szerokość w pikselach
+                double scaleY = printDialog.PrintableAreaHeight / 1920; // Wysokość obszaru drukowalnego / docelowa wysokość w pikselach
+                double scale = Math.Min(scaleX, scaleY); // Użyj mniejszej skali, aby zachować proporcje
+
+                DrukOdpB.LayoutTransform = new ScaleTransform(scale, scale);
+                Size sz = new Size(1080 * scale, 1920 * scale); // Nowy rozmiar po skalowaniu
+                DrukOdpB.Measure(sz);
+                DrukOdpB.Arrange(new Rect(new Point(0, 0), sz));
+
+                // Drukowanie
                 printDialog.PrintVisual(DrukOdpB, "Wydruk z aplikacji WPF");
+
+                DrukOdpB.LayoutTransform = null; // Resetowanie transformacji po drukowaniu
                 DrukOdpB.Visibility = Visibility.Collapsed;
             }
         }
+
         private void PrintButtonB1_Click()
         {
             PrintDialog printDialog = new PrintDialog();
