@@ -212,6 +212,7 @@ namespace Ocena_Pracownicza
                         Back3_Click(null, null);
                         MessageBox.Show("Ankieta została pomyślnie zapisana!");
                         DetailBTextBlock.Text = "A";
+                        reloadLoginAfterWroc();
                     }
                 }
             }
@@ -354,6 +355,7 @@ namespace Ocena_Pracownicza
                         Back2_Click(null, null);
                         MessageBox.Show("Ankieta została pomyślnie zapisana!");
                         DetailPTextBlock.Text = "A";
+                        reloadLoginAfterWroc();
                     }
                     else
                     {
@@ -812,6 +814,61 @@ namespace Ocena_Pracownicza
                     globalSetting.CurrentEvaluationName = selectedEvaluationName;
                     context.SaveChanges();
                 }
+            }
+        }
+        private void reloadLoginAfterWroc()
+        {
+            if (LoggedUser.Login.ToLower() == "mobrzud" || LoggedUser.Login.ToLower() == "tlyson" || LoggedUser.Login.ToLower() == "rkrawczyk" || LoggedUser.Login.ToLower() == "blyson")
+            {
+                using (var context = new AppDbContext())
+                {
+                    var evaluationsB = context.EvaluationBiuro
+                      .Where(e => e.UserID == LoggedUser.UserID)
+                      .Select(e => new EvaluationRecordB { EvaluationB = e })
+                      .ToList();
+                    UserEvaluationsBListView.ItemsSource = evaluationsB;
+
+                    var evaluationsP = context.EvaluationsProdukcja
+                                              .Where(e => e.UserID == LoggedUser.UserID)
+                                              .Select(e => new EvaluationRecordP { EvaluationP = e })
+                                              .ToList();
+
+                    UserEvaluationsPListView.ItemsSource = evaluationsP;
+                }
+
+                List<EvaluationRecordB> allEvaluationsB = new List<EvaluationRecordB>();
+                List<EvaluationRecordP> allEvaluationsP = new List<EvaluationRecordP>();
+
+                FetchEvaluationsAndSubordinatesAdmin(LoggedUser.UserID, allEvaluationsB, allEvaluationsP);
+
+                UserEvaluationsBListViewAll.ItemsSource = allEvaluationsB;
+                UserEvaluationsPListViewAll.ItemsSource = allEvaluationsP;
+            }
+            else
+            {
+                using (var context = new AppDbContext())
+                {
+                    var evaluationsB = context.EvaluationBiuro
+                      .Where(e => e.UserID == LoggedUser.UserID)
+                      .Select(e => new EvaluationRecordB { EvaluationB = e })
+                      .ToList();
+                    UserEvaluationsBListView.ItemsSource = evaluationsB;
+
+                    var evaluationsP = context.EvaluationsProdukcja
+                                              .Where(e => e.UserID == LoggedUser.UserID)
+                                              .Select(e => new EvaluationRecordP { EvaluationP = e })
+                                              .ToList();
+
+                    UserEvaluationsPListView.ItemsSource = evaluationsP;
+                }
+
+                List<EvaluationRecordB> allEvaluationsB = new List<EvaluationRecordB>();
+                List<EvaluationRecordP> allEvaluationsP = new List<EvaluationRecordP>();
+
+                FetchEvaluationsAndSubordinates(LoggedUser.UserID, allEvaluationsB, allEvaluationsP);
+
+                UserEvaluationsBListViewAll.ItemsSource = allEvaluationsB;
+                UserEvaluationsPListViewAll.ItemsSource = allEvaluationsP;
             }
         }
         private void OnLoginAttempt(object sender, RoutedEventArgs e)
