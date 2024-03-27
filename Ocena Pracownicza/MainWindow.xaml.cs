@@ -211,6 +211,7 @@ namespace Ocena_Pracownicza
                         context.SaveChanges();
                         Back3_Click(null, null);
                         MessageBox.Show("Ankieta została pomyślnie zapisana!");
+                        DetailBTextBlock.Text = "A";
                     }
                 }
             }
@@ -352,6 +353,7 @@ namespace Ocena_Pracownicza
                         context.SaveChanges();
                         Back2_Click(null, null);
                         MessageBox.Show("Ankieta została pomyślnie zapisana!");
+                        DetailPTextBlock.Text = "A";
                     }
                     else
                     {
@@ -515,6 +517,7 @@ namespace Ocena_Pracownicza
         }
         private void ReturnButton_Click(object sender, RoutedEventArgs e)
         {
+
             UserPanel.Visibility = Visibility.Visible;
             EvaluationDetailsGridB.Visibility = Visibility.Collapsed;
             EvaluationDetailsGridP.Visibility = Visibility.Collapsed;
@@ -578,10 +581,11 @@ namespace Ocena_Pracownicza
         {
             if (UserEvaluationsBListView.SelectedItem is EvaluationRecordB selectedEvaluationRecord)
             {
+                DetailBTextBlock.Text = "A";
                 var selectedEvaluation = selectedEvaluationRecord.EvaluationB;
                 historyEvaluationB = selectedEvaluation;  // Przypisanie do historyEvaluationB
                 historyAnswerBID = selectedEvaluation.EvaluationAnswerID;
-
+                
                 EvaluationIDToAnswer = selectedEvaluation.EvaluationID;
 
                 if (selectedEvaluation.EvaluationAnswerID > 1)
@@ -616,6 +620,7 @@ namespace Ocena_Pracownicza
 
             if (UserEvaluationsBListViewAll.SelectedItem is EvaluationRecordB selectedEvaluationRecord)
             {
+                DetailBTextBlock.Text = "A";
                 var selectedEvaluation = selectedEvaluationRecord.EvaluationB;
                 historyEvaluationB = selectedEvaluation;
                 historyAnswerBID = selectedEvaluation.EvaluationAnswerID;
@@ -653,6 +658,7 @@ namespace Ocena_Pracownicza
         {
             if (UserEvaluationsPListView.SelectedItem is EvaluationRecordP selectedEvaluationRecord)
             {
+                DetailPTextBlock.Text = "A";
                 var selectedEvaluation = selectedEvaluationRecord.EvaluationP;
                 historyEvaluationP = selectedEvaluation;
                 historyAnswerPID = selectedEvaluation.EvaluationAnswerID;
@@ -681,6 +687,7 @@ namespace Ocena_Pracownicza
         }
         private void UserEvaluationsPListViewAll_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
+            DetailPTextBlock.Text = "A";
             if (UserEvaluationsPListViewAll.SelectedItem is EvaluationRecordP selectedEvaluationRecord)
             {
                 var selectedEvaluation = selectedEvaluationRecord.EvaluationP;
