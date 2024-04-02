@@ -228,30 +228,34 @@
             </StackPanel>
         </Grid>
 
-        <Grid x:Name="UserPanel" Visibility="Collapsed">
-            <Button Content="Wyloguj" VerticalAlignment="Top" HorizontalAlignment="Left" Width="300" Height="40" Margin="50,50,0,0" Click="LogoutButton_Click" />
-            <TextBlock x:Name="Powitanie" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,80,0,0" Width="300" TextAlignment="Center"/>
-            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,115,350,0" Width="150" Height="20" Text="Wyszukaj:"/>
-            <TextBox x:Name="Search" Width="200" Height="20" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,115,160,0" TextChanged="Search_TextChanged"></TextBox>
-            <ComboBox x:Name="EvaluationNameComboBox" Width="200" Height="22" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="300,115,0,0" SelectionChanged="EvaluationNameComboBox_SelectionChanged"/>
-            <StackPanel HorizontalAlignment="Center" Margin="0,150,0,0">
-                <TextBlock Text="Administracja/Biuro (bezpośrednio)" HorizontalAlignment="Center"></TextBlock>
-                <ListView x:Name="UserEvaluationsBListView" VerticalAlignment="Top" Width="500" MouseDoubleClick="UserEvaluationsBListView_MouseDoubleClick">
-                    <!-- Możesz dostosować wygląd itemów tutaj, np. używając DataTemplate -->
-                </ListView>
-                <TextBlock Text="Produkcja/Magazyn (bezpośrednio)" HorizontalAlignment="Center" Margin="0,50,0,0"></TextBlock>
-                <ListView x:Name="UserEvaluationsPListView" VerticalAlignment="Top" Width="500" MouseDoubleClick="UserEvaluationsPListView_MouseDoubleClick">
-                    <!-- Możesz dostosować wygląd itemów tutaj, np. używając DataTemplate -->
-                </ListView>
-                <TextBlock Text="Administracja/Biuro (pośrednio)" HorizontalAlignment="Center" Margin="0,50,0,0"></TextBlock>
-                <ListView x:Name="UserEvaluationsBListViewAll" VerticalAlignment="Top" Width="500" MouseDoubleClick="UserEvaluationsBListViewAll_MouseDoubleClick">
-                    <!-- Możesz dostosować wygląd itemów tutaj, np. używając DataTemplate -->
-                </ListView>
-                <TextBlock Text="Produkcja/Magazyn (pośrednio)" HorizontalAlignment="Center" Margin="0,50,0,0"></TextBlock>
-                <ListView x:Name="UserEvaluationsPListViewAll" VerticalAlignment="Top" Width="500" MouseDoubleClick="UserEvaluationsPListViewAll_MouseDoubleClick">
-                    <!-- Możesz dostosować wygląd itemów tutaj, np. używając DataTemplate -->
-                </ListView>
-            </StackPanel>
+        <Grid x:Name="UserPanel" Visibility="Visible">
+            <Button Content="Wyloguj" VerticalAlignment="Top" HorizontalAlignment="Left" Width="300" Height="40" Margin="50,50,0,0" Click="LogoutButton_Click" Panel.ZIndex="1" />
+            <ScrollViewer>
+                <StackPanel>
+                    <TextBlock x:Name="Powitanie" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,80,0,0" Width="300" TextAlignment="Center"/>
+                    <TextBlock HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,0,350,0" Width="150" Height="20" Text="Wyszukaj:"/>
+                    <TextBox x:Name="Search" Width="200" Height="20" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,-20,160,0" TextChanged="Search_TextChanged"></TextBox>
+                    <ComboBox x:Name="EvaluationNameComboBox" Width="200" Height="22" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="300,-20,0,0" SelectionChanged="EvaluationNameComboBox_SelectionChanged"/>
+                    <StackPanel HorizontalAlignment="Center" Margin="0,30,0,0">
+                        <TextBlock Text="Administracja/Biuro (bezpośrednio)" HorizontalAlignment="Center"></TextBlock>
+                        <ListView x:Name="UserEvaluationsBListView" VerticalAlignment="Top" Width="500" MouseDoubleClick="UserEvaluationsBListView_MouseDoubleClick">
+                            <!-- Możesz dostosować wygląd itemów tutaj, np. używając DataTemplate -->
+                        </ListView>
+                        <TextBlock Text="Produkcja/Magazyn (bezpośrednio)" HorizontalAlignment="Center" Margin="0,50,0,0"></TextBlock>
+                        <ListView x:Name="UserEvaluationsPListView" VerticalAlignment="Top" Width="500" MouseDoubleClick="UserEvaluationsPListView_MouseDoubleClick">
+                            <!-- Możesz dostosować wygląd itemów tutaj, np. używając DataTemplate -->
+                        </ListView>
+                        <TextBlock Text="Administracja/Biuro (pośrednio)" HorizontalAlignment="Center" Margin="0,50,0,0"></TextBlock>
+                        <ListView x:Name="UserEvaluationsBListViewAll" VerticalAlignment="Top" Width="500" MouseDoubleClick="UserEvaluationsBListViewAll_MouseDoubleClick">
+                            <!-- Możesz dostosować wygląd itemów tutaj, np. używając DataTemplate -->
+                        </ListView>
+                        <TextBlock Text="Produkcja/Magazyn (pośrednio)" HorizontalAlignment="Center" Margin="0,50,0,0"></TextBlock>
+                        <ListView x:Name="UserEvaluationsPListViewAll" VerticalAlignment="Top" Width="500" MouseDoubleClick="UserEvaluationsPListViewAll_MouseDoubleClick">
+                            <!-- Możesz dostosować wygląd itemów tutaj, np. używając DataTemplate -->
+                        </ListView>
+                    </StackPanel>
+                </StackPanel>
+            </ScrollViewer>
             <!-- Inne elementy interfejsu dla zalogowanego użytkownika tutaj -->
         </Grid>
         <Grid x:Name="EvaluationDetailsGridB" Visibility="Collapsed">
