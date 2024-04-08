@@ -228,7 +228,7 @@
             </StackPanel>
         </Grid>
 
-        <Grid x:Name="UserPanel" Visibility="Visible">
+        <Grid x:Name="UserPanel" Visibility="collapsed">
             <Button Content="Wyloguj" VerticalAlignment="Top" HorizontalAlignment="Left" Width="300" Height="40" Margin="50,50,0,0" Click="LogoutButton_Click" Panel.ZIndex="1" />
             <ScrollViewer>
                 <StackPanel>
