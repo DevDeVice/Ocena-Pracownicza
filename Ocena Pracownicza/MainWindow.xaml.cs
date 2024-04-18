@@ -2125,7 +2125,7 @@ namespace Ocena_Pracownicza
                         AccountsComboBoxB2.ItemsSource = departments;
                         AccountsComboBoxB2.DisplayMemberPath = "DepartmentName"; // lub inna właściwość, którą chcesz wyświetlić
                     }
-                }
+                } 
             }
         }
         private void AccountsComboBoxP1_SelectionChanged(object sender, EventArgs e)

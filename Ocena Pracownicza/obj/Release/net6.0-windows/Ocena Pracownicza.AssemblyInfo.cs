@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Ocena Pracownicza")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+59e1d63d153d8bf23070b96da0e95aafa3fbf8b2")]
 [assembly: System.Reflection.AssemblyProductAttribute("Ocena Pracownicza")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Ocena Pracownicza")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
