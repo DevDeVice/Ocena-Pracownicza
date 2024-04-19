@@ -17,12 +17,12 @@ namespace Ocena_Pracownicza.DataModels
         public DbSet<EvaluationBiuroAnswer> EvaluationBiuroAnswers { get; set; }
         public DbSet<EvaluationProdukcjaAnswer> EvaluationProdukcjaAnswers { get; set; }
         public DbSet<Department> Department { get; set; }
-         
+           
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseMySql("server=localhost;database=ocena_pracownicza;user=root;password=",
-                                     new MySqlServerVersion(new Version(10, 4, 28))); //new MySqlServerVersion(new Version(8, 2, 4)));
-            //optionsBuilder.UseSqlServer("Server=LYSWSAD\\LANTEK;Database=ocena_pracownicza;User Id=sa;Password=;TrustServerCertificate=True;");
+            //optionsBuilder.UseMySql("server=localhost;database=ocena_pracownicza;user=root;password=",
+                                     //new MySqlServerVersion(new Version(10, 4, 28))); //new MySqlServerVersion(new Version(8, 2, 4)));
+            optionsBuilder.UseSqlServer("Server=192.168.1.11\\LANTEK;Database=ocena_pracownicza;User Id=sa;Password=;TrustServerCertificate=True;");//TODO ustawic nazwe przed startem :)
         }
     }
 }

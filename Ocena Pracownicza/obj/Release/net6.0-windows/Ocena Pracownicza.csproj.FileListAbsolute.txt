@@ -196,3 +196,5 @@ C:\Users\sejko\Desktop\Wpf\Ocena Pracownicza\Ocena Pracownicza\obj\Release\net6.
 C:\Users\sejko\Desktop\Wpf\Ocena Pracownicza\Ocena Pracownicza\obj\Release\net6.0-windows\Ocena Pracownicza.pdb
 C:\Users\sejko\Desktop\Wpf\Ocena Pracownicza\Ocena Pracownicza\obj\Release\net6.0-windows\Ocena Pracownicza.genruntimeconfig.cache
 C:\Users\sejko\Desktop\Wpf\Ocena Pracownicza\Ocena Pracownicza\obj\Release\net6.0-windows\ref\Ocena Pracownicza.dll
+C:\Users\sebastiand\Desktop\GitHub\Ocena-Pracownicza\Ocena Pracownicza\obj\Release\net6.0-windows\Window1.baml
+C:\Users\sebastiand\Desktop\GitHub\Ocena-Pracownicza\Ocena Pracownicza\obj\Release\net6.0-windows\Window1.g.cs

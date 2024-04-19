@@ -8,6 +8,9 @@ using System.Windows.Input;
 using BCrypt.Net;
 using System.Windows.Documents;
 using Ocena_Pracownicza.Migrations;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Printing;
 
 namespace Ocena_Pracownicza
 {
@@ -23,6 +26,7 @@ namespace Ocena_Pracownicza
         public int? historyAnswerBID { get; set; }
         public EvaluationProdukcja historyEvaluationP {get;set;}
         public int? historyAnswerPID { get; set; }
+        public string? LastAddedName { get; set; }
         public struct EvaluationRecordB
         {
             public EvaluationBiuro EvaluationB { get; set; }
@@ -206,8 +210,9 @@ namespace Ocena_Pracownicza
                         historyAnswerBID = user.EvaluationAnswerID;
                         context.SaveChanges();
                         Back3_Click(null, null);
-
                         MessageBox.Show("Ankieta została pomyślnie zapisana!");
+                        DetailBTextBlock.Text = "A";
+                        reloadLoginAfterWroc();
                     }
                 }
             }
@@ -290,9 +295,14 @@ namespace Ocena_Pracownicza
                 };
                 using (var context = new AppDbContext())
                 {
-                    context.EvaluationBiuro.Add(evaluation);
-                    context.SaveChanges();
+                    if(NameTextBoxB.Text != LastAddedName)
+                    {
+                        context.EvaluationBiuro.Add(evaluation);
+                        context.SaveChanges();
+                        LastAddedName = NameTextBoxB.Text;
+                    }                
                 }
+
                 var customMessageBox = new Window1();
                 bool? wynik = customMessageBox.ShowDialog();
                 if (wynik == true)
@@ -304,7 +314,7 @@ namespace Ocena_Pracownicza
                     // Użytkownik kliknął DRUKUJ
                     PrintButtonB1_Click();
                 }
-                //MessageBox.Show("Ankieta została pomyślnie zapisana!");
+                MessageBox.Show("Ankieta została pomyślnie zapisana!");
             }            
         }
         private void SaveFormButtonP_Click(object sender, RoutedEventArgs e)
@@ -344,6 +354,8 @@ namespace Ocena_Pracownicza
                         context.SaveChanges();
                         Back2_Click(null, null);
                         MessageBox.Show("Ankieta została pomyślnie zapisana!");
+                        DetailPTextBlock.Text = "A";
+                        reloadLoginAfterWroc();
                     }
                     else
                     {
@@ -427,9 +439,14 @@ namespace Ocena_Pracownicza
                 // 3. Zapisanie instancji w bazie danych:
                 using (var context = new AppDbContext())
                 {
-                    context.EvaluationsProdukcja.Add(evaluation);
-                    context.SaveChanges();
+                    if (NameTextBoxP.Text != LastAddedName)
+                    {
+                        context.EvaluationsProdukcja.Add(evaluation);
+                        context.SaveChanges();
+                        LastAddedName = NameTextBoxP.Text;
+                    }
                 }
+
                 var customMessageBox = new Window1();
                 bool? wynik = customMessageBox.ShowDialog();
                 if (wynik == true)
@@ -441,7 +458,7 @@ namespace Ocena_Pracownicza
                     // Użytkownik kliknął DRUKUJ
                     PrintButtonP1_Click();
                 }
-                //MessageBox.Show("Ankieta została pomyślnie zapisana!");
+                MessageBox.Show("Ankieta została pomyślnie zapisana!");
             }
         }
         private void FormBiuroButton_Click(object sender, RoutedEventArgs e)
@@ -453,6 +470,7 @@ namespace Ocena_Pracownicza
             BackButton.Visibility = Visibility.Visible;
             MenuPanel.Visibility = Visibility.Collapsed;
             Login.Visibility = Visibility.Collapsed;
+            PrintButtonBClean.Visibility = Visibility.Visible;
         }
         private void FormProdukcjaButton_Click(object sender, RoutedEventArgs e)
         {
@@ -463,6 +481,7 @@ namespace Ocena_Pracownicza
             BackButton.Visibility = Visibility.Visible;
             MenuPanel.Visibility = Visibility.Collapsed; 
             Login.Visibility = Visibility.Collapsed;
+            PrintButtonPClean.Visibility = Visibility.Visible;
         }
 
         private void LoginButton_Click(object sender, RoutedEventArgs e)
@@ -486,6 +505,8 @@ namespace Ocena_Pracownicza
             FormPanelBiuro.Visibility = Visibility.Collapsed;
             FormPanelProdukcja.Visibility= Visibility.Collapsed;
             BackButton.Visibility = Visibility.Collapsed;
+            PrintButtonBClean.Visibility = Visibility.Collapsed;
+            PrintButtonPClean.Visibility = Visibility.Collapsed;
             ClearTextBoxesInGrid();
         }
         private void LogoutButton_Click(object sender, RoutedEventArgs e)
@@ -498,6 +519,7 @@ namespace Ocena_Pracownicza
         }
         private void ReturnButton_Click(object sender, RoutedEventArgs e)
         {
+
             UserPanel.Visibility = Visibility.Visible;
             EvaluationDetailsGridB.Visibility = Visibility.Collapsed;
             EvaluationDetailsGridP.Visibility = Visibility.Collapsed;
@@ -561,10 +583,11 @@ namespace Ocena_Pracownicza
         {
             if (UserEvaluationsBListView.SelectedItem is EvaluationRecordB selectedEvaluationRecord)
             {
+                DetailBTextBlock.Text = "A";
                 var selectedEvaluation = selectedEvaluationRecord.EvaluationB;
                 historyEvaluationB = selectedEvaluation;  // Przypisanie do historyEvaluationB
                 historyAnswerBID = selectedEvaluation.EvaluationAnswerID;
-
+                
                 EvaluationIDToAnswer = selectedEvaluation.EvaluationID;
 
                 if (selectedEvaluation.EvaluationAnswerID > 1)
@@ -599,6 +622,7 @@ namespace Ocena_Pracownicza
 
             if (UserEvaluationsBListViewAll.SelectedItem is EvaluationRecordB selectedEvaluationRecord)
             {
+                DetailBTextBlock.Text = "A";
                 var selectedEvaluation = selectedEvaluationRecord.EvaluationB;
                 historyEvaluationB = selectedEvaluation;
                 historyAnswerBID = selectedEvaluation.EvaluationAnswerID;
@@ -636,6 +660,7 @@ namespace Ocena_Pracownicza
         {
             if (UserEvaluationsPListView.SelectedItem is EvaluationRecordP selectedEvaluationRecord)
             {
+                DetailPTextBlock.Text = "A";
                 var selectedEvaluation = selectedEvaluationRecord.EvaluationP;
                 historyEvaluationP = selectedEvaluation;
                 historyAnswerPID = selectedEvaluation.EvaluationAnswerID;
@@ -664,6 +689,7 @@ namespace Ocena_Pracownicza
         }
         private void UserEvaluationsPListViewAll_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
+            DetailPTextBlock.Text = "A";
             if (UserEvaluationsPListViewAll.SelectedItem is EvaluationRecordP selectedEvaluationRecord)
             {
                 var selectedEvaluation = selectedEvaluationRecord.EvaluationP;
@@ -788,6 +814,61 @@ namespace Ocena_Pracownicza
                     globalSetting.CurrentEvaluationName = selectedEvaluationName;
                     context.SaveChanges();
                 }
+            }
+        }
+        private void reloadLoginAfterWroc()
+        {
+            if (LoggedUser.Login.ToLower() == "mobrzud" || LoggedUser.Login.ToLower() == "tlyson" || LoggedUser.Login.ToLower() == "rkrawczyk" || LoggedUser.Login.ToLower() == "blyson")
+            {
+                using (var context = new AppDbContext())
+                {
+                    var evaluationsB = context.EvaluationBiuro
+                      .Where(e => e.UserID == LoggedUser.UserID)
+                      .Select(e => new EvaluationRecordB { EvaluationB = e })
+                      .ToList();
+                    UserEvaluationsBListView.ItemsSource = evaluationsB;
+
+                    var evaluationsP = context.EvaluationsProdukcja
+                                              .Where(e => e.UserID == LoggedUser.UserID)
+                                              .Select(e => new EvaluationRecordP { EvaluationP = e })
+                                              .ToList();
+
+                    UserEvaluationsPListView.ItemsSource = evaluationsP;
+                }
+
+                List<EvaluationRecordB> allEvaluationsB = new List<EvaluationRecordB>();
+                List<EvaluationRecordP> allEvaluationsP = new List<EvaluationRecordP>();
+
+                FetchEvaluationsAndSubordinatesAdmin(LoggedUser.UserID, allEvaluationsB, allEvaluationsP);
+
+                UserEvaluationsBListViewAll.ItemsSource = allEvaluationsB;
+                UserEvaluationsPListViewAll.ItemsSource = allEvaluationsP;
+            }
+            else
+            {
+                using (var context = new AppDbContext())
+                {
+                    var evaluationsB = context.EvaluationBiuro
+                      .Where(e => e.UserID == LoggedUser.UserID)
+                      .Select(e => new EvaluationRecordB { EvaluationB = e })
+                      .ToList();
+                    UserEvaluationsBListView.ItemsSource = evaluationsB;
+
+                    var evaluationsP = context.EvaluationsProdukcja
+                                              .Where(e => e.UserID == LoggedUser.UserID)
+                                              .Select(e => new EvaluationRecordP { EvaluationP = e })
+                                              .ToList();
+
+                    UserEvaluationsPListView.ItemsSource = evaluationsP;
+                }
+
+                List<EvaluationRecordB> allEvaluationsB = new List<EvaluationRecordB>();
+                List<EvaluationRecordP> allEvaluationsP = new List<EvaluationRecordP>();
+
+                FetchEvaluationsAndSubordinates(LoggedUser.UserID, allEvaluationsB, allEvaluationsP);
+
+                UserEvaluationsBListViewAll.ItemsSource = allEvaluationsB;
+                UserEvaluationsPListViewAll.ItemsSource = allEvaluationsP;
             }
         }
         private void OnLoginAttempt(object sender, RoutedEventArgs e)
@@ -1074,20 +1155,160 @@ namespace Ocena_Pracownicza
         private void PrintButtonB_Click(object sender, RoutedEventArgs e)
         {
             PrintDialog printDialog = new PrintDialog();
+            bool secondPage = false;
+            // Konfiguracja drukarki do drukowania na A4 w orientacji pionowej
+            printDialog.PrintTicket.PageMediaSize = new PageMediaSize(PageMediaSizeName.ISOA4);
+            printDialog.PrintTicket.PageOrientation = PageOrientation.Portrait;
+            double width = printDialog.PrintableAreaWidth;
+            double height = printDialog.PrintableAreaHeight;
             if (printDialog.ShowDialog() == true)
             {
                 ChangePrintB();
-                DrukOdpB.Visibility = Visibility.Visible;        
-                printDialog.PrintVisual(DrukOdpB, "Wydruk z aplikacji WPF");
-                DrukOdpB.Visibility = Visibility.Collapsed;
+                DrukOdpB.Visibility = Visibility.Visible;
+
+                DrukOdpB.Measure(new Size(943, double.PositiveInfinity));
+                DrukOdpB.Arrange(new Rect(0, 0, DrukOdpB.DesiredSize.Width, DrukOdpB.DesiredSize.Height));
+                double offSet = 50f;
+                if (DrukOdpB.ActualHeight > 1100) offSet = 150f;
+                // Obliczenie liczby stron na podstawie faktycznej wysokości
+                int totalPages = (int)Math.Ceiling(DrukOdpB.ActualHeight / (printDialog.PrintableAreaHeight-offSet));//42.5f do 1080
+                while(totalPages > 1) 
+                {
+                    secondPage = true;
+                    MoveLastChildToAnotherGridB();
+                    DrukOdpB.Measure(new Size(943, double.PositiveInfinity));
+                    DrukOdpB.Arrange(new Rect(0, 0, DrukOdpB.DesiredSize.Width, DrukOdpB.DesiredSize.Height));
+                    totalPages = (int)Math.Ceiling(DrukOdpB.ActualHeight / (printDialog.PrintableAreaHeight-offSet));
+                }
+                if(secondPage) { MoveLastChildToAnotherGridB(); }
+                MoveLastChildToAnotherGridB1();
+                DrukOdpB98.Visibility = Visibility.Visible;
+                printDialog.PrintVisual(DrukOdpB98, "Wydruk z aplikacji WPF");
+                MoveChildrenFromDrukOdpB98ToDrukOdpB();
+                if (secondPage)
+                {
+                    DrukOdpB99.Visibility = Visibility.Visible;
+                    printDialog.PrintVisual(DrukOdpB99, "Wydruk z aplikacji WPF");
+                    MoveChildrenFromDrukOdpB99ToDrukOdpB();
+                }
+            }
+        }
+        private void MoveLastChildToAnotherGridB()
+        {
+            // Sprawdzamy, czy istnieją jakiekolwiek elementy w DrukOdpB.
+            if (DrukOdpB.Children.Count > 0)
+            {
+                for(int i = 0; i < 2; i++) {
+                // Pobieramy ostatni element.
+                UIElement lastChild = DrukOdpB.Children[DrukOdpB.Children.Count - 1];
+
+                // Usuwamy ostatni element z DrukOdpB.
+                DrukOdpB.Children.RemoveAt(DrukOdpB.Children.Count - 1);
+
+                // Dodajemy ostatni element do DrukOdpB99.
+                DrukOdpB99.Children.Add(lastChild);
+                }
+            }
+        }
+        private void MoveLastChildToAnotherGridB1()
+        {
+            // Sprawdzamy, czy istnieją jakiekolwiek elementy w DrukOdpB.
+            while (DrukOdpB.Children.Count > 0)
+            {
+                    // Pobieramy ostatni element.
+                    UIElement lastChild = DrukOdpB.Children[DrukOdpB.Children.Count - 1];
+
+                    // Usuwamy ostatni element z DrukOdpB.
+                    DrukOdpB.Children.RemoveAt(DrukOdpB.Children.Count - 1);
+
+                    // Dodajemy ostatni element do DrukOdpB99.
+                    DrukOdpB98.Children.Add(lastChild);
+            }
+        }
+        private void MoveChildrenFromDrukOdpB98ToDrukOdpB()
+        {
+            // Lista do przechowywania elementów do przeniesienia
+            List<UIElement> childrenToMove = new List<UIElement>();
+
+            // Przejście przez wszystkie dzieci DrukOdpB99 i dodanie ich do listy
+            foreach (UIElement child in DrukOdpB98.Children)
+            {
+                childrenToMove.Add(child);
+            }
+
+            // Usunięcie dzieci z DrukOdpB99 i dodanie ich do DrukOdpB
+            foreach (UIElement child in childrenToMove)
+            {
+                DrukOdpB98.Children.Remove(child); // Najpierw usuń dziecko z DrukOdpB99
+                DrukOdpB.Children.Add(child); // Następnie dodaj dziecko do DrukOdpB
+            }
+        }
+        private void MoveChildrenFromDrukOdpB99ToDrukOdpB()
+        {
+            // Lista do przechowywania elementów do przeniesienia
+            List<UIElement> childrenToMove = new List<UIElement>();
+
+            // Przejście przez wszystkie dzieci DrukOdpB99 i dodanie ich do listy
+            foreach (UIElement child in DrukOdpB99.Children)
+            {
+                childrenToMove.Add(child);
+            }
+
+            // Usunięcie dzieci z DrukOdpB99 i dodanie ich do DrukOdpB
+            foreach (UIElement child in childrenToMove)
+            {
+                DrukOdpB99.Children.Remove(child); // Najpierw usuń dziecko z DrukOdpB99
+                DrukOdpB.Children.Add(child); // Następnie dodaj dziecko do DrukOdpB
             }
         }
         private void PrintButtonB1_Click()
         {
             PrintDialog printDialog = new PrintDialog();
+            bool secondPage = false;
+            // Konfiguracja drukarki do drukowania na A4 w orientacji pionowej
+            printDialog.PrintTicket.PageMediaSize = new PageMediaSize(PageMediaSizeName.ISOA4);
+            printDialog.PrintTicket.PageOrientation = PageOrientation.Portrait;
             if (printDialog.ShowDialog() == true)
             {
                 ChangePrintB1();
+                DrukOdpB.Visibility = Visibility.Visible;
+
+                DrukOdpB.Measure(new Size(943, double.PositiveInfinity));
+                DrukOdpB.Arrange(new Rect(0, 0, DrukOdpB.DesiredSize.Width, DrukOdpB.DesiredSize.Height));
+
+                double offSet = 50f;
+                if (DrukOdpB.ActualHeight > 1100) offSet = 150f;
+                // Obliczenie liczby stron na podstawie faktycznej wysokości
+                int totalPages = (int)Math.Ceiling(DrukOdpB.ActualHeight / (printDialog.PrintableAreaHeight-offSet));
+                while (totalPages > 1)
+                {
+                    secondPage = true;
+                    MoveLastChildToAnotherGridB();
+                    DrukOdpB.Measure(new Size(943, double.PositiveInfinity));
+                    DrukOdpB.Arrange(new Rect(0, 0, DrukOdpB.DesiredSize.Width, DrukOdpB.DesiredSize.Height));
+                    totalPages = (int)Math.Ceiling(DrukOdpB.ActualHeight / (printDialog.PrintableAreaHeight-offSet));
+                }
+                if (secondPage) { MoveLastChildToAnotherGridB(); }
+                MoveLastChildToAnotherGridB1();
+                DrukOdpB98.Visibility = Visibility.Visible;
+                printDialog.PrintVisual(DrukOdpB98, "Wydruk z aplikacji WPF");
+                MoveChildrenFromDrukOdpB98ToDrukOdpB();
+                if (secondPage)
+                {
+                    DrukOdpB99.Visibility = Visibility.Visible;
+                    printDialog.PrintVisual(DrukOdpB99, "Wydruk z aplikacji WPF");
+                    MoveChildrenFromDrukOdpB99ToDrukOdpB();
+                }
+            }
+        }
+        private void PrintButtonBClean_Click(object sender, RoutedEventArgs e)
+        {
+            PrintDialog printDialog = new PrintDialog();
+            if (printDialog.ShowDialog() == true)
+            {
+                printDialog.PrintTicket.PageMediaSize = new PageMediaSize(PageMediaSizeName.ISOA4);
+                printDialog.PrintTicket.PageOrientation = PageOrientation.Portrait;
+                ChangePrintB2();
                 DrukOdpB.Visibility = Visibility.Visible;
                 printDialog.PrintVisual(DrukOdpB, "Wydruk z aplikacji WPF");
                 DrukOdpB.Visibility = Visibility.Collapsed;
@@ -1113,12 +1334,12 @@ namespace Ocena_Pracownicza
             PrintB20.Content = AnswerB1.Text;
             PrintB21.Text = Question0AnswerB.Text;//imie nazwisko 
             PrintB30.Content = "Stanowisko:";
-            PrintB31.Text = historyEvaluationB.Stanowisko;
+            PrintB31.Text = historyEvaluationB.Stanowisko; 
             PrintB40.Content = "Dział:";
             //PrintB41.Text = //Wykonywane wczesniej
             PrintB42.Content = "Rozmowe przeprowadził:";
             //PrintB43.Content = //Wykonywane wczesniej - rozmowe przeprowadzil
-            PrintB50.Text = AnswerB2.Text;
+            PrintB50.Text = AnswerB2.Text; 
             PrintB51.Text = Question1AnswerB.Text;//Jakie są rezultaty Twojej pracy (konkretne wyniki)?
             PrintB60.Text = AnswerB3.Text;
             PrintB61.Text = Question2AnswerB.Text;//Jakie Twoje działania określił(a)byś jako pozytywne?"
@@ -1194,15 +1415,51 @@ namespace Ocena_Pracownicza
             PrintB160.Content = "Uwagi:";
             PrintB161.Text = Question11TextBoxB.Text;//uwagi
         }
+        private void ChangePrintB2()
+        {
+            PrintB00.Content = "A";
+            PrintB11.Text = "";
+            PrintB20.Content = "Imie Nazwisko:";
+            PrintB21.Text = "";
+            PrintB30.Content = "Stanowisko:";
+            PrintB31.Text = "";
+            PrintB40.Content = "Dział:";
+            PrintB41.Text = "";
+            PrintB42.Content = "Rozmowe przeprowadził:";
+            PrintB43.Text = "";
+            PrintB50.Text = "Jakie są rezultaty Twojej pracy (konkretne wyniki)?";
+            PrintB51.Text = "";
+            PrintB60.Text = "Jakie Twoje działania określił(a)byś jako pozytywne?";
+            PrintB61.Text = "";
+            PrintB70.Text = "Jak oceniasz swoje działania i zachowania w kontekście wartości firmy?";//Jak oceniasz swoje działania i zachowania w kontekście wartości firmy tu bez odpowiedzi
+            PrintB80.Content = "Uczciwość:";
+            PrintB81.Text = "";
+            PrintB90.Content = "Odpowiedzialność:";
+            PrintB91.Text = "";
+            PrintB100.Content = "Zaangażowanie:";
+            PrintB101.Text = "";
+            PrintB110.Content = "Bliskie relacje:";
+            PrintB111.Text = "";
+            PrintB120.Content = "Innowacyjność:";
+            PrintB121.Text = "";
+            PrintB130.Text = "Jakie Twoje działania określił(a)byś jako utrudniające uzyskanie dobrych rezultatów?";
+            PrintB131.Text = "";
+            PrintB140.Text = "Nad czym chcesz pracować (jakie elementy zachowania/umiejetności chcesz rozwijać/jakie sobie stawiasz cele)?";
+            PrintB141.Text = "";
+            PrintB150.Text = "Określ sposób i czas monitorowania dążenia do tych celów (kiedy i po czym poznasz, że zostały one zrealizowane):";
+            PrintB151.Text = "";
+            PrintB160.Content = "Uwagi:";
+            PrintB161.Text = "";
+        }
         private void PrintButtonP_Click(object sender, RoutedEventArgs e)
         {
             PrintDialog printDialog = new PrintDialog();
             if (printDialog.ShowDialog() == true)
             {
                 ChangePrintP();
-                DrukOdpB.Visibility = Visibility.Visible;
+                DrukOdpP.Visibility = Visibility.Visible;
                 printDialog.PrintVisual(DrukOdpP, "Wydruk z aplikacji WPF");
-                DrukOdpB.Visibility = Visibility.Collapsed;
+                DrukOdpP.Visibility = Visibility.Collapsed;
             }
         }
         private void PrintButtonP1_Click()
@@ -1211,9 +1468,20 @@ namespace Ocena_Pracownicza
             if (printDialog.ShowDialog() == true)
             {
                 ChangePrintP1();
-                DrukOdpB.Visibility = Visibility.Visible;
+                DrukOdpP.Visibility = Visibility.Visible;
                 printDialog.PrintVisual(DrukOdpP, "Wydruk z aplikacji WPF");
-                DrukOdpB.Visibility = Visibility.Collapsed;
+                DrukOdpP.Visibility = Visibility.Collapsed;
+            }
+        }
+        private void PrintButtonPClean_Click(object sender, RoutedEventArgs e)
+        {
+            PrintDialog printDialog = new PrintDialog();
+            if (printDialog.ShowDialog() == true)
+            {
+                ChangePrintP2();
+                DrukOdpP.Visibility = Visibility.Visible;
+                printDialog.PrintVisual(DrukOdpP, "Wydruk z aplikacji WPF");
+                DrukOdpP.Visibility = Visibility.Collapsed;
             }
         }
         private void ChangePrintP()
@@ -1275,11 +1543,11 @@ namespace Ocena_Pracownicza
                     PrintP41.Text = department.DepartmentName;
                 }
             }
-                /*var user = context.Users.FirstOrDefault(d => d.UserID == historyEvaluationP.UserID);
-                if (user != null)
-                {
-                    PrintP43.Text = user.FullName;
-                }*/
+            /*var user = context.Users.FirstOrDefault(d => d.UserID == historyEvaluationP.UserID);
+            if (user != null)
+            {
+                PrintP43.Text = user.FullName;
+            }*/
             PrintP00.Content = "A";
             PrintP11.Text = DateTime.Now.ToString();
 
@@ -1303,21 +1571,30 @@ namespace Ocena_Pracownicza
             PrintP151.Text = Question4TextBoxP.Text;//Określ sposób i czas monitorowania dążenia do tych celów (kiedy i po czym poznasz, że zostały one zrealizowane):
             PrintP160.Content = "Uwagi:";
             PrintP161.Text = Question5TextBoxP.Text;//uwagi*/
-
-            /*UserName = NameTextBoxP.Text,
-                    UserID = selectedUserID.Value,
-                    EvaluatorNameID = evaluatorNameID.Value,
-                    Date = DateTime.Now,
-                    Question1 = Question1TextBoxP.Text,
-                    Question2 = Question2TextBoxP.Text,
-                    Question3 = Question3TextBoxP.Text,
-                    Question4 = Question4TextBoxP.Text,
-                    Question5 = Question5TextBoxP.Text,
-                    EvaluationAnswerID = 0,
-                    DepartmentID = selectedDepartment.DepartmentID,
-                    Stanowisko = StanowiskoTextBoxP.Text*/
         }
-
+        private void ChangePrintP2()
+        {
+            PrintP00.Content = "A";
+            PrintP11.Text = "";
+            PrintP20.Content = "Imie Nazwisko:";
+            PrintP21.Text = "";
+            PrintP30.Content = "Stanowisko:";
+            PrintP31.Text = "";
+            PrintP40.Content = "Dział:";
+            PrintP41.Text = "";
+            PrintP42.Content = "Rozmowe przeprowadził:";
+            PrintP43.Text = "";
+            PrintP60.Text = "Jakie twoje działania określił(a)byś jako pozytywne (przynoszące rezultaty w twojej pracy)?";
+            PrintP61.Text = "";
+            PrintP130.Text = "Jakie twoje działania określił(a)byś jako utrudniające uzyskanie dobrych rezultatów?";
+            PrintP131.Text = "";
+            PrintP140.Text = "Nad czym chcesz pracować (jakie elementy zachowania/umiejętności chcesz rozwijać/jakie sobie stawiasz cele)?";
+            PrintP141.Text = "";
+            PrintP150.Text = "Określ sposób i czas monitorowania dążenia do tych celów (kiedy i po czym poznasz, że zostały one zrealizowane)";
+            PrintP151.Text = "";
+            PrintP160.Content = "Uwagi:";
+            PrintP161.Text = "";
+        }
         private void CloseButton_Click(object sender, RoutedEventArgs e)
         {
             Application.Current.Shutdown();
@@ -1506,6 +1783,7 @@ namespace Ocena_Pracownicza
                 FormPanelProdukcja.Visibility = Visibility.Visible;
                 BackButton2.Visibility = Visibility.Visible;
                 EvaluationDetailsGridP.Visibility = Visibility.Collapsed;
+                PrintButtonPClean.Visibility = Visibility.Visible;
             } 
         }
 
@@ -1561,6 +1839,7 @@ namespace Ocena_Pracownicza
                 FormPanelBiuro.Visibility = Visibility.Visible;
                 BackButton3.Visibility = Visibility.Visible;
                 EvaluationDetailsGridB.Visibility = Visibility.Collapsed;
+                PrintButtonBClean.Visibility = Visibility.Visible;
             }
         }
         private void ChangeAnswerP()
@@ -1604,12 +1883,14 @@ namespace Ocena_Pracownicza
             FormPanelProdukcja.Visibility = Visibility.Collapsed;
             BackButton2.Visibility = Visibility.Collapsed;
             EvaluationDetailsGridP.Visibility = Visibility.Visible;
+            PrintButtonPClean.Visibility = Visibility.Collapsed;
         }
         private void Back3_Click(object sender, RoutedEventArgs e)
         {
             FormPanelBiuro.Visibility = Visibility.Collapsed;
             BackButton3.Visibility = Visibility.Collapsed;
             EvaluationDetailsGridB.Visibility = Visibility.Visible;
+            PrintButtonBClean.Visibility = Visibility.Collapsed;
         }
 
         private void DepartmentAddButton_Click(object sender, RoutedEventArgs e)
@@ -1844,7 +2125,7 @@ namespace Ocena_Pracownicza
                         AccountsComboBoxB2.ItemsSource = departments;
                         AccountsComboBoxB2.DisplayMemberPath = "DepartmentName"; // lub inna właściwość, którą chcesz wyświetlić
                     }
-                }
+                } 
             }
         }
         private void AccountsComboBoxP1_SelectionChanged(object sender, EventArgs e)

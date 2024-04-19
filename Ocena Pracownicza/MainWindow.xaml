@@ -67,6 +67,8 @@
         <Button Content="Wróć" Click="Back_Click" VerticalAlignment="Top" HorizontalAlignment="Left" Width="300" Height="40" Margin="50,50,0,0" Visibility="Collapsed" x:Name="BackButton" Panel.ZIndex="2"/>
         <Button Content="Wróć" Click="Back2_Click" VerticalAlignment="Top" HorizontalAlignment="Left" Width="300" Height="40" Margin="50,50,0,0" Visibility="Collapsed" x:Name="BackButton2" Panel.ZIndex="2"/>
         <Button Content="Wróć" Click="Back3_Click" VerticalAlignment="Top" HorizontalAlignment="Left" Width="300" Height="40" Margin="50,50,0,0" Visibility="Collapsed" x:Name="BackButton3" Panel.ZIndex="2"/>
+        <Button Content="Wydrukuj Pustą Karte" Click="PrintButtonPClean_Click" VerticalAlignment="Top" HorizontalAlignment="Right" Width="300" Height="40" Margin="0,50,50,0" Visibility="Collapsed" x:Name="PrintButtonPClean" Panel.ZIndex="2"/>
+        <Button Content="Wydrukuj Pustą Karte" Click="PrintButtonBClean_Click" VerticalAlignment="Top" HorizontalAlignment="Right" Width="300" Height="40" Margin="0,50,50,0" Visibility="Collapsed" x:Name="PrintButtonBClean" Panel.ZIndex="2"/>
 
         <Grid x:Name="FormPanelBiuro" Visibility="Collapsed">
             <ScrollViewer VerticalScrollBarVisibility="Auto" >
@@ -209,7 +211,7 @@
                             <TextBlock Text="Uwagi:" Grid.Row="0" HorizontalAlignment="Left"/>
                             <TextBox x:Name="Question5TextBoxP" Width="500" AcceptsReturn="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" Margin="0,20,0,0" TabIndex="3"/>
                         </Grid>
-                        <Button x:Name="FormProdukcjaZapisz" Content="Zapisz" Width="300" HorizontalAlignment="Center" Margin="-1,20,0,20" Click="SaveFormButtonP_Click" Panel.ZIndex="2" VerticalAlignment="Center" IsDefault="True"/>
+                        <Button x:Name="FormProdukcjaZapisz" Content="Zapisz" Width="300" Height="40" HorizontalAlignment="Center" Margin="-1,20,0,20" Click="SaveFormButtonP_Click" Panel.ZIndex="2" VerticalAlignment="Center" IsDefault="True"/>
                     </StackPanel>
                 </StackPanel>
             </ScrollViewer>
@@ -226,30 +228,34 @@
             </StackPanel>
         </Grid>
 
-        <Grid x:Name="UserPanel" Visibility="Collapsed">
-            <Button Content="Wyloguj" VerticalAlignment="Top" HorizontalAlignment="Left" Width="300" Height="40" Margin="50,50,0,0" Click="LogoutButton_Click" />
-            <TextBlock x:Name="Powitanie" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,80,0,0" Width="300" TextAlignment="Center"/>
-            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,115,350,0" Width="150" Height="20" Text="Wyszukaj:"/>
-            <TextBox x:Name="Search" Width="200" Height="20" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,115,160,0" TextChanged="Search_TextChanged"></TextBox>
-            <ComboBox x:Name="EvaluationNameComboBox" Width="200" Height="22" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="300,115,0,0" SelectionChanged="EvaluationNameComboBox_SelectionChanged"/>
-            <StackPanel HorizontalAlignment="Center" Margin="0,150,0,0">
-                <TextBlock Text="Administracja/Biuro (bezpośrednio)" HorizontalAlignment="Center"></TextBlock>
-                <ListView x:Name="UserEvaluationsBListView" VerticalAlignment="Top" Width="500" MouseDoubleClick="UserEvaluationsBListView_MouseDoubleClick">
-                    <!-- Możesz dostosować wygląd itemów tutaj, np. używając DataTemplate -->
-                </ListView>
-                <TextBlock Text="Produkcja/Magazyn (bezpośrednio)" HorizontalAlignment="Center" Margin="0,50,0,0"></TextBlock>
-                <ListView x:Name="UserEvaluationsPListView" VerticalAlignment="Top" Width="500" MouseDoubleClick="UserEvaluationsPListView_MouseDoubleClick">
-                    <!-- Możesz dostosować wygląd itemów tutaj, np. używając DataTemplate -->
-                </ListView>
-                <TextBlock Text="Administracja/Biuro (pośrednio)" HorizontalAlignment="Center" Margin="0,50,0,0"></TextBlock>
-                <ListView x:Name="UserEvaluationsBListViewAll" VerticalAlignment="Top" Width="500" MouseDoubleClick="UserEvaluationsBListViewAll_MouseDoubleClick">
-                    <!-- Możesz dostosować wygląd itemów tutaj, np. używając DataTemplate -->
-                </ListView>
-                <TextBlock Text="Produkcja/Magazyn (pośrednio)" HorizontalAlignment="Center" Margin="0,50,0,0"></TextBlock>
-                <ListView x:Name="UserEvaluationsPListViewAll" VerticalAlignment="Top" Width="500" MouseDoubleClick="UserEvaluationsPListViewAll_MouseDoubleClick">
-                    <!-- Możesz dostosować wygląd itemów tutaj, np. używając DataTemplate -->
-                </ListView>
-            </StackPanel>
+        <Grid x:Name="UserPanel" Visibility="collapsed">
+            <Button Content="Wyloguj" VerticalAlignment="Top" HorizontalAlignment="Left" Width="300" Height="40" Margin="50,50,0,0" Click="LogoutButton_Click" Panel.ZIndex="1" />
+            <ScrollViewer>
+                <StackPanel>
+                    <TextBlock x:Name="Powitanie" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,80,0,0" Width="300" TextAlignment="Center"/>
+                    <TextBlock HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,0,350,0" Width="150" Height="20" Text="Wyszukaj:"/>
+                    <TextBox x:Name="Search" Width="200" Height="20" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,-20,160,0" TextChanged="Search_TextChanged"></TextBox>
+                    <ComboBox x:Name="EvaluationNameComboBox" Width="200" Height="22" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="300,-20,0,0" SelectionChanged="EvaluationNameComboBox_SelectionChanged"/>
+                    <StackPanel HorizontalAlignment="Center" Margin="0,30,0,0">
+                        <TextBlock Text="Administracja/Biuro (bezpośrednio)" HorizontalAlignment="Center"></TextBlock>
+                        <ListView x:Name="UserEvaluationsBListView" VerticalAlignment="Top" Width="500" MouseDoubleClick="UserEvaluationsBListView_MouseDoubleClick">
+                            <!-- Możesz dostosować wygląd itemów tutaj, np. używając DataTemplate -->
+                        </ListView>
+                        <TextBlock Text="Produkcja/Magazyn (bezpośrednio)" HorizontalAlignment="Center" Margin="0,50,0,0"></TextBlock>
+                        <ListView x:Name="UserEvaluationsPListView" VerticalAlignment="Top" Width="500" MouseDoubleClick="UserEvaluationsPListView_MouseDoubleClick">
+                            <!-- Możesz dostosować wygląd itemów tutaj, np. używając DataTemplate -->
+                        </ListView>
+                        <TextBlock Text="Administracja/Biuro (pośrednio)" HorizontalAlignment="Center" Margin="0,50,0,0"></TextBlock>
+                        <ListView x:Name="UserEvaluationsBListViewAll" VerticalAlignment="Top" Width="500" MouseDoubleClick="UserEvaluationsBListViewAll_MouseDoubleClick">
+                            <!-- Możesz dostosować wygląd itemów tutaj, np. używając DataTemplate -->
+                        </ListView>
+                        <TextBlock Text="Produkcja/Magazyn (pośrednio)" HorizontalAlignment="Center" Margin="0,50,0,0"></TextBlock>
+                        <ListView x:Name="UserEvaluationsPListViewAll" VerticalAlignment="Top" Width="500" MouseDoubleClick="UserEvaluationsPListViewAll_MouseDoubleClick">
+                            <!-- Możesz dostosować wygląd itemów tutaj, np. używając DataTemplate -->
+                        </ListView>
+                    </StackPanel>
+                </StackPanel>
+            </ScrollViewer>
             <!-- Inne elementy interfejsu dla zalogowanego użytkownika tutaj -->
         </Grid>
         <Grid x:Name="EvaluationDetailsGridB" Visibility="Collapsed">
@@ -585,110 +591,196 @@
                 </StackPanel>
             </ScrollViewer>
         </Grid>
-        <ScrollViewer Padding="50px" Width="1080" Visibility="collapsed" >
-            <Grid Margin="10" x:Name="DrukOdpB" >
-                <Grid.Resources>
-                    <Style TargetType="TextBox">
-                        <Setter Property="TextWrapping" Value="Wrap"/>
-                        <Setter Property="VerticalScrollBarVisibility" Value="Auto"/>
-                    </Style>
-                    <Style TargetType="Label">
-                        <Setter Property="TextBlock.TextWrapping" Value="Wrap"/>
-                    </Style>
-                    <Style TargetType="TextBlock">
-                        <Setter Property="FontSize" Value="12"/>
-                    </Style>
-                </Grid.Resources>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <!-- ... additional RowDefinitions for each section ... -->
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="1*"/>
-                    <ColumnDefinition Width="3*"/>
-                </Grid.ColumnDefinitions>
-                <Label x:Name="PrintB00" Grid.Row="0" Grid.Column="0" Content="A" HorizontalAlignment="Center" FontSize="20"/>
-                <Label x:Name="PrintB01" Grid.Row="0" Grid.Column="1" Content="KARTA OCENY PRACOWNICZEJ" HorizontalAlignment="Center" FontSize="20"/>
-                <!-- Date of review -->
-                <Label x:Name="PrintB10" Grid.Row="1" Grid.Column="0" Content="Data przeprowadzenia oceny:" VerticalAlignment="Center"/>
-                <TextBox x:Name="PrintB11" Grid.Row="1" Grid.Column="1" Margin="5"/>
+        <ScrollViewer Margin="50px" Width="1080" Visibility="Collapsed" >
+            <Grid>
+                <Grid Margin="10" x:Name="DrukOdpB" Visibility="Collapsed">
+                    <Grid.Resources>
+                        <Style TargetType="TextBox">
+                            <Setter Property="TextWrapping" Value="Wrap"/>
+                            <Setter Property="VerticalScrollBarVisibility" Value="Auto"/>
+                        </Style>
+                        <Style TargetType="Label">
+                            <Setter Property="TextBlock.TextWrapping" Value="Wrap"/>
+                        </Style>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="FontSize" Value="12"/>
+                        </Style>
+                    </Grid.Resources>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <!-- ... additional RowDefinitions for each section ... -->
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="3*"/>
+                    </Grid.ColumnDefinitions>
+                    <Label x:Name="PrintB00" Grid.Row="0" Grid.Column="0" Content="A" HorizontalAlignment="Center" FontSize="20"/>
+                    <Label x:Name="PrintB01" Grid.Row="0" Grid.Column="1" Content="KARTA OCENY PRACOWNICZEJ" HorizontalAlignment="Center" FontSize="20"/>
+                    <!-- Date of review -->
+                    <Label x:Name="PrintB10" Grid.Row="1" Grid.Column="0" Content="Data przeprowadzenia oceny:" VerticalAlignment="Center"/>
+                    <TextBox x:Name="PrintB11" Grid.Row="1" Grid.Column="1" Margin="5"/>
 
-                <!-- Name and surname -->
-                <Label x:Name="PrintB20" Grid.Row="2" Grid.Column="0" Content="Imie i nazwisko" VerticalAlignment="Center"/>
-                <TextBox x:Name="PrintB21" Grid.Row="2" Grid.Column="1" Margin="5"/>
+                    <!-- Name and surname -->
+                    <Label x:Name="PrintB20" Grid.Row="2" Grid.Column="0" Content="Imie i nazwisko" VerticalAlignment="Center"/>
+                    <TextBox x:Name="PrintB21" Grid.Row="2" Grid.Column="1" Margin="5"/>
 
-                <!-- ... additional labels and textboxes for each field ... -->
-                <Label x:Name="PrintB30" Grid.Row="3" Grid.Column="0" Content="Stanowisko:" VerticalAlignment="Center"/>
-                <TextBox x:Name="PrintB31" Grid.Row="3" Grid.Column="1" Margin="5"/>
-                <Label x:Name="PrintB40" Grid.Row="4" Grid.Column="0" Content="Imię i nazwisko:" VerticalAlignment="Center"/>
-                <TextBox x:Name="PrintB41" Grid.Row="4" Grid.Column="1" Margin="5"/>
-                <Label x:Name="PrintB42" Grid.Row="5" Grid.Column="0" Content="Imię i nazwisko:" VerticalAlignment="Center"/>
-                <TextBox x:Name="PrintB43" Grid.Row="5" Grid.Column="1" Margin="5"/>
-                <Label Grid.Row="6" Grid.Column="0" VerticalAlignment="Center">
-                    <TextBlock x:Name="PrintB50" Text="Imię i nazwisko:" TextWrapping="Wrap"/>
-                </Label>
-                <TextBox x:Name="PrintB51" Grid.Row="6" Grid.Column="1" Margin="5"/>
-                <Label Grid.Row="7" Grid.Column="0" VerticalAlignment="Center">
-                    <TextBlock x:Name="PrintB60" Text="Imię i nazwisko:" TextWrapping="Wrap"/>
-                </Label>
-                <TextBox x:Name="PrintB61" Grid.Row="7" Grid.Column="1" Margin="5"/>
-                <Label Grid.Row="8" Grid.Column="0" VerticalAlignment="Center">
-                    <TextBlock x:Name="PrintB70" Text="Imię i nazwisko:" TextWrapping="Wrap"/>
-                </Label>
-                <Label x:Name="PrintB80" Grid.Row="9" Grid.Column="0" Content="Imię i nazwisko:" VerticalAlignment="Center"/>
-                <TextBox x:Name="PrintB81" Grid.Row="9" Grid.Column="1" Margin="5"/>
-                <Label x:Name="PrintB90" Grid.Row="10" Grid.Column="0" Content="Imię i nazwisko:" VerticalAlignment="Center"/>
-                <TextBox x:Name="PrintB91" Grid.Row="10" Grid.Column="1" Margin="5"/>
-                <Label x:Name="PrintB100" Grid.Row="11" Grid.Column="0" Content="Imię i nazwisko:" VerticalAlignment="Center"/>
-                <TextBox x:Name="PrintB101" Grid.Row="11" Grid.Column="1" Margin="5"/>
-                <Label x:Name="PrintB110" Grid.Row="12" Grid.Column="0" Content="Imię i nazwisko:" VerticalAlignment="Center"/>
-                <TextBox x:Name="PrintB111" Grid.Row="12" Grid.Column="1" Margin="5"/>
-                <Label x:Name="PrintB120" Grid.Row="13" Grid.Column="0" Content="Imię i nazwisko:" VerticalAlignment="Center"/>
-                <TextBox x:Name="PrintB121" Grid.Row="13" Grid.Column="1" Margin="5"/>
-                <Label  Grid.Row="14" Grid.Column="0" VerticalAlignment="Center">
-                    <TextBlock x:Name="PrintB130" Text="Imię i nazwisko:" TextWrapping="Wrap"/>
-                </Label>
-                <TextBox x:Name="PrintB131" Grid.Row="14" Grid.Column="1" Margin="5"/>
-                <Label Grid.Row="15" Grid.Column="0" VerticalAlignment="Center">
-                    <TextBlock x:Name="PrintB140" Text="Imię i nazwisko:" TextWrapping="Wrap"/>
-                </Label>
-                <TextBox x:Name="PrintB141" Grid.Row="15" Grid.Column="1" Margin="5"/>
-                <Label Grid.Row="16" Grid.Column="0" VerticalAlignment="Center">
-                    <TextBlock x:Name="PrintB150" Text="Imię i nazwisko:" TextWrapping="Wrap"/>
-                </Label>
-                <TextBox x:Name="PrintB151" Grid.Row="16" Grid.Column="1" Margin="5"/>
-                <!-- Comments section -->
-                <Label x:Name="PrintB160" Grid.Row="17" Grid.Column="0" Content="Uwagi:" VerticalAlignment="Center"/>
-                <TextBox x:Name="PrintB161" Grid.Row="17" Grid.Column="1" Margin="5" TextWrapping="Wrap"/>
+                    <!-- ... additional labels and textboxes for each field ... -->
+                    <Label x:Name="PrintB30" Grid.Row="3" Grid.Column="0" Content="Stanowisko:" VerticalAlignment="Center"/>
+                    <TextBox x:Name="PrintB31" Grid.Row="3" Grid.Column="1" Margin="5"/>
+                    <Label x:Name="PrintB40" Grid.Row="4" Grid.Column="0" Content="Imię i nazwisko:" VerticalAlignment="Center"/>
+                    <TextBox x:Name="PrintB41" Grid.Row="4" Grid.Column="1" Margin="5"/>
+                    <Label x:Name="PrintB42" Grid.Row="5" Grid.Column="0" Content="Imię i nazwisko:" VerticalAlignment="Center"/>
+                    <TextBox x:Name="PrintB43" Grid.Row="5" Grid.Column="1" Margin="5"/>
+                    <Label Grid.Row="6" Grid.Column="0" VerticalAlignment="Center">
+                        <TextBlock x:Name="PrintB50" Text="Imię i nazwisko:" TextWrapping="Wrap"/>
+                    </Label>
+                    <TextBox x:Name="PrintB51" Grid.Row="6" Grid.Column="1" Margin="5"/>
+                    <Label Grid.Row="7" Grid.Column="0" VerticalAlignment="Center">
+                        <TextBlock x:Name="PrintB60" Text="Imię i nazwisko:" TextWrapping="Wrap"/>
+                    </Label>
+                    <TextBox x:Name="PrintB61" Grid.Row="7" Grid.Column="1" Margin="5"/>
+                    <Label Grid.Row="8" Grid.Column="0" VerticalAlignment="Center">
+                        <TextBlock x:Name="PrintB70" Text="Imię i nazwisko:" TextWrapping="Wrap"/>
+                    </Label>
+                    <Label x:Name="PrintB80" Grid.Row="9" Grid.Column="0" Content="Imię i nazwisko:" VerticalAlignment="Center"/>
+                    <TextBox x:Name="PrintB81" Grid.Row="9" Grid.Column="1" Margin="5"/>
+                    <Label x:Name="PrintB90" Grid.Row="10" Grid.Column="0" Content="Imię i nazwisko:" VerticalAlignment="Center"/>
+                    <TextBox x:Name="PrintB91" Grid.Row="10" Grid.Column="1" Margin="5"/>
+                    <Label x:Name="PrintB100" Grid.Row="11" Grid.Column="0" Content="Imię i nazwisko:" VerticalAlignment="Center"/>
+                    <TextBox x:Name="PrintB101" Grid.Row="11" Grid.Column="1" Margin="5"/>
+                    <Label x:Name="PrintB110" Grid.Row="12" Grid.Column="0" Content="Imię i nazwisko:" VerticalAlignment="Center"/>
+                    <TextBox x:Name="PrintB111" Grid.Row="12" Grid.Column="1" Margin="5"/>
+                    <Label x:Name="PrintB120" Grid.Row="13" Grid.Column="0" Content="Imię i nazwisko:" VerticalAlignment="Center"/>
+                    <TextBox x:Name="PrintB121" Grid.Row="13" Grid.Column="1" Margin="5"/>
+                    <Label  Grid.Row="14" Grid.Column="0" VerticalAlignment="Center">
+                        <TextBlock x:Name="PrintB130" Text="Imię i nazwisko:" TextWrapping="Wrap"/>
+                    </Label>
+                    <TextBox x:Name="PrintB131" Grid.Row="14" Grid.Column="1" Margin="5"/>
+                    <Label Grid.Row="15" Grid.Column="0" VerticalAlignment="Center">
+                        <TextBlock x:Name="PrintB140" Text="Imię i nazwisko:" TextWrapping="Wrap"/>
+                    </Label>
+                    <TextBox x:Name="PrintB141" Grid.Row="15" Grid.Column="1" Margin="5"/>
+                    <Label Grid.Row="16" Grid.Column="0" VerticalAlignment="Center">
+                        <TextBlock x:Name="PrintB150" Text="Imię i nazwisko:" TextWrapping="Wrap"/>
+                    </Label>
+                    <TextBox x:Name="PrintB151" Grid.Row="16" Grid.Column="1" Margin="5"/>
+                    <!-- Comments section -->
+                    <Label x:Name="PrintB160" Grid.Row="17" Grid.Column="0" Content="Uwagi:" VerticalAlignment="Center"/>
+                    <TextBox x:Name="PrintB161" Grid.Row="17" Grid.Column="1" Margin="5" TextWrapping="Wrap"/>
 
-                <!-- Employee and supervisor signatures -->
-                <StackPanel Grid.Row="18" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Left" Margin="15">
-                    <TextBlock Text="Podpis pracownika" Height="25" Margin="0,30,-200,0" HorizontalAlignment="Center"/>
-                    <Border BorderBrush="Black" BorderThickness="1" Width="200" Height="1" VerticalAlignment="Center"/>
-                </StackPanel>
-                <StackPanel Grid.Row="18" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="15">
-                    <TextBlock Text="Podpis przełożonego" Height="25" Margin="0,30,-200,0" HorizontalAlignment="Center"/>
-                    <Border BorderBrush="Black" BorderThickness="1" Width="200" Height="1" VerticalAlignment="Center"/>
-                </StackPanel>
+                    <!-- Employee and supervisor signatures -->
+                    <StackPanel Grid.Row="18" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Left" Margin="15">
+                        <TextBlock Text="Podpis pracownika" Height="25" Margin="0,30,-200,0" HorizontalAlignment="Center"/>
+                        <Border BorderBrush="Black" BorderThickness="1" Width="200" Height="1" VerticalAlignment="Center"/>
+                    </StackPanel>
+                    <StackPanel Grid.Row="18" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="15">
+                        <TextBlock Text="Podpis przełożonego" Height="25" Margin="0,30,-200,0" HorizontalAlignment="Center"/>
+                        <Border BorderBrush="Black" BorderThickness="1" Width="200" Height="1" VerticalAlignment="Center"/>
+                    </StackPanel>
+                </Grid>
+                <Grid Margin="10" x:Name="DrukOdpB98" Visibility="Collapsed">
+                    <Grid.Resources>
+                        <Style TargetType="TextBox">
+                            <Setter Property="TextWrapping" Value="Wrap"/>
+                            <Setter Property="VerticalScrollBarVisibility" Value="Auto"/>
+                        </Style>
+                        <Style TargetType="Label">
+                            <Setter Property="TextBlock.TextWrapping" Value="Wrap"/>
+                        </Style>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="FontSize" Value="12"/>
+                        </Style>
+                    </Grid.Resources>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <!-- ... additional RowDefinitions for each section ... -->
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="3*"/>
+                    </Grid.ColumnDefinitions>
+
+                </Grid>
+                <Grid Margin="10" x:Name="DrukOdpB99" Visibility="Collapsed">
+                    <Grid.Resources>
+                        <Style TargetType="TextBox">
+                            <Setter Property="TextWrapping" Value="Wrap"/>
+                            <Setter Property="VerticalScrollBarVisibility" Value="Auto"/>
+                        </Style>
+                        <Style TargetType="Label">
+                            <Setter Property="TextBlock.TextWrapping" Value="Wrap"/>
+                        </Style>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="FontSize" Value="12"/>
+                        </Style>
+                    </Grid.Resources>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <!-- ... additional RowDefinitions for each section ... -->
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="3*"/>
+                    </Grid.ColumnDefinitions>
+
+                </Grid>
             </Grid>
         </ScrollViewer>
         <ScrollViewer Padding="50px" Width="1080" Visibility="Collapsed" >
