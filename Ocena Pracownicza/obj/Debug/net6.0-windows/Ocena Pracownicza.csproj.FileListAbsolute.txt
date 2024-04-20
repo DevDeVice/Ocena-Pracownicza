@@ -63,7 +63,6 @@ C:\Users\sejko\Desktop\Wpf\Ocena Pracownicza\Ocena Pracownicza\obj\Debug\net6.0-
 C:\Users\sejko\Desktop\Wpf\Ocena Pracownicza\Ocena Pracownicza\obj\Debug\net6.0-windows\Ocena Pracownicza.AssemblyInfoInputs.cache
 C:\Users\sejko\Desktop\Wpf\Ocena Pracownicza\Ocena Pracownicza\obj\Debug\net6.0-windows\Ocena Pracownicza.AssemblyInfo.cs
 C:\Users\sejko\Desktop\Wpf\Ocena Pracownicza\Ocena Pracownicza\obj\Debug\net6.0-windows\Ocena Pracownicza.csproj.CoreCompileInputs.cache
-C:\Users\sejko\Desktop\Wpf\Ocena Pracownicza\Ocena Pracownicza\obj\Debug\net6.0-windows\Ocena Pracownicza.csproj.CopyComplete
 C:\Users\sejko\Desktop\Wpf\Ocena Pracownicza\Ocena Pracownicza\obj\Debug\net6.0-windows\Ocena Pracownicza.dll
 C:\Users\sejko\Desktop\Wpf\Ocena Pracownicza\Ocena Pracownicza\obj\Debug\net6.0-windows\refint\Ocena Pracownicza.dll
 C:\Users\sejko\Desktop\Wpf\Ocena Pracownicza\Ocena Pracownicza\obj\Debug\net6.0-windows\Ocena Pracownicza.pdb
@@ -198,3 +197,5 @@ C:\Users\sejko\Desktop\Wpf\Ocena Pracownicza\Ocena Pracownicza\bin\Debug\net6.0-
 C:\Users\sejko\Desktop\Wpf\Ocena Pracownicza\Ocena Pracownicza\obj\Debug\net6.0-windows\Window1.baml
 C:\Users\sejko\Desktop\Wpf\Ocena Pracownicza\Ocena Pracownicza\obj\Debug\net6.0-windows\Window1.g.cs
 C:\Users\sejko\Desktop\Wpf\Ocena Pracownicza\Ocena Pracownicza\obj\Debug\net6.0-windows\Ocena Pracownicza_Content.g.cs
+C:\Users\sejko\Desktop\Wpf\Ocena Pracownicza\Ocena Pracownicza\obj\Debug\net6.0-windows\Ocena Pracownicza.sourcelink.json
+C:\Users\sejko\Desktop\Wpf\Ocena Pracownicza\Ocena Pracownicza\obj\Debug\net6.0-windows\Ocena Pr.7B0AD044.Up2Date
