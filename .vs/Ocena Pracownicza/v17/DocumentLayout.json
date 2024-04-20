@@ -3,16 +3,32 @@
   "WorkspaceRootPath": "C:\\Users\\sejko\\Desktop\\Wpf\\Ocena Pracownicza\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{32FF4DC0-11F1-4829-9AED-3DA6783209C0}|Ocena Pracownicza\\Ocena Pracownicza.csproj|C:\\Users\\sejko\\Desktop\\Wpf\\Ocena Pracownicza\\ocena pracownicza\\datamodels\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{32FF4DC0-11F1-4829-9AED-3DA6783209C0}|Ocena Pracownicza\\Ocena Pracownicza.csproj|solutionrelative:ocena pracownicza\\datamodels\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{32FF4DC0-11F1-4829-9AED-3DA6783209C0}|Ocena Pracownicza\\Ocena Pracownicza.csproj|C:\\Users\\sejko\\Desktop\\Wpf\\Ocena Pracownicza\\ocena pracownicza\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{32FF4DC0-11F1-4829-9AED-3DA6783209C0}|Ocena Pracownicza\\Ocena Pracownicza.csproj|solutionrelative:ocena pracownicza\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{32FF4DC0-11F1-4829-9AED-3DA6783209C0}|Ocena Pracownicza\\Ocena Pracownicza.csproj|c:\\users\\sejko\\desktop\\wpf\\ocena pracownicza\\ocena pracownicza\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{32FF4DC0-11F1-4829-9AED-3DA6783209C0}|Ocena Pracownicza\\Ocena Pracownicza.csproj|solutionrelative:ocena pracownicza\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\sejko\\Desktop\\Wpf\\Ocena Pracownicza\\Ocena Pracownicza\\obj\\Debug\\net6.0-windows\\MainWindow.g.i.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Ocena Pracownicza\\obj\\Debug\\net6.0-windows\\MainWindow.g.i.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{32FF4DC0-11F1-4829-9AED-3DA6783209C0}|Ocena Pracownicza\\Ocena Pracownicza.csproj|C:\\Users\\sejko\\Desktop\\Wpf\\Ocena Pracownicza\\ocena pracownicza\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
       "RelativeMoniker": "D:0:0:{32FF4DC0-11F1-4829-9AED-3DA6783209C0}|Ocena Pracownicza\\Ocena Pracownicza.csproj|solutionrelative:ocena pracownicza\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{32FF4DC0-11F1-4829-9AED-3DA6783209C0}|Ocena Pracownicza\\Ocena Pracownicza.csproj|C:\\Users\\sejko\\Desktop\\Wpf\\Ocena Pracownicza\\ocena pracownicza\\datamodels\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{32FF4DC0-11F1-4829-9AED-3DA6783209C0}|Ocena Pracownicza\\Ocena Pracownicza.csproj|solutionrelative:ocena pracownicza\\datamodels\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{32FF4DC0-11F1-4829-9AED-3DA6783209C0}|Ocena Pracownicza\\Ocena Pracownicza.csproj|c:\\users\\sejko\\desktop\\wpf\\ocena pracownicza\\ocena pracownicza\\datamodels\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{32FF4DC0-11F1-4829-9AED-3DA6783209C0}|Ocena Pracownicza\\Ocena Pracownicza.csproj|solutionrelative:ocena pracownicza\\datamodels\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{32FF4DC0-11F1-4829-9AED-3DA6783209C0}|Ocena Pracownicza\\Ocena Pracownicza.csproj|C:\\Users\\sejko\\Desktop\\Wpf\\Ocena Pracownicza\\ocena pracownicza\\datamodels\\evaluationname.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{32FF4DC0-11F1-4829-9AED-3DA6783209C0}|Ocena Pracownicza\\Ocena Pracownicza.csproj|solutionrelative:ocena pracownicza\\datamodels\\evaluationname.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{32FF4DC0-11F1-4829-9AED-3DA6783209C0}|Ocena Pracownicza\\Ocena Pracownicza.csproj|C:\\Users\\sejko\\Desktop\\Wpf\\Ocena Pracownicza\\ocena pracownicza\\datamodels\\evaluationprodukcja.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{32FF4DC0-11F1-4829-9AED-3DA6783209C0}|Ocena Pracownicza\\Ocena Pracownicza.csproj|solutionrelative:ocena pracownicza\\datamodels\\evaluationprodukcja.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{32FF4DC0-11F1-4829-9AED-3DA6783209C0}|Ocena Pracownicza\\Ocena Pracownicza.csproj|C:\\Users\\sejko\\Desktop\\Wpf\\Ocena Pracownicza\\ocena pracownicza\\datamodels\\department.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -27,28 +43,12 @@
       "RelativeMoniker": "D:0:0:{32FF4DC0-11F1-4829-9AED-3DA6783209C0}|Ocena Pracownicza\\Ocena Pracownicza.csproj|solutionrelative:ocena pracownicza\\datamodels\\evaluationbiuroanswer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{32FF4DC0-11F1-4829-9AED-3DA6783209C0}|Ocena Pracownicza\\Ocena Pracownicza.csproj|C:\\Users\\sejko\\Desktop\\Wpf\\Ocena Pracownicza\\ocena pracownicza\\datamodels\\evaluationname.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{32FF4DC0-11F1-4829-9AED-3DA6783209C0}|Ocena Pracownicza\\Ocena Pracownicza.csproj|solutionrelative:ocena pracownicza\\datamodels\\evaluationname.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{32FF4DC0-11F1-4829-9AED-3DA6783209C0}|Ocena Pracownicza\\Ocena Pracownicza.csproj|C:\\Users\\sejko\\Desktop\\Wpf\\Ocena Pracownicza\\ocena pracownicza\\datamodels\\evaluationprodukcja.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{32FF4DC0-11F1-4829-9AED-3DA6783209C0}|Ocena Pracownicza\\Ocena Pracownicza.csproj|solutionrelative:ocena pracownicza\\datamodels\\evaluationprodukcja.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{32FF4DC0-11F1-4829-9AED-3DA6783209C0}|Ocena Pracownicza\\Ocena Pracownicza.csproj|C:\\Users\\sejko\\Desktop\\Wpf\\Ocena Pracownicza\\ocena pracownicza\\datamodels\\evaluationprodukcjaanswer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{32FF4DC0-11F1-4829-9AED-3DA6783209C0}|Ocena Pracownicza\\Ocena Pracownicza.csproj|solutionrelative:ocena pracownicza\\datamodels\\evaluationprodukcjaanswer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{32FF4DC0-11F1-4829-9AED-3DA6783209C0}|Ocena Pracownicza\\Ocena Pracownicza.csproj|C:\\Users\\sejko\\Desktop\\Wpf\\Ocena Pracownicza\\ocena pracownicza\\datamodels\\globalsettings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{32FF4DC0-11F1-4829-9AED-3DA6783209C0}|Ocena Pracownicza\\Ocena Pracownicza.csproj|solutionrelative:ocena pracownicza\\datamodels\\globalsettings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\sejko\\Desktop\\Wpf\\Ocena Pracownicza\\Ocena Pracownicza\\obj\\Debug\\net6.0-windows\\MainWindow.g.i.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Ocena Pracownicza\\obj\\Debug\\net6.0-windows\\MainWindow.g.i.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{32FF4DC0-11F1-4829-9AED-3DA6783209C0}|Ocena Pracownicza\\Ocena Pracownicza.csproj|C:\\Users\\sejko\\Desktop\\Wpf\\Ocena Pracownicza\\ocena pracownicza\\datamodels\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{32FF4DC0-11F1-4829-9AED-3DA6783209C0}|Ocena Pracownicza\\Ocena Pracownicza.csproj|solutionrelative:ocena pracownicza\\datamodels\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{32FF4DC0-11F1-4829-9AED-3DA6783209C0}|Ocena Pracownicza\\Ocena Pracownicza.csproj|C:\\Users\\sejko\\Desktop\\Wpf\\Ocena Pracownicza\\ocena pracownicza\\app.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -66,7 +66,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 4,
+          "SelectedChildIndex": 8,
           "Children": [
             {
               "$type": "Bookmark",
@@ -78,7 +78,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 6,
               "Title": "EvaluationProdukcja.cs",
               "DocumentMoniker": "C:\\Users\\sejko\\Desktop\\Wpf\\Ocena Pracownicza\\Ocena Pracownicza\\DataModels\\EvaluationProdukcja.cs",
               "RelativeDocumentMoniker": "Ocena Pracownicza\\DataModels\\EvaluationProdukcja.cs",
@@ -86,11 +86,12 @@
               "RelativeToolTip": "Ocena Pracownicza\\DataModels\\EvaluationProdukcja.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-18T14:52:44.241Z"
+              "WhenOpened": "2024-04-18T14:52:44.241Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 5,
               "Title": "EvaluationName.cs",
               "DocumentMoniker": "C:\\Users\\sejko\\Desktop\\Wpf\\Ocena Pracownicza\\Ocena Pracownicza\\DataModels\\EvaluationName.cs",
               "RelativeDocumentMoniker": "Ocena Pracownicza\\DataModels\\EvaluationName.cs",
@@ -98,11 +99,12 @@
               "RelativeToolTip": "Ocena Pracownicza\\DataModels\\EvaluationName.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-18T14:52:40.42Z"
+              "WhenOpened": "2024-04-18T14:52:40.42Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 4,
               "Title": "AppDbContext.cs",
               "DocumentMoniker": "C:\\Users\\sejko\\Desktop\\Wpf\\Ocena Pracownicza\\Ocena Pracownicza\\DataModels\\AppDbContext.cs",
               "RelativeDocumentMoniker": "Ocena Pracownicza\\DataModels\\AppDbContext.cs",
@@ -115,7 +117,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 3,
               "Title": "User.cs",
               "DocumentMoniker": "C:\\Users\\sejko\\Desktop\\Wpf\\Ocena Pracownicza\\Ocena Pracownicza\\DataModels\\User.cs",
               "RelativeDocumentMoniker": "Ocena Pracownicza\\DataModels\\User.cs",
@@ -123,7 +125,8 @@
               "RelativeToolTip": "Ocena Pracownicza\\DataModels\\User.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-18T14:52:23.458Z"
+              "WhenOpened": "2024-04-18T14:52:23.458Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -139,7 +142,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 1,
               "Title": "MainWindow.g.i.cs",
               "DocumentMoniker": "C:\\Users\\sejko\\Desktop\\Wpf\\Ocena Pracownicza\\Ocena Pracownicza\\obj\\Debug\\net6.0-windows\\MainWindow.g.i.cs",
               "RelativeDocumentMoniker": "Ocena Pracownicza\\obj\\Debug\\net6.0-windows\\MainWindow.g.i.cs",
@@ -147,24 +150,25 @@
               "RelativeToolTip": "Ocena Pracownicza\\obj\\Debug\\net6.0-windows\\MainWindow.g.i.cs",
               "ViewState": "AQIAAHIEAAAAAAAAAAAAAFYGAAATAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-18T14:52:23.46Z"
+              "WhenOpened": "2024-04-18T14:52:23.46Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 0,
               "Title": "MainWindow.xaml.cs",
               "DocumentMoniker": "C:\\Users\\sejko\\Desktop\\Wpf\\Ocena Pracownicza\\Ocena Pracownicza\\MainWindow.xaml.cs",
               "RelativeDocumentMoniker": "Ocena Pracownicza\\MainWindow.xaml.cs",
               "ToolTip": "C:\\Users\\sejko\\Desktop\\Wpf\\Ocena Pracownicza\\Ocena Pracownicza\\MainWindow.xaml.cs",
               "RelativeToolTip": "Ocena Pracownicza\\MainWindow.xaml.cs",
-              "ViewState": "AQIAABgAAAAAAAAAAIA7wFAAAAAQAAAA",
+              "ViewState": "AQIAAGMAAAAAAAAAAAAvwIYAAAAzAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-04-18T14:52:23.462Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 10,
               "Title": "EvaluationProdukcjaAnswer.cs",
               "DocumentMoniker": "C:\\Users\\sejko\\Desktop\\Wpf\\Ocena Pracownicza\\Ocena Pracownicza\\DataModels\\EvaluationProdukcjaAnswer.cs",
               "RelativeDocumentMoniker": "Ocena Pracownicza\\DataModels\\EvaluationProdukcjaAnswer.cs",
@@ -176,7 +180,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 9,
               "Title": "EvaluationBiuroAnswer.cs",
               "DocumentMoniker": "C:\\Users\\sejko\\Desktop\\Wpf\\Ocena Pracownicza\\Ocena Pracownicza\\DataModels\\EvaluationBiuroAnswer.cs",
               "RelativeDocumentMoniker": "Ocena Pracownicza\\DataModels\\EvaluationBiuroAnswer.cs",
@@ -188,7 +192,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 8,
               "Title": "EvaluationBiuro.cs",
               "DocumentMoniker": "C:\\Users\\sejko\\Desktop\\Wpf\\Ocena Pracownicza\\Ocena Pracownicza\\DataModels\\EvaluationBiuro.cs",
               "RelativeDocumentMoniker": "Ocena Pracownicza\\DataModels\\EvaluationBiuro.cs",
@@ -200,7 +204,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 7,
               "Title": "Department.cs",
               "DocumentMoniker": "C:\\Users\\sejko\\Desktop\\Wpf\\Ocena Pracownicza\\Ocena Pracownicza\\DataModels\\Department.cs",
               "RelativeDocumentMoniker": "Ocena Pracownicza\\DataModels\\Department.cs",
@@ -224,7 +228,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 11,
               "Title": "GlobalSettings.cs",
               "DocumentMoniker": "C:\\Users\\sejko\\Desktop\\Wpf\\Ocena Pracownicza\\Ocena Pracownicza\\DataModels\\GlobalSettings.cs",
               "RelativeDocumentMoniker": "Ocena Pracownicza\\DataModels\\GlobalSettings.cs",
